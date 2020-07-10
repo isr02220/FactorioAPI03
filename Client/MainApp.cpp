@@ -41,12 +41,12 @@ void CMainApp::Update_MainApp() {
 		iter++;
 		m_mapScene.erase(iter);
 	}
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
-		m_mapScene[SCENE_MAIN]->SetActive(false);
-		if (m_mapScene.size() == 1)
-			m_mapScene.insert(map<SCENE_NUMBER, CScene*>::value_type(SCENE_PLAY, new CPlayScene()));
-		m_mapScene[SCENE_PLAY]->ReadyScene();
-	}
+	//if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
+	//	m_mapScene[SCENE_MAIN]->SetActive(false);
+	//	if (m_mapScene.size() == 1)
+	//		m_mapScene.insert(map<SCENE_NUMBER, CScene*>::value_type(SCENE_PLAY, new CPlayScene()));
+	//	m_mapScene[SCENE_PLAY]->ReadyScene();
+	//}
 	for (auto Scene : m_mapScene) {
 		if (Scene.second->GetActive()) Scene.second->UpdateScene();
 	}

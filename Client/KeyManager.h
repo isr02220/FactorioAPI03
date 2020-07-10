@@ -17,7 +17,7 @@ class CKeyManager {
 public:
 	static CKeyManager* GetInstance() {
 		if (nullptr == m_pInstance)
-			m_pInstance = new CKeyManager;
+			m_pInstance = new CKeyManager();
 
 		return m_pInstance;
 	}
@@ -59,11 +59,11 @@ public:
 
 	bool KeyOnUp(DWORD dwKey) {
 		if (m_dwKey & dwKey) {
-			m_dwKeyEx |= dwKey;
+			m_dwKeyUp |= dwKey;
 			return false;
 		}
-		else if (m_dwKeyEx & dwKey) {
-			m_dwKeyEx ^= dwKey;
+		else if (m_dwKeyUp & dwKey) {
+			m_dwKeyUp ^= dwKey;
 			return true;
 		}
 
@@ -71,13 +71,14 @@ public:
 	}
 
 	bool KeyOnDown(DWORD dwKey) {
-		if (m_dwKeyEx & dwKey) {
-			m_dwKeyEx |= dwKey;
-			return true;
+		if (m_dwKey & dwKey) {
+			if (m_dwKeyDown & dwKey) {
+				m_dwKeyDown &= ~dwKey;
+				return true;
+			}
 		}
-		else if (m_dwKey & dwKey) {
-			m_dwKeyEx ^= dwKey;
-			return false;
+		else if (!(m_dwKeyDown & dwKey)){
+			m_dwKeyDown ^= dwKey;
 		}
 
 		return false;
@@ -85,7 +86,8 @@ public:
 	void SetKey(KEY::ID _keyID, SHORT _newKey) { keyMap[_keyID] = _newKey; }
 private:
 	DWORD m_dwKey = 0;
-	DWORD m_dwKeyEx = 0;
+	DWORD m_dwKeyUp = 0;
+	DWORD m_dwKeyDown = 0;
 	map<KEY::ID, SHORT> keyMap;
 	static CKeyManager* m_pInstance;
 

@@ -5,7 +5,6 @@ CObj::CObj() {
 }
 CObj::CObj(FLOAT _forceX, FLOAT _forceY) : forceX(_forceX), forceY(_forceY) {
 	ZeroMemory(&m_tInfo, sizeof(INFO));
-	ZeroMemory(&m_tInfo, sizeof(INFO));
 }
 
 CObj::~CObj() {
