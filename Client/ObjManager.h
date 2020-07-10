@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable: 4351)
 #include "framework.h"
 class CObj;
 class CObjManager {
@@ -23,7 +24,6 @@ public:
 	list<CObj*>* GetList(OBJ::ID eID) { return &m_listObj[eID]; }
 public:
 	void AddObject(CObj* pObj, OBJ::ID eID);
-
 public:
 	void UpdateObjectManager();
 	void LateUpdateObjectManager();

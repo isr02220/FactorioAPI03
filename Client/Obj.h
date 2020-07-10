@@ -53,7 +53,6 @@ protected:
 	RECT m_tRect;
 	INFO m_tInfo;
 	OBJ::ID m_ObjId = OBJ::END;
-	INT  m_Scale;
 	FLOAT forceX;
 	FLOAT forceY;
 	FLOAT m_fSpeed;

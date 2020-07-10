@@ -1,6 +1,5 @@
 #include "ItemManager.h"
 CItemManager::CItemManager() {
-	m_ListItemData.emplace_back(new ITEMDATA(ITEM::HEAVYMACHINEGUN, { 500, 700 }, 0000));// Test
 	
 }
 

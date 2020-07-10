@@ -34,7 +34,7 @@ int CItem::Update_Object() {
 		forceY = 0.f;
 	m_tInfo.fY += forceY;
 
-	return NO_EVENT;
+	return STATE_NO_EVENT;
 }
 
 void CItem::LateUpdate_Object() {
@@ -74,7 +74,7 @@ void CItem::OnCollision(CObj* _TargetObj) {
 		CPlayer* tempPlayer = dynamic_cast<CPlayer*>(_TargetObj);
 		RECT rc = {};
 		if (IntersectRect(&rc, tempPlayer->GetRect(), GetRect())) {
-			tempPlayer->SetItem(this);
+			//tempPlayer->SetItem(this);
 			SetDead();
 
 		}

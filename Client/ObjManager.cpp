@@ -40,12 +40,7 @@ void CObjManager::LateUpdateObjectManager() {
 		}
 	}
 	CCollisionManager::CollisionSphere(m_listObj[OBJ::MONSTER], m_listObj[OBJ::BULLET]);
-	CCollisionManager::CollisionSphere(m_listObj[OBJ::MONSTER], m_listObj[OBJ::BOMB]);
-	CCollisionManager::CollisionSphere(m_listObj[OBJ::PLAYER], m_listObj[OBJ::MONSTERBULLET]);
 	CCollisionManager::CollisionSphere(m_listObj[OBJ::PLAYER], m_listObj[OBJ::ITEM]);
-	CCollisionManager::CollisionRectEX(m_listObj[OBJ::PLAYER], m_listObj[OBJ::FLOOR]);
-	CCollisionManager::CollisionRectEX(m_listObj[OBJ::MONSTER], m_listObj[OBJ::FLOOR]);
-	CCollisionManager::CollisionRectEX(m_listObj[OBJ::ITEM], m_listObj[OBJ::FLOOR]);
 	
 }
 

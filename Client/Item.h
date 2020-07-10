@@ -11,8 +11,8 @@ public:
 	BOOL GetAngleGunType() { return AngleGunType; }
 	INT GetBullets() { return m_Bullets; }
 	INT GetBombCount() { return m_BombCount; }
-	ITEM::ID GetItemType() { return m_ItemType; }
-	// CObj을(를) 통해 상속됨
+	//ITEM::ID GetItemType() { return m_ItemType; }
+
 	virtual void Ready_Object()             override;
 	virtual int Update_Object()             override;
 	virtual void LateUpdate_Object()        override;
@@ -29,7 +29,7 @@ protected:
 	INT  m_MaxHP = 1;
 	INT m_Bullets = 0;
 	INT m_BombCount= 0 ;
-	ITEM::ID m_ItemType = ITEM::END;
+	//ITEM::ID m_ItemType = ITEM::END;
 	BOOL m_isJump = true;
 	BOOL AngleGunType = true;
 	DWORD m_Timer = GetTickCount();

@@ -2,7 +2,7 @@
 #include "Background.h"
 
 void CBackground::Ready_Object() {
-	for (size_t i = 0; i < 50; i++) {
+	for (LONG i = 0; i < 50; i++) {
 		m_ListBgFar.emplace_back(new CBgObj(i * 100 + (rand() % 50), 400 + (rand() % 200), (i + 1) * 100, WINCY));
 		m_ListBgMiddle.emplace_back(new CBgObj(i * 200 + (rand() % 100), 500 + (rand() % 100), (i + 1) * 200, WINCY));
 		m_ListBgClose.emplace_back(new CBgObj(i * 300 + (rand() % 200), 600 + (rand() % 100), (i + 1) * 300, WINCY));

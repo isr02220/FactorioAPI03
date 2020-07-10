@@ -32,7 +32,7 @@ int CPlayer::Update_Object() {
       
     if (m_ShootDelay > 0) m_ShootDelay -= 1;
 
-    return NO_EVENT;
+    return STATE_NO_EVENT;
 }
 
 void CPlayer::LateUpdate_Object() {
@@ -64,27 +64,4 @@ void CPlayer::Release_Object() {
 
 void CPlayer::OnCollision(CObj* _TargetObj) {
 
-}
-
-void CPlayer::SetItem(CItem* pItem)
-{
-    m_pItem = pItem;
-    if (m_pItem->GetItemType() == ITEM::BOMBITEM)
-    {
-        m_bombCount += m_pItem->GetBombCount();
-    }
-    else
-    {
-        if (m_pItem->GetItemType() == m_ItemType)
-        {
-            m_Bullets += (m_pItem->GetBullets()) * 3 / 4;
-        }
-        else
-        {
-        m_ItemType = m_pItem->GetItemType();
-        m_AngleGun = m_pItem->GetAngleGunType();
-        m_Bullets = m_pItem->GetBullets();
-        }
-    }
-        
 }

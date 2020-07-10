@@ -9,4 +9,5 @@ void Safe_Delete(T& rObj) {
 }
 
 
-inline float DEGREE_RADIAN(float _deg) { return _deg * pi / 180.f; }
+inline FLOAT ToRadian(FLOAT _deg) { return _deg * pi / 180.f; }
+inline FLOAT ToDegree(FLOAT _rad) { return _rad / pi * 180.f; }

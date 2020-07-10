@@ -10,7 +10,7 @@ extern bool DebugRectDraw = false;
 extern LONG DeadLineMargin = 0;
 
 CMainApp::CMainApp() {
-
+	m_hDC = GetDC(g_hWnd);
 }
 
 

@@ -15,25 +15,28 @@
     <Filter Include="00.MainApp">
       <UniqueIdentifier>{56a1cd43-d967-4a45-84d3-74ca2e63e743}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Obj">
-      <UniqueIdentifier>{2f0622d8-4018-46f4-b673-5a6733f86260}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.Manager">
-      <UniqueIdentifier>{0ff61fe2-6b3c-4cf9-a20e-cef43f4c8b9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Obj\Player">
-      <UniqueIdentifier>{9d2c844a-e167-42d3-bb45-6b27de2fb8a7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00.MainApp\Scene">
       <UniqueIdentifier>{f6d052b0-92ad-42a6-9ea1-decadf078ad6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Obj\Mouse">
+    <Filter Include="Text">
+      <UniqueIdentifier>{32629956-7904-4d48-ac2b-8d05d3286770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Manager">
+      <UniqueIdentifier>{0ff61fe2-6b3c-4cf9-a20e-cef43f4c8b9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Controll">
+      <UniqueIdentifier>{2f0622d8-4018-46f4-b673-5a6733f86260}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Controll\Player">
+      <UniqueIdentifier>{9d2c844a-e167-42d3-bb45-6b27de2fb8a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Controll\Mouse">
       <UniqueIdentifier>{aab4b477-3b57-4870-8e5b-3c4a270256c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Obj\Background">
+    <Filter Include="02.Controll\Background">
       <UniqueIdentifier>{426b3569-1a02-4505-9a62-932ae03d384f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Obj\Item">
+    <Filter Include="02.Controll\Item">
       <UniqueIdentifier>{924349fe-9711-4f85-ad1f-071b10ad8d25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -54,7 +57,7 @@
       <Filter>97.DesignPattern</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
-      <Filter>02.Manager</Filter>
+      <Filter>01.Manager</Filter>
     </ClInclude>
     <ClInclude Include="Enum.h">
       <Filter>99.Header</Filter>
@@ -78,13 +81,13 @@
       <Filter>00.MainApp</Filter>
     </ClInclude>
     <ClInclude Include="Obj.h">
-      <Filter>01.Obj</Filter>
+      <Filter>02.Controll</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>01.Obj\Player</Filter>
+      <Filter>02.Controll\Player</Filter>
     </ClInclude>
     <ClInclude Include="Mouse.h">
-      <Filter>01.Obj\Mouse</Filter>
+      <Filter>02.Controll\Mouse</Filter>
     </ClInclude>
     <ClInclude Include="Define.h">
       <Filter>99.Header</Filter>
@@ -93,22 +96,19 @@
       <Filter>00.MainApp\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Background.h">
-      <Filter>01.Obj\Background</Filter>
+      <Filter>02.Controll\Background</Filter>
     </ClInclude>
     <ClInclude Include="ObjManager.h">
-      <Filter>02.Manager</Filter>
+      <Filter>01.Manager</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>01.Obj\Item</Filter>
+      <Filter>02.Controll\Item</Filter>
     </ClInclude>
     <ClInclude Include="ItemManager.h">
-      <Filter>02.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Floor.h">
-      <Filter>01.Obj\Floor</Filter>
+      <Filter>01.Manager</Filter>
     </ClInclude>
     <ClInclude Include="KeyManager.h">
-      <Filter>02.Manager</Filter>
+      <Filter>01.Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -124,7 +124,7 @@
       <Filter>98.Default</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
-      <Filter>02.Manager</Filter>
+      <Filter>01.Manager</Filter>
     </ClCompile>
     <ClCompile Include="MainScene.cpp">
       <Filter>00.MainApp\Scene</Filter>
@@ -136,36 +136,41 @@
       <Filter>00.MainApp</Filter>
     </ClCompile>
     <ClCompile Include="Obj.cpp">
-      <Filter>01.Obj</Filter>
+      <Filter>02.Controll</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>01.Obj\Player</Filter>
+      <Filter>02.Controll\Player</Filter>
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
-      <Filter>01.Obj\Mouse</Filter>
+      <Filter>02.Controll\Mouse</Filter>
     </ClCompile>
     <ClCompile Include="PlayScene.cpp">
       <Filter>00.MainApp\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp">
-      <Filter>01.Obj\Background</Filter>
+      <Filter>02.Controll\Background</Filter>
     </ClCompile>
     <ClCompile Include="ObjManager.cpp">
-      <Filter>02.Manager</Filter>
+      <Filter>01.Manager</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
-      <Filter>01.Obj\Item</Filter>
+      <Filter>02.Controll\Item</Filter>
     </ClCompile>
     <ClCompile Include="ItemManager.cpp">
-      <Filter>02.Manager</Filter>
+      <Filter>01.Manager</Filter>
     </ClCompile>
     <ClCompile Include="KeyManager.cpp">
-      <Filter>02.Manager</Filter>
+      <Filter>01.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
       <Filter>98.Default</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="클래스 형식.txt">
+      <Filter>Text</Filter>
+    </Text>
   </ItemGroup>
 </Project>

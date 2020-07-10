@@ -94,7 +94,6 @@ void CPlayScene::RenderScene(HDC hDC) {
 	size_t bulletCount = ObjManager->GetList(OBJ::BULLET)->size();
 	INT playerScore = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetScore();
 	INT HaveBullet = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetBullets();
-	ITEM::ID Guntype = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetItemType();
 	TCHAR szBuffer[32];
 	wsprintf(szBuffer, L"Player Score : %d", playerScore);
 	TextOut(hMemDC, (WINCX >> 1) - 50, 50, szBuffer, lstrlen(szBuffer));
