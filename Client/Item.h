@@ -5,7 +5,7 @@ class CItem :
 	public CObj {
 public:
 	CItem();
-	CItem(float _forceX, float _forceY);
+	CItem(FLOAT _positionX, FLOAT _positionY);
 	virtual ~CItem();
 public:
 	BOOL GetAngleGunType() { return AngleGunType; }
@@ -29,7 +29,6 @@ protected:
 	INT  m_MaxHP = 1;
 	INT m_Bullets = 0;
 	INT m_BombCount= 0 ;
-	//ITEM::ID m_ItemType = ITEM::END;
 	BOOL m_isJump = true;
 	BOOL AngleGunType = true;
 	DWORD m_Timer = GetTickCount();

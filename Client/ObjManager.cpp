@@ -13,7 +13,7 @@ CObjManager::~CObjManager() {
 	ReleaseObjectManager();
 }
 
-void CObjManager::AddObject(CObj* pObj, OBJ::ID eID) {
+void CObjManager::AddObject(CObj* pObj, OBJ::TYPE eID) {
 	m_listObj[eID].emplace_back(pObj);
 }
 

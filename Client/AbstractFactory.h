@@ -12,13 +12,13 @@ public:
 	static CObj* Create(float fX, float fY) {
 		CObj* pObj = new T;
 		pObj->Ready_Object();
-		pObj->SetPos(fX, fY);
+		pObj->SetPosition(fX, fY);
 		return pObj;
 	}
 	static CObj* CreateWithForce(float fX, float fY, float forceX, float forceY) {
 		CObj* pObj = new T(forceX, forceY);
 		pObj->Ready_Object();
-		pObj->SetPos(fX, fY);
+		pObj->SetPosition(fX, fY);
 		return pObj;
 	}
 };

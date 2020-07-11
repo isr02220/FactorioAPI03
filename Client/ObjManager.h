@@ -21,9 +21,9 @@ private:
 	~CObjManager();
 public:
 	CObj* GetPlayer() { return m_listObj[OBJ::PLAYER].front(); }
-	list<CObj*>* GetList(OBJ::ID eID) { return &m_listObj[eID]; }
+	list<CObj*>* GetList(OBJ::TYPE eID) { return &m_listObj[eID]; }
 public:
-	void AddObject(CObj* pObj, OBJ::ID eID);
+	void AddObject(CObj* pObj, OBJ::TYPE eID);
 public:
 	void UpdateObjectManager();
 	void LateUpdateObjectManager();

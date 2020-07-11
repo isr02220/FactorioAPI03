@@ -35,27 +35,25 @@ void CCollisionManager::CollisionSphere(list<CObj*>& rDstList, list<CObj*>& rSrc
 
 bool CCollisionManager::CheckSphere(CObj* rDstObj, CObj* rSrcObj) {
 	float fRadiusSum = static_cast<float>((rDstObj->GetInfo()->iCX >> 1) + (rSrcObj->GetInfo()->iCX >> 1));
-	float fX = rDstObj->GetInfo()->fX - rSrcObj->GetInfo()->fX;
-	float fY = rDstObj->GetInfo()->fY - rSrcObj->GetInfo()->fY;
-	float fDist = sqrtf(fX * fX + fY * fY);
+	POSITION tempPos = rDstObj->GetInfo()->position - rSrcObj->GetInfo()->position;
+	float fDist = sqrtf(tempPos.x * tempPos.x + tempPos.y * tempPos.y);
 	return fDist < fRadiusSum;
 }
 void CCollisionManager::CollisionRectEX(list<CObj*>& rDstList, list<CObj*>& rSrcList) {
-	float fMoveX = 0.f, fMoveY = 0.f;
+	FLOAT fMoveX = 0.f, fMoveY = 0.f;
 	for (auto& rDstObject : rDstList) {
 		for (auto& rSrcObject : rSrcList) {
 			if (CheckRect(rDstObject, *rSrcObject, &fMoveX, &fMoveY)) {
-				float fX = rDstObject->GetInfo()->fX;
-				float fY = rDstObject->GetInfo()->fY;
+				POSITION dstPos = rDstObject->GetInfo()->position;
 				if (fMoveX > fMoveY) {
-					if (fY < rSrcObject->GetInfo()->fY)
+					if (dstPos.y < rSrcObject->GetInfo()->position.y)
 						fMoveY *= -1.f;
-					rDstObject->SetPos(fX, fY + fMoveY);
+					rDstObject->SetPosition(dstPos + POSITION(0, fMoveY));
 				}
 				else {
-					if (fX < rSrcObject->GetInfo()->fX)
+					if (dstPos.x < rSrcObject->GetInfo()->position.x)
 						fMoveX *= -1.f;
-					rDstObject->SetPos(fX + fMoveX, fY);
+					rDstObject->SetPosition(dstPos + POSITION(fMoveX, 0));
 				}
 
 			}
@@ -68,8 +66,8 @@ bool CCollisionManager::CheckRect(CObj* pDstObject, CObj& rSrcObject, float* pMo
 	float fRadiusSumX = static_cast<float>((pDstObject->GetInfo()->iCX >> 1) + (rSrcObject.GetInfo()->iCX >> 1));
 	float fRadiusSumY = static_cast<float>((pDstObject->GetInfo()->iCY >> 1) + (rSrcObject.GetInfo()->iCY >> 1));
 
-	float fDistX = fabsf(pDstObject->GetInfo()->fX - rSrcObject.GetInfo()->fX);
-	float fDistY = fabsf(pDstObject->GetInfo()->fY - rSrcObject.GetInfo()->fY);
+	float fDistX = fabsf(pDstObject->GetInfo()->position.x - rSrcObject.GetInfo()->position.x);
+	float fDistY = fabsf(pDstObject->GetInfo()->position.y - rSrcObject.GetInfo()->position.y);
 
 	if (fDistX <= fRadiusSumX && fDistY <= fRadiusSumY) {
 		*pMoveX = fRadiusSumX - fDistX;

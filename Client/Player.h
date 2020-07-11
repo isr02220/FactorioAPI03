@@ -4,7 +4,7 @@
 class CPlayer : public CObj {
 public:
 	CPlayer();
-	CPlayer(float _forceX, float _forceY);
+	CPlayer(FLOAT _positionX, FLOAT _positionY);
 	virtual ~CPlayer();
 public:
 	// CObj을(를) 통해 상속됨

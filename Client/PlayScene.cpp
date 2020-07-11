@@ -85,10 +85,10 @@ void CPlayScene::RenderScene(HDC hDC) {
 	Rectangle(hMemDC, DeadLineMargin, DeadLineMargin, WINCX - DeadLineMargin, WINCY - DeadLineMargin);
 	m_bg->Render_Object(hMemDC);
 	for (size_t i = 0; i < OBJ::END; i++) {
-		for (auto pObj : *ObjManager->GetList((OBJ::ID)i)) {
-			pObj->IncreasePos(spanX, -spanY);
+		for (auto pObj : *ObjManager->GetList((OBJ::TYPE)i)) {
+			//pObj->IncreasePos(spanX, -spanY);
 			pObj->Render_Object(hMemDC);
-			pObj->IncreasePos(-spanX, spanY);
+			//pObj->IncreasePos(-spanX, spanY);
 		}
 	}
 	size_t bulletCount = ObjManager->GetList(OBJ::BULLET)->size();

@@ -1,7 +1,7 @@
 #include "Obj.h"
 #include "Mouse.h"
 CMouse::CMouse() {
-	m_ObjId = OBJ::MOUSE;
+	m_ObjectType = OBJ::MOUSE;
 }
 
 
@@ -19,8 +19,8 @@ int CMouse::Update_Object() {
 	POINT pt = {};
 	GetCursorPos(&pt);
 	ScreenToClient(g_hWnd, &pt);
-	m_tInfo.fX = FLOAT(pt.x);
-	m_tInfo.fY = FLOAT(pt.y);
+	m_tInfo.position.x = FLOAT(pt.x);
+	m_tInfo.position.y = FLOAT(pt.y);
 	return 0;
 }
 

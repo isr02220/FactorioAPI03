@@ -3,7 +3,7 @@
 class CObj abstract{
 public:
 	CObj();
-	CObj(FLOAT _forceX, FLOAT _forceY);
+	CObj(FLOAT _positionX, FLOAT _positionY);
 	virtual ~CObj();
 
 public:
@@ -16,32 +16,22 @@ public:
 
 public:
 	void SetName(const TCHAR* _name) {
-		lstrcpy(m_tInfo.chName, _name);
+		lstrcpy(m_tInfo.name, _name);
 	}
-	void SetPos(FLOAT fX, FLOAT fY) {
-		m_tInfo.fX = fX;
-		m_tInfo.fY = fY;
+	void SetPosition(FLOAT& fX, FLOAT& fY) {
+		m_tInfo.position.x = fX;
+		m_tInfo.position.y = fY;
 	}
-	void SetPos(POINT& newPoint) {
-		m_tInfo.fX = FLOAT(newPoint.x);
-		m_tInfo.fY = FLOAT(newPoint.y);
+	void SetPosition(POSITION newPoint) {
+		m_tInfo.position = newPoint;
 	}
-	
-	void IncreasePos(FLOAT fX, FLOAT fY) {
-		m_tInfo.fX += fX;
-		m_tInfo.fY += fY;
-	}
+
 	TCHAR* GetName() {
-		return m_tInfo.chName;
+		return m_tInfo.name;
 	}
-	POINT GetPos() {
-		POINT tempPoint;
-		tempPoint.x = LONG(m_tInfo.fX);
-		tempPoint.y = LONG(m_tInfo.fY);
-		return tempPoint;
-	}
+	POSITION GetPosition() { return POSITION(m_tInfo.position); }
 	RECT* GetRect() { return &m_tRect; }
-	OBJ::ID GetObjId() { return m_ObjId; }
+	OBJ::TYPE GetObjectType() { return m_ObjectType; }
 	INFO* GetInfo() { return &m_tInfo; }
 
 
@@ -52,11 +42,7 @@ public:
 protected:
 	RECT m_tRect;
 	INFO m_tInfo;
-	OBJ::ID m_ObjId = OBJ::END;
-	FLOAT forceX;
-	FLOAT forceY;
-	FLOAT m_fSpeed;
-	FLOAT m_fAngle;
+	OBJ::TYPE m_ObjectType = OBJ::END;
 	COLORREF m_FillColor = RGB(255, 255, 255);
 	COLORREF m_StrokeColor = RGB(0, 0, 0);
 	BOOL m_isDead = false;

@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AbstractFactory.h" />
+    <ClInclude Include="Actor.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Item.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="KeyManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Item.cpp" />
