@@ -4,6 +4,7 @@
 CKeyManager* CKeyManager::m_pInstance = nullptr;
 
 CKeyManager::CKeyManager() {
+	ZeroMemory(&m_dwKey, sizeof(DWORD));
 	ZeroMemory(&m_dwKeyUp, sizeof(DWORD));
 	ZeroMemory(&m_dwKeyDown, sizeof(DWORD));
 	m_dwKeyDown = ~m_dwKeyDown;

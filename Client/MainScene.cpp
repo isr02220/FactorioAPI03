@@ -7,8 +7,6 @@ void CMainScene::ReadyScene()
 
 void CMainScene::UpdateScene()
 {
-	key1 = CKeyManager::GetInstance()->KeyDown(KEY::PrimaryAction);
-	CKeyManager::GetInstance()->UpdateKeyManager();
 }
 
 void CMainScene::LateUpdateScene()

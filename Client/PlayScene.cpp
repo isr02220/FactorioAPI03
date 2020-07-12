@@ -93,7 +93,6 @@ void CPlayScene::RenderScene(HDC hDC) {
 	}
 	size_t bulletCount = ObjManager->GetList(OBJ::BULLET)->size();
 	INT playerScore = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetScore();
-	INT HaveBullet = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetBullets();
 	TCHAR szBuffer[32];
 	wsprintf(szBuffer, L"Player Score : %d", playerScore);
 	TextOut(hMemDC, (WINCX >> 1) - 50, 50, szBuffer, lstrlen(szBuffer));
@@ -115,7 +114,7 @@ void CPlayScene::RenderScene(HDC hDC) {
 		COLORREF bColor = RGB(250, 250, 0);	// 브러쉬 색
 		HBRUSH hBrush = CreateSolidBrush(bColor);
 		HBRUSH  oldBrush = (HBRUSH)SelectObject(hMemDC, hBrush);
-		RECT rcMaxHp = { 10,100, 10 + dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetMAXHP(),130 };
+		RECT rcMaxHp = { 10,100, 10 + dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetMaxHp(),130 };
 		Rectangle(hMemDC, rcMaxHp.left, rcMaxHp.top, rcMaxHp.right, rcMaxHp.bottom);
 		SelectObject(hMemDC, oldBrush);
 		DeleteObject(hBrush);

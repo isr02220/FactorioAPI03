@@ -13,3 +13,7 @@ const FLOAT radian = 180 / pi;
 #define SCENE_PLAY 1
 
 #define KEY_CHECK(keyId) if (GetAsyncKeyState(keyMap[KEY::ID::##keyId]) & 0x8000) m_dwKey |= KEY::##keyId;
+
+typedef INT SCENE_NUMBER;
+typedef INT TYPEORDER;
+typedef FLOAT ORIENTATION;

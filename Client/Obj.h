@@ -16,37 +16,40 @@ public:
 
 public:
 	void SetName(const TCHAR* _name) {
-		lstrcpy(m_tInfo.name, _name);
+		lstrcpy(info.name, _name);
 	}
-	void SetPosition(FLOAT& fX, FLOAT& fY) {
-		m_tInfo.position.x = fX;
-		m_tInfo.position.y = fY;
+	void SetPosition(const FLOAT& fX, const FLOAT& fY) {
+		info.position.x = fX;
+		info.position.y = fY;
 	}
-	void SetPosition(POSITION newPoint) {
-		m_tInfo.position = newPoint;
+	void SetPosition(const POSITION& newPoint) {
+		info.position = newPoint;
 	}
 
 	TCHAR* GetName() {
-		return m_tInfo.name;
+		return info.name;
 	}
-	POSITION GetPosition() { return POSITION(m_tInfo.position); }
-	RECT* GetRect() { return &m_tRect; }
-	OBJ::TYPE GetObjectType() { return m_ObjectType; }
-	INFO* GetInfo() { return &m_tInfo; }
+	RECT* GetRect() { return &rect; }
+	INFO* GetInfo() { return &info; }
+	POSITION GetPosition() { return POSITION(info.position); }
+	OBJ::TYPE GetObjectType() { return objectType; }
+	TYPEORDER GetOrder() { return order; }
 
 
 	void Update_Rect_Object();
-	void SetDead() { m_isDead = true; };
-	void SetFillColor(COLORREF _FillColor) { m_FillColor = _FillColor; }
-	void SetStrokeColor(COLORREF _StrokeColor) { m_StrokeColor = _StrokeColor; }
+	void SetDead() { isDead = true; };
+	void SetVisible(BOOL _val) { isVisible = _val; };
+	void SetFillColor(const COLORREF& _FillColor) { fillColor = _FillColor; }
+	void SetStrokeColor(const COLORREF& _StrokeColor) { strokeColor = _StrokeColor; }
 protected:
-	RECT m_tRect;
-	INFO m_tInfo;
-	OBJ::TYPE m_ObjectType = OBJ::END;
-	COLORREF m_FillColor = RGB(255, 255, 255);
-	COLORREF m_StrokeColor = RGB(0, 0, 0);
-	BOOL m_isDead = false;
-	BOOL m_isVisible = true;
+	RECT rect;
+	INFO info;
+	OBJ::TYPE objectType = OBJ::END;
+	TYPEORDER order;
+	COLORREF fillColor = RGB(255, 255, 255);
+	COLORREF strokeColor = RGB(0, 0, 0);
+	BOOL isDead = false;
+	BOOL isVisible = true;
 	
 };
 
