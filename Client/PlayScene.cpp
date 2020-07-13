@@ -24,6 +24,7 @@ CPlayScene::~CPlayScene() {
 void CPlayScene::ReadyScene() {
 	if (!GetActive()) {
 		m_dwOldTime = GetTickCount();
+		m_dwOldTime = GetTickCount();
 		ObjManager->AddObject(CAbstractFactory<CPlayer>::Create(), OBJ::PLAYER);
 		ObjManager->GetPlayer()->SetName(L"사막여우");
 		
