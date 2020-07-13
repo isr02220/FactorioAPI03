@@ -33,14 +33,17 @@
     <Filter Include="02.Obj\Background">
       <UniqueIdentifier>{426b3569-1a02-4505-9a62-932ae03d384f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Obj\Item">
-      <UniqueIdentifier>{924349fe-9711-4f85-ad1f-071b10ad8d25}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.Obj\Actor">
       <UniqueIdentifier>{e01a46f1-4ed4-4624-9e57-0be4afbb395c}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.Obj\Actor\Player">
       <UniqueIdentifier>{9d2c844a-e167-42d3-bb45-6b27de2fb8a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Item">
+      <UniqueIdentifier>{7174281b-168a-40df-8f15-a0b8de276548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Actor\Entity">
+      <UniqueIdentifier>{51a95870-2523-4949-baf7-ccf5375efb04}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +107,6 @@
     <ClInclude Include="ObjManager.h">
       <Filter>01.Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>02.Obj\Item</Filter>
-    </ClInclude>
     <ClInclude Include="ItemManager.h">
       <Filter>01.Manager</Filter>
     </ClInclude>
@@ -115,6 +115,12 @@
     </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>02.Obj\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>03.Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>02.Obj\Actor\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -159,9 +165,6 @@
     <ClCompile Include="ObjManager.cpp">
       <Filter>01.Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>02.Obj\Item</Filter>
-    </ClCompile>
     <ClCompile Include="ItemManager.cpp">
       <Filter>01.Manager</Filter>
     </ClCompile>
@@ -171,6 +174,12 @@
     <ClCompile Include="Actor.cpp">
       <Filter>02.Obj\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>03.Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -179,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="클래스 형식.txt">
+      <Filter>Text</Filter>
+    </Text>
+    <Text Include="memo.txt">
       <Filter>Text</Filter>
     </Text>
   </ItemGroup>

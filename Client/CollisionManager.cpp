@@ -9,6 +9,15 @@ CCollisionManager::CCollisionManager() {
 CCollisionManager::~CCollisionManager() {
 }
 
+void CCollisionManager::CollisionPoint(CObj* pointObj, list<CObj*>& rDstList) {
+	POSITION pos;
+	for (auto DstObj : rDstList) {
+		if (CheckPoint(pointObj->GetPosition(), DstObj->GetInfo(), &pos)) {
+			pointObj->OnCollision(DstObj);
+		}
+	}
+}
+
 void CCollisionManager::CollisionRect(list<CObj*>& rDstList, list<CObj*>& rSrcList) {
 	RECT rc = {};
 	for (auto DstObj : rDstList) {
@@ -75,4 +84,18 @@ bool CCollisionManager::CheckRect(CObj* pDstObject, CObj& rSrcObject, float* pMo
 		return true;
 	}
 	return false;
+}
+
+bool CCollisionManager::CheckPoint(const POSITION& point, INFO* rDstInfo, POSITION* outPosition) {
+
+	if (point.x > rDstInfo->position.x - (rDstInfo->iCX >> 1) &&
+		point.x < rDstInfo->position.x + (rDstInfo->iCX >> 1) &&
+		point.y > rDstInfo->position.y - (rDstInfo->iCY >> 1) &&
+		point.y < rDstInfo->position.y + (rDstInfo->iCY >> 1)) {
+		*outPosition = rDstInfo->position;
+		return true;
+	}
+	else {
+		return false;
+	}
 }

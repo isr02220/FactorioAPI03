@@ -142,6 +142,7 @@
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Client.h" />
@@ -167,6 +168,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Client.cpp" />
@@ -189,6 +191,7 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="memo.txt" />
     <Text Include="클래스 형식.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -39,7 +39,6 @@ void CObjManager::LateUpdateObjectManager() {
 			pObj->LateUpdate_Object();
 		}
 	}
-	CCollisionManager::CollisionSphere(m_listObj[OBJ::MONSTER], m_listObj[OBJ::BULLET]);
 	CCollisionManager::CollisionSphere(m_listObj[OBJ::PLAYER], m_listObj[OBJ::ITEM]);
 	
 }

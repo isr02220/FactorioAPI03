@@ -64,11 +64,3 @@ typedef struct tagInfo {
 	INT iCY;
 
 }INFO;
-
-
-
-typedef struct tagItem {
-	tagItem(POINT _pos, DWORD _timer) : pos(_pos), timer(_timer) {}
-	POINT pos;
-	DWORD timer;
-}ITEMDATA;

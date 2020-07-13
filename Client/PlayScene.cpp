@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "Player.h"
+#include "Entity.h"
 #include "Mouse.h"
 #include "CollisionManager.h"
 #include "ObjManager.h"
@@ -25,6 +26,8 @@ void CPlayScene::ReadyScene() {
 		m_dwOldTime = GetTickCount();
 		ObjManager->AddObject(CAbstractFactory<CPlayer>::Create(), OBJ::PLAYER);
 		ObjManager->GetPlayer()->SetName(L"사막여우");
+		
+		ObjManager->AddObject(CAbstractFactory<CEntity>::Create(300.f, 300.f), OBJ::ENTITY);
 		m_bg = new CBackground;
 		m_bg->Ready_Object();
 		SetActive(true);
@@ -56,7 +59,6 @@ void CPlayScene::UpdateScene() {
 	if (GetAsyncKeyState('4') & 0x8000) {
 		spanY += 4.f;
 	}
-	itemManager.CreateItem();
 	m_bg->Update_Object();
 	ObjManager->UpdateObjectManager();
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "framework.h"
 #include "ObjManager.h"
+class CItem;
 class CItemManager {
 public:
 	CItemManager();
@@ -8,11 +9,11 @@ public:
 public:
 	void ReadyItem();
 
-	void InsterItem(ITEMDATA* _newItem);
+	void InsterItem(CItem* _newItem);
 	void CreateItem();
 private:
-	list<ITEMDATA*> m_ListItemData;
+	list<CItem*> listItemData;
 	CObjManager* ObjManager = CObjManager::GetInstance();
-	DWORD m_Timer = GetTickCount();
+	DWORD timer = GetTickCount();
 };
 

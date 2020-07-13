@@ -44,7 +44,8 @@ public:
     void SetScore         (const INT          & _score        ) { score         = _score        ; }
     void SetHP            (const INT          & _HP           ) { HP            = _HP           ; }
     void SetMaxHP         (const INT          & _MaxHP        ) { MaxHP         = _MaxHP        ; }
-    
+
+    void SetDead() { dead = true; }
     void IncreaseScore(const INT& _score) { score += _score; }
 protected:
     CActor* selectedActor;
@@ -58,6 +59,7 @@ protected:
     BOOL controllable = false;
     BOOL invincible = false;
     BOOL active = false;
+    BOOL dead = false;
     FLOAT speed = 1.f;
     INT  score = 0;
     INT  HP = 1;
