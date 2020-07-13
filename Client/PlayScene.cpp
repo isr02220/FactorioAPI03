@@ -32,6 +32,7 @@ void CPlayScene::ReadyScene() {
 		ObjManager->AddObject(CAbstractFactory<CMouse>::Create(), OBJ::MOUSE);
 
 		ObjManager->AddObject(CAbstractFactory<CEntity>::Create(300.f, 300.f), OBJ::ENTITY);
+
 		m_bg = new CBackground;
 		m_bg->Ready_Object();
 		SetActive(true);
@@ -44,25 +45,22 @@ void CPlayScene::UpdateScene() {
 	DeadLineBottom = FLOAT(WINCY - DeadLineMargin) - spanY;
 	DeadLineRight  = FLOAT(WINCX - DeadLineMargin) - spanX;
 
-	if (GetAsyncKeyState('R') & 0x8000) {
-		DebugRectDraw = true;
+	if (CKeyManager::GetInstance()->OnPress(KEY::Rotate) )
+		DebugRectDraw = !DebugRectDraw;
+
+	CActor* playerSelectedActor = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetSelectedActor();
+	if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction)) {
+		if (playerSelectedActor == nullptr) {
+			
+			ObjManager->AddObject(CAbstractFactory<CEntity>::Create(ObjManager->GetList(OBJ::MOUSE)->front()->GetPosition()), OBJ::ENTITY);
+		}
 	}
-	if (GetAsyncKeyState('T') & 0x8000) {
-		DebugRectDraw = false;
+	if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction)) {
+		if (playerSelectedActor)
+			playerSelectedActor->SetDead();
 	}
 
-	if (GetAsyncKeyState('1') & 0x8000) {
-		spanX -= 4.f;
-	}
-	if (GetAsyncKeyState('2') & 0x8000) {
-		spanX += 4.f;
-	}
-	if (GetAsyncKeyState('3') & 0x8000) {
-		spanY -= 4.f;
-	}
-	if (GetAsyncKeyState('4') & 0x8000) {
-		spanY += 4.f;
-	}
+
 	m_bg->Update_Object();
 	ObjManager->UpdateObjectManager();
 }

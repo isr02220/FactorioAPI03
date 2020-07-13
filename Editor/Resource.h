@@ -1,6 +1,7 @@
-﻿//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++에서 생성한 포함 파일입니다.
-// 다음에서 사용 Editor.rc
+//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ generated include file.
+// Used by Editor.rc
+//
 
 #define IDS_APP_TITLE			103
 
@@ -16,7 +17,7 @@
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1
 #endif
-// 다음은 새 개체에 사용할 기본값입니다.
+// ������ �� ��ü�� ����� �⺻���Դϴ�.
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS

@@ -3,7 +3,7 @@
 
 typedef struct tagForce {
 	tagForce() : x(0), y(0) {}
-	tagForce(FLOAT _x, FLOAT _y) : x(_x), y(_y) {}
+	tagForce(const FLOAT& _x, const FLOAT& _y) : x(_x), y(_y) {}
 	tagForce operator+(const tagForce& dst) { return tagForce(x + dst.x, y + dst.y); }
 	tagForce operator-(const tagForce& dst) { return tagForce(x - dst.x, y - dst.y); }
 	tagForce operator*(const FLOAT& dst) { return tagForce(x * dst, y * dst); }
@@ -18,13 +18,36 @@ typedef struct tagForce {
 
 typedef struct tagPosition {
 	tagPosition() : x(0), y(0) {}
-	tagPosition(FLOAT _x, FLOAT _y) : x(_x), y(_y) {}
+	tagPosition(const FLOAT& _x, const FLOAT& _y) : x(_x), y(_y) {}
 	tagPosition operator+(const tagPosition& dst) { return tagPosition(x + dst.x, y + dst.y); }
 	tagPosition operator+=(const tagForce& dst) { x += dst.x; y += dst.y; return *this; }
 	tagPosition operator-(const tagPosition& dst) { return tagPosition(x - dst.x, y - dst.y); }
 	FLOAT x;
 	FLOAT y;
 }POSITION;
+
+typedef struct tagLinePoint {
+	tagLinePoint() {
+		ZeroMemory(this, sizeof(tagLinePoint));
+	}
+	tagLinePoint(float _fx, float _fy)
+		:fX(_fx), fY(_fy) {
+	}
+	float fX;
+	float fY;
+}LINEPOS;
+
+typedef struct tagLineInfo {
+	tagLineInfo() {
+		ZeroMemory(this, sizeof(tagLineInfo));
+	}
+	tagLineInfo(const LINEPOS& rLeftPoint, const LINEPOS& rRightPoint)
+		:LPoint(rLeftPoint)
+		, RPoint(rRightPoint) {
+	}
+	LINEPOS LPoint;
+	LINEPOS RPoint;
+}LINEINFO;
 
 typedef struct tagWalkingState {
 	tagWalkingState() : walking(false), direction(DIRECTION::DIR::NORTH) {}

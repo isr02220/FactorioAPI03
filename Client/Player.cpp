@@ -38,15 +38,18 @@ void CPlayer::LateUpdate_Object() {
 void CPlayer::Render_Object(HDC hDC) {
     CObj::Update_Rect_Object();
     if (isVisible) {
-		COLORREF bColor = RGB(250, 128, 64);	// 브러쉬 색
-		HBRUSH hBrush = CreateSolidBrush(bColor);
-		HBRUSH  oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
-		
+        HPEN   hPen = CreatePen(PS_SOLID, 1, strokeColor);
+        HBRUSH hBrush = CreateSolidBrush(fillColor);
+
+        HPEN   oldPen = (HPEN)SelectObject(hDC, hPen);
+        HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
+
         Rectangle(hDC, rect.left, rect.top, rect.right, rect.bottom);
 
-		SelectObject(hDC, oldBrush);
-		DeleteObject(hBrush);
-
+        SelectObject(hDC, oldPen);
+        SelectObject(hDC, oldBrush);
+        DeleteObject(hPen);
+        DeleteObject(hBrush);
     }
 
 }

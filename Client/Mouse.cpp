@@ -16,12 +16,13 @@ void CMouse::Ready_Object() {
 }
 
 int CMouse::Update_Object() {
-	// 마우스 위치를 얻어오려면!? 
 	POINT pt = {};
 	GetCursorPos(&pt);
 	ScreenToClient(g_hWnd, &pt);
 	info.position.x = FLOAT(pt.x);
 	info.position.y = FLOAT(pt.y);
+	selectedActor = nullptr;
+	dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->UpdateSelected(selectedActor);
 	return 0;
 }
 
@@ -62,7 +63,5 @@ void CMouse::OnCollision(CObj* _TargetObj) {
 	selectedActor = dynamic_cast<CActor*>(_TargetObj);
 	if (selectedActor) {
 		dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->UpdateSelected(selectedActor);
-		UINT d = 0;
-		//MessageBox(g_hWnd, L"asdf", L"asdf", d);
 	}
 }

@@ -17,6 +17,7 @@ public:
 public:
     virtual void UpdateSelected(CActor* _Target);
 
+    CActor*       GetSelectedActor()  { return selectedActor; }
     WALKINGSTATE  GetWalkingState()   { return walkingState ; }
     MININGSTATE   GetMiningState()    { return miningState  ; }
     SHOOTINGSTATE GetShootingState()  { return shootingState; }

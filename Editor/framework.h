@@ -13,4 +13,17 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <vector>
+#include <list>
+#include <map>
+#include <algorithm>
+
+using namespace std;
+
+#include "Extern.h"
 #include "Enum.h"
+#include "Define.h"
+#include "Struct.h"
+#include "Function.h"
+#include "LineManager.h"
+#include "KeyManager.h"

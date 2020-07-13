@@ -107,6 +107,9 @@
     <ClInclude Include="Entity.h">
       <Filter>02.Obj\Actor\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="LineManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -164,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>02.Obj\Actor\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="LineManager.cpp">
+      <Filter>01.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\Headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -149,6 +150,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="LineManager.h" />
     <ClInclude Include="ObjManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainApp.h" />
@@ -171,6 +173,7 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="KeyManager.cpp" />
+    <ClCompile Include="LineManager.cpp" />
     <ClCompile Include="ObjManager.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="MainScene.cpp" />

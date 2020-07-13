@@ -37,7 +37,7 @@ namespace KEY {
 		MoveDown       ,
 		Inventory      ,
 		Technology     ,
-		CloseGUI       ,
+		CloseGUI    ,
 		PrimaryAction  ,    //상호작용
 		SecondaryAction,         //채집 삭제 등
 		ShowInfo       ,
@@ -85,50 +85,35 @@ public:
 	}
 
 	bool OnRelease(DWORD dwKey) {
-		if (!(m_dwKey & dwKey) && (m_dwKeyEx & dwKey))
-			return true;
-		else 
+		if (m_dwKey & dwKey) {
+			m_dwKeyUp |= dwKey;
 			return false;
-		
+		}
+		else if (m_dwKeyUp & dwKey) {
+			m_dwKeyUp ^= dwKey;
+			return true;
+		}
+
 		return false;
-
-		//if (m_dwKey & dwKey) {
-		//	m_dwKeyUp |= dwKey;
-		//	return false;
-		//}
-		//else if (m_dwKeyUp & dwKey) {
-		//	m_dwKeyUp ^= dwKey;
-		//	return true;
-		//}
-
-		//return false;
 	}
 
 	bool OnPress(DWORD dwKey) {
-		if ((m_dwKey & dwKey) && !(m_dwKeyEx & dwKey))
+		if ((m_dwKey & dwKey) && !(m_dwKeyDown & dwKey)) {
+			m_dwKeyDown |= dwKey;
 			return true;
-		else
+		}
+		else if (!(m_dwKey & dwKey) && (m_dwKeyDown & dwKey)){
+			m_dwKeyDown ^= dwKey;
 			return false;
+		}
 
 		return false;
-
-		//if ((m_dwKey & dwKey) && !(m_dwKeyDown & dwKey)) {
-		//	m_dwKeyDown |= dwKey;
-		//	return true;
-		//}
-		//else if (!(m_dwKey & dwKey) && (m_dwKeyDown & dwKey)){
-		//	m_dwKeyDown ^= dwKey;
-		//	return false;
-		//}
-
-		//return false;
 	}
 	void SetKey(KEY::ID _keyID, SHORT _newKey);
 private:
 	DWORD m_dwKey = 0;
-	DWORD m_dwKeyEx = 0;
-	//DWORD m_dwKeyUp = 0;
-	//DWORD m_dwKeyDown = 0;
+	DWORD m_dwKeyUp = 0;
+	DWORD m_dwKeyDown = 0;
 	map<KEY::ID, SHORT> keyMap;
 	static CKeyManager* m_pInstance;
 

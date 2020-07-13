@@ -18,6 +18,9 @@ void CKeyManager::DestroyInstance() {
 }
 
 CKeyManager::CKeyManager() {
+	ZeroMemory(&m_dwKey, sizeof(DWORD));
+	ZeroMemory(&m_dwKeyUp, sizeof(DWORD));
+	ZeroMemory(&m_dwKeyDown, sizeof(DWORD));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::MoveUp, 'W'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::MoveRight, 'D'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::MoveLeft, 'A'));
@@ -50,7 +53,6 @@ CKeyManager::~CKeyManager() {
 }
 
 void CKeyManager::UpdateKeyManager() {
-	m_dwKeyEx = m_dwKey;
 	m_dwKey = 0;
 	KEY_CHECK(MoveUp);
 	KEY_CHECK(MoveRight);

@@ -9,16 +9,16 @@ public:
 		pObj->Ready_Object();
 		return pObj;
 	}
-	static CObj* Create(float fX, float fY) {
+	static CObj* Create(const FLOAT& fX, const FLOAT& fY) {
 		CObj* pObj = new T;
 		pObj->Ready_Object();
 		pObj->SetPosition(fX, fY);
 		return pObj;
 	}
-	static CObj* CreateWithForce(float fX, float fY, float forceX, float forceY) {
-		CObj* pObj = new T(forceX, forceY);
+	static CObj* Create(const POSITION& pos) {
+		CObj* pObj = new T;
 		pObj->Ready_Object();
-		pObj->SetPosition(fX, fY);
+		pObj->SetPosition(pos);
 		return pObj;
 	}
 };

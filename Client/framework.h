@@ -28,3 +28,4 @@ using namespace std;
 #include "ObjManager.h"
 #include "CollisionManager.h"
 #include "KeyManager.h"
+#include "LineManager.h"
