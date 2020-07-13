@@ -51,8 +51,16 @@ void CPlayScene::UpdateScene() {
 	CActor* playerSelectedActor = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetSelectedActor();
 	if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction)) {
 		if (playerSelectedActor == nullptr) {
-			
-			ObjManager->AddObject(CAbstractFactory<CEntity>::Create(ObjManager->GetList(OBJ::MOUSE)->front()->GetPosition()), OBJ::ENTITY);
+			POSITION tPos = ObjManager->GetList(OBJ::MOUSE)->front()->GetPosition();
+			if (INT(tPos.x) % 50 < 25)
+				tPos.x = FLOAT(INT(tPos.x) - (INT(tPos.x) % 50));
+			else
+				tPos.x = FLOAT(INT(tPos.x) - (INT(tPos.x) % 50) + 50);
+			if (INT(tPos.y) % 50 < 25)
+				tPos.y = FLOAT(INT(tPos.y) - (INT(tPos.y) % 50));
+			else
+				tPos.y = FLOAT(INT(tPos.y) - (INT(tPos.y) % 50) + 50);
+			ObjManager->AddObject(CAbstractFactory<CEntity>::Create(tPos), OBJ::ENTITY);
 		}
 	}
 	if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction)) {
