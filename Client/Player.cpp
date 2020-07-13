@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "KeyManager.h"
+
 CPlayer::CPlayer() : CActor() {
     objectType = OBJ::PLAYER;
 }
@@ -64,13 +64,13 @@ void CPlayer::Move() {
     keyMgr->UpdateKeyManager();
     FORCE moveForce = FORCE(0.f, 0.f);
 
-    if (keyMgr->KeyDown(KEY::MoveLeft))
+    if (keyMgr->Press(KEY::MoveLeft))
         moveForce += FORCE(-1.f, 0.f);
-    if (keyMgr->KeyDown(KEY::MoveRight))
+    if (keyMgr->Press(KEY::MoveRight))
         moveForce += FORCE(1.f, 0.f);
-    if (keyMgr->KeyDown(KEY::MoveUp))
+    if (keyMgr->Press(KEY::MoveUp))
         moveForce += FORCE(0.f, -1.f);
-    if (keyMgr->KeyDown(KEY::MoveDown))
+    if (keyMgr->Press(KEY::MoveDown))
         moveForce += FORCE( 0.f,  1.f);
     
     FLOAT nomalizer = sqrtf(((fabsf(moveForce.x) * fabsf(moveForce.x)) + (fabsf(moveForce.y) * fabsf(moveForce.y))));

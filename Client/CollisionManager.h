@@ -1,5 +1,4 @@
 #pragma once
-#include "framework.h"
 class CObj;
 class CCollisionManager {
 public:

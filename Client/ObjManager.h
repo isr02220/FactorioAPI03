@@ -1,6 +1,5 @@
 #pragma once
 #pragma warning(disable: 4351)
-#include "framework.h"
 class CObj;
 class CObjManager {
 public:

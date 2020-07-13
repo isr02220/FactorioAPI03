@@ -3,11 +3,24 @@
 
 CKeyManager* CKeyManager::m_pInstance = nullptr;
 
+CKeyManager* CKeyManager::GetInstance() {
+	if (nullptr == m_pInstance)
+		m_pInstance = new CKeyManager();
+
+	return m_pInstance;
+}
+
+void CKeyManager::DestroyInstance() {
+	if (m_pInstance) {
+		delete m_pInstance;
+		m_pInstance = nullptr;
+	}
+}
+
 CKeyManager::CKeyManager() {
 	ZeroMemory(&m_dwKey, sizeof(DWORD));
 	ZeroMemory(&m_dwKeyUp, sizeof(DWORD));
 	ZeroMemory(&m_dwKeyDown, sizeof(DWORD));
-	m_dwKeyDown = ~m_dwKeyDown;
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::MoveUp, 'W'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::MoveRight, 'D'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::MoveLeft, 'A'));
@@ -28,7 +41,7 @@ CKeyManager::CKeyManager() {
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ChangeQuickBar, 'X'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ZoomIn, VK_NUMPAD6));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ZoomOut, VK_NUMPAD9));
-
+		  
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::SHIFT, VK_SHIFT));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::CONTROL, VK_CONTROL));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ALT, VK_MENU));
@@ -38,3 +51,36 @@ CKeyManager::CKeyManager() {
 CKeyManager::~CKeyManager() {
 	DestroyInstance();
 }
+
+void CKeyManager::UpdateKeyManager() {
+	m_dwKey = 0;
+	KEY_CHECK(MoveUp);
+	KEY_CHECK(MoveRight);
+	KEY_CHECK(MoveLeft);
+	KEY_CHECK(MoveDown);
+	KEY_CHECK(Inventory);
+	KEY_CHECK(Technology);
+	KEY_CHECK(CloseGUI);
+	KEY_CHECK(PrimaryAction);
+	KEY_CHECK(SecondaryAction);
+	KEY_CHECK(ShowInfo);
+	KEY_CHECK(ClearCursor);
+	KEY_CHECK(DropItem);
+	KEY_CHECK(Rotate);
+	KEY_CHECK(PickUp);
+	KEY_CHECK(Shoot);
+	KEY_CHECK(ShootTo);
+	KEY_CHECK(Enter);
+	KEY_CHECK(ChangeQuickBar);
+	KEY_CHECK(ZoomIn);
+	KEY_CHECK(ZoomOut);
+	KEY_CHECK(Num1);
+	KEY_CHECK(Num2);
+	KEY_CHECK(Num3);
+	KEY_CHECK(Num4);
+	KEY_CHECK(SHIFT);
+	KEY_CHECK(CONTROL);
+	KEY_CHECK(ALT);
+}
+
+void CKeyManager::SetKey(KEY::ID _keyID, SHORT _newKey) { keyMap[_keyID] = _newKey; }

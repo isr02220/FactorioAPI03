@@ -1,5 +1,4 @@
 #include "MainScene.h"
-#include "KeyManager.h"
 void CMainScene::ReadyScene()
 {
 	SetActive(true);

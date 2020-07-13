@@ -1,6 +1,5 @@
 #include "framework.h"
 #include "ObjManager.h"
-#include "CollisionManager.h"
 #include "Obj.h"
 
 CObjManager* CObjManager::m_pInstance = nullptr;

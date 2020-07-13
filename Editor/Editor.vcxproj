@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{07DC292C-627B-427D-B9FD-0BB1FE5EC7E5}</ProjectGuid>
-    <RootNamespace>Client</RootNamespace>
+    <ProjectGuid>{1333aea3-af7a-4ecb-bbf4-291a7e237f15}</ProjectGuid>
+    <RootNamespace>Editor</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -78,11 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\Headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\Headers\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\Headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\Headers\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -141,55 +141,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractFactory.h" />
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="Background.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="ItemManager.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Client.h" />
-    <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="ObjManager.h" />
+    <ClInclude Include="Editor.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="MainApp.h" />
-    <ClInclude Include="MainScene.h" />
-    <ClInclude Include="Mouse.h" />
-    <ClInclude Include="Obj.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="KeyManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Background.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="ItemManager.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="Client.cpp" />
-    <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="KeyManager.cpp" />
-    <ClCompile Include="ObjManager.cpp" />
-    <ClCompile Include="MainApp.cpp" />
-    <ClCompile Include="MainScene.cpp" />
-    <ClCompile Include="Mouse.cpp" />
-    <ClCompile Include="Obj.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayScene.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Editor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Client.rc" />
+    <ResourceCompile Include="Editor.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Client.ico" />
+    <Image Include="Editor.ico" />
     <Image Include="small.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="memo.txt" />
-    <Text Include="클래스 형식.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

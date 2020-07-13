@@ -1,5 +1,4 @@
 #pragma once
-#include "framework.h"
 namespace KEY {
 	const DWORD MoveUp          = 0x00000001;
 	const DWORD MoveRight       = 0x00000002;
@@ -61,70 +60,31 @@ namespace KEY {
 		ALT
 	};
 };
+
 class CKeyManager {
 public:
-	static CKeyManager* GetInstance() {
-		if (nullptr == m_pInstance)
-			m_pInstance = new CKeyManager();
-
-		return m_pInstance;
-	}
-	static void DestroyInstance() {
-		if (m_pInstance) {
-			delete m_pInstance;
-			m_pInstance = nullptr;
-		}
-	}
+	static CKeyManager* GetInstance();
+	static void DestroyInstance();
 private:
 	CKeyManager();
 	~CKeyManager();
 public:
-	void UpdateKeyManager() {
-		m_dwKey = 0;
-		KEY_CHECK(MoveUp);
-		KEY_CHECK(MoveRight);
-		KEY_CHECK(MoveLeft);
-		KEY_CHECK(MoveDown);
-		KEY_CHECK(Inventory);
-		KEY_CHECK(Technology);
-		KEY_CHECK(CloseGUI);
-		KEY_CHECK(PrimaryAction);
-		KEY_CHECK(SecondaryAction);
-		KEY_CHECK(ShowInfo);
-		KEY_CHECK(ClearCursor);
-		KEY_CHECK(DropItem);
-		KEY_CHECK(Rotate);
-		KEY_CHECK(PickUp);
-		KEY_CHECK(Shoot);
-		KEY_CHECK(ShootTo);
-		KEY_CHECK(Enter);
-		KEY_CHECK(ChangeQuickBar);
-		KEY_CHECK(ZoomIn);
-		KEY_CHECK(ZoomOut);
-		KEY_CHECK(Num1);
-		KEY_CHECK(Num2);
-		KEY_CHECK(Num3);
-		KEY_CHECK(Num4);
-		KEY_CHECK(SHIFT);
-		KEY_CHECK(CONTROL);
-		KEY_CHECK(ALT);
-	}
-
-	bool KeyUp(DWORD dwKey) {
+	void UpdateKeyManager();
+	bool Release(DWORD dwKey) {
 		if (m_dwKey & dwKey)
 			return false;
 		else
 			return true;
 	}
 
-	bool KeyDown(DWORD dwKey) {
+	bool Press(DWORD dwKey) {
 		if (m_dwKey & dwKey)
 			return true;
 		else
 			return false;
 	}
 
-	bool KeyOnUp(DWORD dwKey) {
+	bool OnRelease(DWORD dwKey) {
 		if (m_dwKey & dwKey) {
 			m_dwKeyUp |= dwKey;
 			return false;
@@ -137,20 +97,19 @@ public:
 		return false;
 	}
 
-	bool KeyOnDown(DWORD dwKey) {
-		if (m_dwKey & dwKey) {
-			if (m_dwKeyDown & dwKey) {
-				m_dwKeyDown &= ~dwKey;
-				return true;
-			}
+	bool OnPress(DWORD dwKey) {
+		if ((m_dwKey & dwKey) && !(m_dwKeyDown & dwKey)) {
+			m_dwKeyDown |= dwKey;
+			return true;
 		}
-		else if (!(m_dwKeyDown & dwKey)){
+		else if (!(m_dwKey & dwKey) && (m_dwKeyDown & dwKey)){
 			m_dwKeyDown ^= dwKey;
+			return false;
 		}
 
 		return false;
 	}
-	void SetKey(KEY::ID _keyID, SHORT _newKey) { keyMap[_keyID] = _newKey; }
+	void SetKey(KEY::ID _keyID, SHORT _newKey);
 private:
 	DWORD m_dwKey = 0;
 	DWORD m_dwKeyUp = 0;

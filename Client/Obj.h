@@ -1,5 +1,5 @@
 #pragma once
-#include"ObjManager.h"
+#include "framework.h"
 class CObj abstract{
 public:
 	CObj();

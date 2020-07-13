@@ -4,8 +4,7 @@
 #include "PlayScene.h"
 #include "Player.h"
 #include "Mouse.h"
-#include "CollisionManager.h"
-#include "KeyManager.h"
+
 
 extern bool DebugRectDraw = false;
 extern LONG DeadLineMargin = 0;

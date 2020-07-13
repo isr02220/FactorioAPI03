@@ -93,7 +93,6 @@ void CPlayScene::RenderScene(HDC hDC) {
 			//pObj->IncreasePos(-spanX, spanY);
 		}
 	}
-	size_t bulletCount = ObjManager->GetList(OBJ::BULLET)->size();
 	INT playerScore = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetScore();
 	TCHAR szBuffer[32];
 	wsprintf(szBuffer, L"Player Score : %d", playerScore);
