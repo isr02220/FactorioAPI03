@@ -27,7 +27,10 @@ void CPlayScene::ReadyScene() {
 		m_dwOldTime = GetTickCount();
 		ObjManager->AddObject(CAbstractFactory<CPlayer>::Create(), OBJ::PLAYER);
 		ObjManager->GetPlayer()->SetName(L"사막여우");
-		
+
+		;
+		ObjManager->AddObject(CAbstractFactory<CMouse>::Create(), OBJ::MOUSE);
+
 		ObjManager->AddObject(CAbstractFactory<CEntity>::Create(300.f, 300.f), OBJ::ENTITY);
 		m_bg = new CBackground;
 		m_bg->Ready_Object();

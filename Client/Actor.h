@@ -15,7 +15,7 @@ public:
     virtual void OnCollision(CObj* _TargetObj) override;
 
 public:
-    virtual void UpdateSelected();
+    virtual void UpdateSelected(CActor* _Target);
 
     WALKINGSTATE  GetWalkingState()   { return walkingState ; }
     MININGSTATE   GetMiningState()    { return miningState  ; }

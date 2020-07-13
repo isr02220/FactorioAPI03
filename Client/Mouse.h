@@ -1,5 +1,6 @@
 #pragma once
 #include "Obj.h"
+class CActor;
 class CMouse final :
 	public CObj {
 public:
@@ -13,5 +14,8 @@ public:
 	virtual void Render_Object(HDC hDC) override;
 	virtual void Release_Object() override;
 	virtual void OnCollision(CObj* _TargetObj)override;
+
+private:
+	CActor* selectedActor = nullptr;
 };
 

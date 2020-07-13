@@ -37,6 +37,6 @@ void CActor::OnCollision(CObj* _TargetObj) {
 
 }
 
-void CActor::UpdateSelected() {
-
+void CActor::UpdateSelected(CActor* _Target) {
+	selectedActor = _Target;
 }
