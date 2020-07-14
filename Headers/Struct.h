@@ -87,5 +87,7 @@ typedef struct tagInfo {
 	FORCE force;
 	INT iCX;
 	INT iCY;
+	INT CCX;
+	INT CCY;
 
 }INFO;

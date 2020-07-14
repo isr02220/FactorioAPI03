@@ -122,6 +122,9 @@
     <ClInclude Include="BitmapManager.h">
       <Filter>01.Manager</Filter>
     </ClInclude>
+    <ClInclude Include="TranportBelt.h">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -191,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="BitmapManager.cpp">
       <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TranportBelt.cpp">
+      <Filter>02.Obj\Actor\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

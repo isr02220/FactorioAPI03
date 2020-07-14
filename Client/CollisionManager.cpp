@@ -88,10 +88,10 @@ bool CCollisionManager::CheckRect(CObj* pDstObject, CObj& rSrcObject, float* pMo
 
 bool CCollisionManager::CheckPoint(const POSITION& point, INFO* rDstInfo, POSITION* outPosition) {
 
-	if (point.x > rDstInfo->position.x - (rDstInfo->iCX >> 1) &&
-		point.x < rDstInfo->position.x + (rDstInfo->iCX >> 1) &&
-		point.y > rDstInfo->position.y - (rDstInfo->iCY >> 1) &&
-		point.y < rDstInfo->position.y + (rDstInfo->iCY >> 1)) {
+	if (point.x >= rDstInfo->position.x - (rDstInfo->iCX >> 1) &&
+		point.x <= rDstInfo->position.x + (rDstInfo->iCX >> 1) &&
+		point.y >= rDstInfo->position.y - (rDstInfo->iCY >> 1) &&
+		point.y <= rDstInfo->position.y + (rDstInfo->iCY >> 1)) {
 		*outPosition = rDstInfo->position;
 		return true;
 	}

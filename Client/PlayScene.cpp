@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "Player.h"
 #include "Entity.h"
+#include "TranportBelt.h"
 #include "Mouse.h"
 #include "CollisionManager.h"
 #include "ObjManager.h"
@@ -52,7 +53,7 @@ void CPlayScene::UpdateScene() {
 	if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction)) {
 		if (playerSelectedActor == nullptr) {
 			POSITION tPos = ObjManager->GetList(OBJ::MOUSE)->front()->GetPosition();
-			ObjManager->AddObject(CAbstractFactory<CEntity>::Create(ToGridPos(tPos, 50)), OBJ::ENTITY);
+			ObjManager->AddObject(CAbstractFactory<CTranportBelt>::Create(ToGridPos(tPos, 64)), OBJ::ENTITY);
 		}
 	}
 	if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction)) {

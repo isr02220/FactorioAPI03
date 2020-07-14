@@ -15,13 +15,19 @@ inline POSITION ToGridPos(const POSITION& _position, const INT& _tileSize) {
 	POINT Pos = {};
 	Pos.x = (INT)_position.x;
 	Pos.y = (INT)_position.y;
-	if ((Pos.x % _tileSize) < (_tileSize >> 1))
+
+
+	if (labs(Pos.x % _tileSize) < (_tileSize >> 1))
 		Pos.x -= (Pos.x % _tileSize);
+	else if(Pos.x < 0.f)
+		Pos.x -= (Pos.x % _tileSize) + _tileSize;
 	else
 		Pos.x -= (Pos.x % _tileSize) - _tileSize;
 
-	if ((Pos.y % _tileSize) < (_tileSize >> 1))
+	if (labs(Pos.y % _tileSize) < (_tileSize >> 1))
 		Pos.y -= (Pos.y % _tileSize);
+	else if (Pos.y < 0.f)
+		Pos.y -= (Pos.y % _tileSize) + _tileSize;
 	else
 		Pos.y -= (Pos.y % _tileSize) - _tileSize;
 

@@ -45,6 +45,8 @@ public:
     void SetScore         (const INT          & _score        ) { score         = _score        ; }
     void SetHP            (const INT          & _HP           ) { HP            = _HP           ; }
     void SetMaxHP         (const INT          & _MaxHP        ) { MaxHP         = _MaxHP        ; }
+    void SetSpriteIndexX  (const INT          & _index        ) { spriteIndexX  = _index        ; }
+    void SetSpriteIndexY  (const INT          & _index        ) { spriteIndexY  = _index        ; }
 
     void SetDead() { dead = true; }
     void IncreaseScore(const INT& _score) { score += _score; }

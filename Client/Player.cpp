@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "Player.h"
+#include "Entity.h"
 CPlayer::CPlayer() : CActor() {
     objectType = OBJ::PLAYER;
 }
@@ -31,11 +32,10 @@ int CPlayer::Update_Object() {
     Move();
 
     if (CKeyManager::GetInstance()->Press(KEY::Inventory)) {
-		TCHAR szBuffer[64];
-		wsprintf(szBuffer, L"Player 위치 : %d, %d", (INT)info.position.x, (INT)info.position.y);
-		MessageBox(g_hWnd, szBuffer, L" ", MB_OK);
-		wsprintf(szBuffer, L"스크롤 위치 : %d, %d", (INT)CScrollManager::GetInstance()->GetScrollX(), (INT)CScrollManager::GetInstance()->GetScrollY());
-		MessageBox(g_hWnd, szBuffer, L" ", MB_OK);
+        list<CObj*>* listEntity = CObjManager::GetInstance()->GetList(OBJ::ENTITY);
+        for (auto entity : *listEntity) {
+            dynamic_cast<CEntity*>(entity)->SetSpriteIndexX(0);
+        }
     }
     return STATE_NO_EVENT;
 }

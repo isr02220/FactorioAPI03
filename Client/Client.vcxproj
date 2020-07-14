@@ -166,6 +166,7 @@
     <ClInclude Include="ScrollManager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="KeyManager.h" />
+    <ClInclude Include="TranportBelt.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
@@ -188,6 +189,7 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ScrollManager.cpp" />
+    <ClCompile Include="TranportBelt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

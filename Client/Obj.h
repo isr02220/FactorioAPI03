@@ -42,6 +42,7 @@ public:
 	void SetStrokeColor(const COLORREF& _StrokeColor) { strokeColor = _StrokeColor; }
 protected:
 	RECT rect;
+	RECT cRect;
 	INFO info;
 	OBJ::TYPE objectType = OBJ::END;
 	TYPEORDER order;

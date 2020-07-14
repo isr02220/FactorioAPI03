@@ -29,6 +29,10 @@ void CMainApp::Ready_MainApp() {
 	lstrcpy(szBuffer, GRAPHICS_DIR);
 	lstrcat(szBuffer, L"entity/character/bmp/hr-level1_running.bmp");
 	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-level1_running");
+
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"entity/transport-belt/bmp/hr-transport-belt.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-transport-belt");
 	m_mapScene[SCENE_MAIN]->ReadyScene();
 }
 
