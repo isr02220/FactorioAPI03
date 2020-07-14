@@ -45,8 +45,11 @@ void CEntity::Render_Object(HDC hDC) {
 
         HPEN   oldPen = (HPEN)SelectObject(hDC, hPen);
         HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
-
-        Rectangle(hDC, rect.left, rect.top, rect.right, rect.bottom);
+        CScrollManager* scrollMgr =  CScrollManager::GetInstance();
+        Rectangle(hDC, rect.left + scrollMgr->GetScrollX(),
+            rect.top + scrollMgr->GetScrollY(),
+            rect.right + scrollMgr->GetScrollX(),
+            rect.bottom + scrollMgr->GetScrollY());
 
         SelectObject(hDC, oldPen);
         SelectObject(hDC, oldBrush);

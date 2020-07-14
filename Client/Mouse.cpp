@@ -12,13 +12,15 @@ CMouse::~CMouse() {
 void CMouse::Ready_Object() {
 	info.iCX = 20;
 	info.iCY = 20;
-	ShowCursor(false);
+	//ShowCursor(false);
 }
 
 int CMouse::Update_Object() {
 	POINT pt = {};
 	GetCursorPos(&pt);
 	ScreenToClient(g_hWnd, &pt);
+	pt.x -= (LONG)CScrollManager::GetInstance()->GetScrollX();
+	pt.y -= (LONG)CScrollManager::GetInstance()->GetScrollY();
 	info.position.x = FLOAT(pt.x);
 	info.position.y = FLOAT(pt.y);
 	selectedActor = nullptr;
@@ -33,10 +35,10 @@ void CMouse::Render_Object(HDC hDC) {
 	CObj::Update_Rect_Object();
 	if (isVisible) {
 		POINT pt = {};
-		MoveToEx(hDC, rect.left, (rect.top + rect.bottom) / 2, &pt);
-		LineTo(hDC, rect.right, (rect.top + rect.bottom) / 2);
-		MoveToEx(hDC, (rect.left + rect.right) / 2, rect.top, &pt);
-		LineTo(hDC, (rect.left + rect.right) / 2, rect.bottom);
+		//MoveToEx(hDC, rect.left, (rect.top + rect.bottom) / 2, &pt);
+		//LineTo(hDC, rect.right, (rect.top + rect.bottom) / 2);
+		//MoveToEx(hDC, (rect.left + rect.right) / 2, rect.top, &pt);
+		//LineTo(hDC, (rect.left + rect.right) / 2, rect.bottom);
 		//Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	}
 	HPEN   hPen = CreatePen(PS_SOLID, 5, RGB(255, 255, 0));
@@ -46,8 +48,10 @@ void CMouse::Render_Object(HDC hDC) {
 	HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
 
 	if (selectedActor) {
+		INT ScrollX = CScrollManager::GetInstance()->GetScrollX();
+		INT ScrollY = CScrollManager::GetInstance()->GetScrollY();
 		RECT* tRect = selectedActor->GetRect();
-		Rectangle(hDC, tRect->left, tRect->top, tRect->right, tRect->bottom);
+		Rectangle(hDC, tRect->left + ScrollX, tRect->top + ScrollY, tRect->right + ScrollX, tRect->bottom + ScrollY);
 	}
 
 	SelectObject(hDC, oldPen);

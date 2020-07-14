@@ -68,4 +68,7 @@ protected:
 
     DWORD Timer = GetTickCount();
 
+    INT spriteFrameDelay = 1;
+    INT spriteIndexX = 0;
+    INT spriteIndexY = 0;
 };

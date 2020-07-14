@@ -145,12 +145,14 @@
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="BitmapManager.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="LineManager.h" />
+    <ClInclude Include="MyBitmap.h" />
     <ClInclude Include="ObjManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainApp.h" />
@@ -161,12 +163,15 @@
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="ScrollManager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="KeyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="BitmapManager.cpp" />
+    <ClCompile Include="MyBitmap.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -182,6 +187,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="ScrollManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

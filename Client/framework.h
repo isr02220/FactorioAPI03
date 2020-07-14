@@ -29,3 +29,5 @@ using namespace std;
 #include "CollisionManager.h"
 #include "KeyManager.h"
 #include "LineManager.h"
+#include "ScrollManager.h"
+#include "BitmapManager.h"

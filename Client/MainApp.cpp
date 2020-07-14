@@ -21,7 +21,14 @@ CMainApp::~CMainApp() {
 void CMainApp::Ready_MainApp() {
 	m_hDC = GetDC(g_hWnd);
 	m_mapScene.insert(map<SCENE_NUMBER, CScene*>::value_type(SCENE_MAIN, new CMainScene()));
-	
+	TCHAR szBuffer[128];
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"entity/character/bmp/hr-level1_idle.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-level1_idle");
+
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"entity/character/bmp/hr-level1_running.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-level1_running");
 	m_mapScene[SCENE_MAIN]->ReadyScene();
 }
 
