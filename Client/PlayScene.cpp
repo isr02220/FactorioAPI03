@@ -52,15 +52,7 @@ void CPlayScene::UpdateScene() {
 	if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction)) {
 		if (playerSelectedActor == nullptr) {
 			POSITION tPos = ObjManager->GetList(OBJ::MOUSE)->front()->GetPosition();
-			if (INT(tPos.x) % 50 < 25)
-				tPos.x = FLOAT(INT(tPos.x) - (INT(tPos.x) % 50));
-			else
-				tPos.x = FLOAT(INT(tPos.x) - (INT(tPos.x) % 50) + 50);
-			if (INT(tPos.y) % 50 < 25)
-				tPos.y = FLOAT(INT(tPos.y) - (INT(tPos.y) % 50));
-			else
-				tPos.y = FLOAT(INT(tPos.y) - (INT(tPos.y) % 50) + 50);
-			ObjManager->AddObject(CAbstractFactory<CEntity>::Create(tPos), OBJ::ENTITY);
+			ObjManager->AddObject(CAbstractFactory<CEntity>::Create(ToGridPos(tPos, 50)), OBJ::ENTITY);
 		}
 	}
 	if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction)) {
