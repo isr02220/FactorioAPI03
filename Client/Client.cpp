@@ -59,7 +59,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 DispatchMessage(&msg);
             }
         }
-        if (dwOldTime + 13 < GetTickCount()) {
+        if (dwOldTime + 10 < GetTickCount()) {
             mainApp.Update_MainApp();
             mainApp.LateUpdate_MainApp();
             mainApp.Render_MainApp();
