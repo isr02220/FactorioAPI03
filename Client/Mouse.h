@@ -17,5 +17,7 @@ public:
 
 private:
 	CActor* selectedActor = nullptr;
+public:
+	DIRECTION::DIR cursorDir = DIRECTION::DIR::NORTH;
 };
 

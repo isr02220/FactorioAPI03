@@ -23,8 +23,9 @@ void CTranportBelt::Ready_Object() {
 
 INT CTranportBelt::Update_Object() {
     info.position += (info.force * speed);
-    
-    spriteIndexY = (INT)walkingState.direction;
+
+    GetBeltConnect();
+
     CObj::Update_Rect_Object();
     if (dead) {
         return STATE_DEAD;
@@ -92,97 +93,7 @@ void CTranportBelt::OnCollision(CObj* _TargetObj) {
 
 void CTranportBelt::SetIndexY() {
     GetBeltConnect();
-    switch (walkingState.direction) {
-    case DIRECTION::DIR::NORTH: {
-        switch (tailBelt->GetWalkingState().direction) {
-        case DIRECTION::DIR::NORTH:
-            break;
-        case DIRECTION::DIR::EAST:
-            break;
-        case DIRECTION::DIR::SOUTH:
-            break;
-        case DIRECTION::DIR::WEST:
-            break;
-        default:
-            break;
-        }
-        break;
-    }
-    case DIRECTION::DIR::EAST:
-        spriteIndexY = 0;
-        break;
-    case DIRECTION::DIR::SOUTH:
-        spriteIndexY = 3;
-        break;
-    case DIRECTION::DIR::WEST:
-        spriteIndexY = 1;
-        break;
-    default:
-        break;
-    }
-    spriteIndexY = (INT)walkingState.direction;
-
 }
-
-void CTranportBelt::GetBeltConnect() {
-    POSITION pos;
-    headBelt = nullptr;
-    tailBelt = nullptr;
-    switch (walkingState.direction) {
-    case DIRECTION::DIR::NORTH: 
-        pos = POSITION(0.f, -64.f);
-        break;
-    case DIRECTION::DIR::EAST:
-        pos = POSITION(64.f, 0.f);
-        break;
-    case DIRECTION::DIR::SOUTH:
-        pos = POSITION(0.f, 64.f);
-        break;
-    case DIRECTION::DIR::WEST:
-        pos = POSITION(-64.f, 0.f);
-        break;
-    default:
-        break;
-    }
-    pos += info.position;
-    for (auto DstObj : *CObjManager::GetInstance()->GetList(OBJ::ENTITY)) {
-        if (pos.x >= DstObj->GetInfo()->position.x - (DstObj->GetInfo()->iCX >> 1) &&
-            pos.x <= DstObj->GetInfo()->position.x + (DstObj->GetInfo()->iCX >> 1) &&
-            pos.y >= DstObj->GetInfo()->position.y - (DstObj->GetInfo()->iCY >> 1) &&
-            pos.y <= DstObj->GetInfo()->position.y + (DstObj->GetInfo()->iCY >> 1)) {
-            headBelt = dynamic_cast<CTranportBelt*>(DstObj);
-            break;
-        }
-    }
-
-    switch (walkingState.direction) {
-    case DIRECTION::DIR::NORTH:
-        pos = POSITION(0.f, 64.f);
-        break;
-    case DIRECTION::DIR::EAST:
-        pos = POSITION(-64.f, 0.f);
-        break;
-    case DIRECTION::DIR::SOUTH:
-        pos = POSITION(0.f, -64.f);
-        break;
-    case DIRECTION::DIR::WEST:
-        pos = POSITION(64.f, 0.f);
-        break;
-    default:
-        break;
-    }
-    pos += info.position;
-    for (auto DstObj : *CObjManager::GetInstance()->GetList(OBJ::ENTITY)) {
-        if (pos.x >= DstObj->GetInfo()->position.x - (DstObj->GetInfo()->iCX >> 1) &&
-            pos.x <= DstObj->GetInfo()->position.x + (DstObj->GetInfo()->iCX >> 1) &&
-            pos.y >= DstObj->GetInfo()->position.y - (DstObj->GetInfo()->iCY >> 1) &&
-            pos.y <= DstObj->GetInfo()->position.y + (DstObj->GetInfo()->iCY >> 1)) {
-            tailBelt = dynamic_cast<CTranportBelt*>(DstObj);
-            break;
-        }
-    }
-}
-
 
 void CTranportBelt::GetBeltConnect() {
     POINT pt;
@@ -195,8 +106,8 @@ void CTranportBelt::GetBeltConnect() {
     CTranportBelt* tempPortBelt = nullptr;
     CTranportBelt* tempStarBelt = nullptr;
 
-    pt.x = info.position.x;
-    pt.y = info.position.y;
+    pt.x = (LONG)info.position.x;
+    pt.y = (LONG)info.position.y;
 
     pt.y -= 64;
     //pt.y += 64;
@@ -235,26 +146,155 @@ void CTranportBelt::GetBeltConnect() {
         tailBelt = tempTailBelt;
         portBelt = tempPortBelt;
         starBelt = tempStarBelt;
+        if (portBelt && starBelt) {
+            if (portBelt->GetWalkingState().direction == DIRECTION::DIR::EAST &&
+                starBelt->GetWalkingState().direction != DIRECTION::DIR::WEST)
+                spriteIndexY = 6;
+            else if (portBelt->GetWalkingState().direction != DIRECTION::DIR::EAST &&
+                starBelt->GetWalkingState().direction == DIRECTION::DIR::WEST) 
+                spriteIndexY = 4;
+            else 
+                spriteIndexY = 2;
+        }
+        else if (portBelt) {
+            if (portBelt->GetWalkingState().direction == DIRECTION::DIR::EAST)
+                spriteIndexY = 6;
+            else
+                spriteIndexY = 2;
+        }
+        else if (starBelt) {
+            if (starBelt->GetWalkingState().direction == DIRECTION::DIR::WEST)
+                spriteIndexY = 4;
+            else 
+                spriteIndexY = 2;
+        }
+        else {
+            spriteIndexY = 2;
+        }
         break;
     case DIRECTION::DIR::EAST:
         headBelt = tempStarBelt;
         tailBelt = tempPortBelt;
         portBelt = tempHeadBelt;
         starBelt = tempTailBelt;
+        if (portBelt && starBelt) {
+            if (portBelt->GetWalkingState().direction == DIRECTION::DIR::SOUTH &&
+                starBelt->GetWalkingState().direction != DIRECTION::DIR::NORTH)
+                spriteIndexY = 5;
+            else if (portBelt->GetWalkingState().direction != DIRECTION::DIR::SOUTH &&
+                starBelt->GetWalkingState().direction == DIRECTION::DIR::NORTH)
+                spriteIndexY = 8;
+            else
+                spriteIndexY = 0;
+        }
+        else if (portBelt) {
+            if (portBelt->GetWalkingState().direction == DIRECTION::DIR::SOUTH)
+                spriteIndexY = 5;
+            else
+                spriteIndexY = 0;
+        }
+        else if (starBelt) {
+            if (starBelt->GetWalkingState().direction == DIRECTION::DIR::NORTH)
+                spriteIndexY = 8;
+            else
+                spriteIndexY = 0;
+        }
+        else {
+            spriteIndexY = 0;
+        }
         break;     
     case DIRECTION::DIR::SOUTH:
         headBelt = tempTailBelt;
         tailBelt = tempHeadBelt;
         portBelt = tempStarBelt;
         starBelt = tempPortBelt;
+        if (portBelt && starBelt) {
+            if (portBelt->GetWalkingState().direction == DIRECTION::DIR::WEST &&
+                starBelt->GetWalkingState().direction != DIRECTION::DIR::EAST)
+                spriteIndexY = 9;
+            else if (portBelt->GetWalkingState().direction != DIRECTION::DIR::WEST &&
+                starBelt->GetWalkingState().direction == DIRECTION::DIR::EAST)
+                spriteIndexY = 11;
+            else
+                spriteIndexY = 3;
+        }
+        else if (portBelt) {
+            if (portBelt->GetWalkingState().direction == DIRECTION::DIR::WEST)
+                spriteIndexY = 9;
+            else
+                spriteIndexY = 3;
+        }
+        else if (starBelt) {
+            if (starBelt->GetWalkingState().direction == DIRECTION::DIR::EAST)
+                spriteIndexY = 11;
+            else
+                spriteIndexY = 3;
+        }
+        else {
+            spriteIndexY = 3;
+        }
         break;
     case DIRECTION::DIR::WEST:
         headBelt = tempPortBelt;
         tailBelt = tempStarBelt;
         portBelt = tempTailBelt;
         starBelt = tempHeadBelt;
+        if (portBelt && starBelt) {
+            if (portBelt->GetWalkingState().direction == DIRECTION::DIR::NORTH &&
+                starBelt->GetWalkingState().direction != DIRECTION::DIR::SOUTH)
+                spriteIndexY = 10;
+            else if (portBelt->GetWalkingState().direction != DIRECTION::DIR::NORTH &&
+                starBelt->GetWalkingState().direction == DIRECTION::DIR::SOUTH)
+                spriteIndexY = 7;
+            else
+                spriteIndexY = 1;
+        }
+        else if (portBelt) {
+            if (portBelt->GetWalkingState().direction == DIRECTION::DIR::NORTH)
+                spriteIndexY = 10;
+            else
+                spriteIndexY = 1;
+        }
+        else if (starBelt) {
+            if (starBelt->GetWalkingState().direction == DIRECTION::DIR::SOUTH)
+                spriteIndexY = 7;
+            else
+                spriteIndexY = 1;
+        }
+        else {
+            spriteIndexY = 1;
+        }
         break;
     default:
+        headBelt = tempHeadBelt;
+        tailBelt = tempTailBelt;
+        portBelt = tempPortBelt;
+        starBelt = tempStarBelt;
+        if (portBelt && starBelt) {
+            if (portBelt->GetWalkingState().direction == DIRECTION::DIR::EAST &&
+                starBelt->GetWalkingState().direction != DIRECTION::DIR::WEST)
+                spriteIndexY = 6;
+            else if (portBelt->GetWalkingState().direction != DIRECTION::DIR::EAST &&
+                starBelt->GetWalkingState().direction == DIRECTION::DIR::WEST)
+                spriteIndexY = 4;
+            else
+                spriteIndexY = 2;
+        }
+        else if (portBelt) {
+            if (portBelt->GetWalkingState().direction == DIRECTION::DIR::EAST)
+                spriteIndexY = 6;
+            else
+                spriteIndexY = 2;
+        }
+        else if (starBelt) {
+            if (starBelt->GetWalkingState().direction == DIRECTION::DIR::WEST)
+                spriteIndexY = 4;
+            else
+                spriteIndexY = 2;
+        }
+        else {
+            spriteIndexY = 2;
+        }
         break;
     }
 }

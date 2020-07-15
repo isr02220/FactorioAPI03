@@ -1,6 +1,8 @@
 #include "framework.h"
+#include "Mouse.h"
 #include "Player.h"
 #include "Entity.h"
+#include "TranportBelt.h"
 CPlayer::CPlayer() : CActor() {
     objectType = OBJ::PLAYER;
 }
@@ -16,6 +18,7 @@ CPlayer::~CPlayer() {
 void CPlayer::Ready_Object() {
     info.position.x = FLOAT(WINCX >> 1);
     info.position.y = FLOAT(WINCY >> 1);
+    playerMouse = dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front());
     info.iCX = 92;
     info.iCY = 116;
     speed = 7.f;
@@ -35,6 +38,69 @@ int CPlayer::Update_Object() {
         list<CObj*>* listEntity = CObjManager::GetInstance()->GetList(OBJ::ENTITY);
         for (auto entity : *listEntity) {
             dynamic_cast<CEntity*>(entity)->SetSpriteIndexX(0);
+        }
+    }
+
+    if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction))
+        if (selectedActor)
+            selectedActor->SetDead();
+
+    if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction)) {
+        if (selectedActor == nullptr) {
+            POSITION tPos = playerMouse->GetPosition();
+            CObj* tempObj = CAbstractFactory<CTranportBelt>::Create(ToGridPos(tPos, 64));
+            dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
+            CObjManager::GetInstance()->AddObject(tempObj, OBJ::ENTITY);
+        }
+        else if(selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
+            selectedActor->SetDead();
+            POSITION tPos = playerMouse->GetPosition();
+            CObj* tempObj = CAbstractFactory<CTranportBelt>::Create(ToGridPos(tPos, 64));
+            dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
+            CObjManager::GetInstance()->AddObject(tempObj, OBJ::ENTITY);
+        }
+    }
+    if (CKeyManager::GetInstance()->OnPress(KEY::Rotate)) {
+        if (selectedActor) {
+
+            WALKINGSTATE tWalkingStat = selectedActor->GetWalkingState();
+            switch (tWalkingStat.direction) {
+            case DIRECTION::DIR::NORTH:
+                tWalkingStat.direction = DIRECTION::DIR::EAST;
+                break;
+            case DIRECTION::DIR::EAST:
+                tWalkingStat.direction = DIRECTION::DIR::SOUTH;
+                break;
+            case DIRECTION::DIR::SOUTH:
+                tWalkingStat.direction = DIRECTION::DIR::WEST;
+                break;
+            case DIRECTION::DIR::WEST:
+                tWalkingStat.direction = DIRECTION::DIR::NORTH;
+                break;
+            default:
+                tWalkingStat.direction = DIRECTION::DIR::NORTH;
+                break;
+            }
+            selectedActor->SetWalkingState(tWalkingStat);
+        }
+        else {
+            switch (playerMouse->cursorDir) {
+            case DIRECTION::DIR::NORTH:
+                playerMouse->cursorDir = DIRECTION::DIR::EAST;
+                break;
+            case DIRECTION::DIR::EAST:
+                playerMouse->cursorDir = DIRECTION::DIR::SOUTH;
+                break;
+            case DIRECTION::DIR::SOUTH:
+                playerMouse->cursorDir = DIRECTION::DIR::WEST;
+                break;
+            case DIRECTION::DIR::WEST:
+                playerMouse->cursorDir = DIRECTION::DIR::NORTH;
+                break;
+            default:
+                playerMouse->cursorDir = DIRECTION::DIR::NORTH;
+                break;
+            }
         }
     }
     return STATE_NO_EVENT;

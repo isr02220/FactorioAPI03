@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+class CMouse;
 class CPlayer : public CActor {
 public:
 	CPlayer();
@@ -16,5 +17,7 @@ public:
 public:
 	void Move();
 private:
+	CMouse* playerMouse;
+	
 };
 

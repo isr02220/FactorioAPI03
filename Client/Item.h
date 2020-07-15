@@ -7,7 +7,9 @@ public:
 public:
 
 protected:
+	TCHAR name[32];
 	ITEM::GROUP group;
+
 	DWORD timer = GetTickCount();
 };
 

@@ -25,6 +25,7 @@ using namespace std;
 #include "Define.h"
 #include "Struct.h"
 #include "Function.h"
+#include "AbstractFactory.h"
 #include "ObjManager.h"
 #include "CollisionManager.h"
 #include "KeyManager.h"

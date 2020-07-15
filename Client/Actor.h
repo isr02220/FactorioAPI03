@@ -33,6 +33,7 @@ public:
     INT           GetMaxHp()          { return MaxHP        ; }
     
     void SetWalkingState  (const WALKINGSTATE & _walkingState ) { walkingState  = _walkingState ; }
+    void SetWalkingState  (const DIRECTION::DIR & _direction  ) { walkingState.direction  = _direction; }
     void SetMiningState   (const MININGSTATE  & _miningState  ) { miningState   = _miningState  ; }
     void SetShootingState (const SHOOTINGSTATE& _shootingState) { shootingState = _shootingState; }
     void SetPickingState  (const PICKINGSTATE & _pickingState ) { pickingState  = _pickingState ; }
