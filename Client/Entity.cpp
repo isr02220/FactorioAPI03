@@ -29,7 +29,7 @@ INT CEntity::Update_Object() {
     if (dead) {
         return STATE_DEAD;
     }
-
+    
     return STATE_NO_EVENT;
 }
 

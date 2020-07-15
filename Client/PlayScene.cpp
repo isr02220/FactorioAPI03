@@ -34,8 +34,6 @@ void CPlayScene::ReadyScene() {
 
 		ObjManager->AddObject(CAbstractFactory<CEntity>::Create(300.f, 300.f), OBJ::ENTITY);
 
-		m_bg = new CBackground;
-		m_bg->Ready_Object();
 		SetActive(true);
 	}
 }
@@ -46,23 +44,27 @@ void CPlayScene::UpdateScene() {
 	DeadLineBottom = FLOAT(WINCY - DeadLineMargin) - spanY;
 	DeadLineRight  = FLOAT(WINCX - DeadLineMargin) - spanX;
 
-	if (CKeyManager::GetInstance()->OnPress(KEY::Rotate) )
-		DebugRectDraw = !DebugRectDraw;
-
 	CActor* playerSelectedActor = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetSelectedActor();
+
+	if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction) )
+		if (playerSelectedActor)
+			playerSelectedActor->SetDead();
+
 	if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction)) {
 		if (playerSelectedActor == nullptr) {
 			POSITION tPos = ObjManager->GetList(OBJ::MOUSE)->front()->GetPosition();
 			ObjManager->AddObject(CAbstractFactory<CTranportBelt>::Create(ToGridPos(tPos, 64)), OBJ::ENTITY);
 		}
 	}
-	if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction)) {
-		if (playerSelectedActor)
-			playerSelectedActor->SetDead();
+	if (CKeyManager::GetInstance()->OnPress(KEY::Rotate)) {
+		if (playerSelectedActor) {
+			WALKINGSTATE tWalkingStat = playerSelectedActor->GetWalkingState();
+			tWalkingStat.direction = DIRECTION::DIR((INT(tWalkingStat.direction) + 1));
+			playerSelectedActor->SetWalkingState(tWalkingStat);
+		}
 	}
 
 
-	m_bg->Update_Object();
 	ObjManager->UpdateObjectManager();
 }
 
@@ -88,7 +90,6 @@ void CPlayScene::RenderScene(HDC hDC) {
 
 	Rectangle(hMemDC, 0, 0, WINCX, WINCY);
 	Rectangle(hMemDC, DeadLineMargin, DeadLineMargin, WINCX - DeadLineMargin, WINCY - DeadLineMargin);
-	m_bg->Render_Object(hMemDC);
 	for (size_t i = 0; i < OBJ::END; i++) {
 		for (auto pObj : *ObjManager->GetList((OBJ::TYPE)i)) {
 			//pObj->IncreasePos(spanX, -spanY);

@@ -20,6 +20,7 @@ typedef struct tagPosition {
 	tagPosition() : x(0), y(0) {}
 	tagPosition(const FLOAT& _x, const FLOAT& _y) : x(_x), y(_y) {}
 	tagPosition operator+(const tagPosition& dst) { return tagPosition(x + dst.x, y + dst.y); }
+	tagPosition operator+=(const tagPosition& dst) { x += dst.x; y += dst.y; return *this; }
 	tagPosition operator+=(const tagForce& dst) { x += dst.x; y += dst.y; return *this; }
 	tagPosition operator-(const tagPosition& dst) { return tagPosition(x - dst.x, y - dst.y); }
 	tagPosition operator*(const FLOAT& dst) { return tagPosition(x * dst, y * dst); }
