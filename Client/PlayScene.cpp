@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "Player.h"
 #include "Entity.h"
-#include "TranportBelt.h"
+#include "TransportBelt.h"
 #include "Mouse.h"
 #include "CollisionManager.h"
 #include "ObjManager.h"
@@ -44,7 +44,7 @@ void CPlayScene::UpdateScene() {
 	DeadLineBottom = FLOAT(WINCY - DeadLineMargin) - spanY;
 	DeadLineRight  = FLOAT(WINCX - DeadLineMargin) - spanX;
 
-	if (++CTranportBelt::beltSpriteIndexX >= 16 * CTranportBelt::beltSpriteFrameDelay) CTranportBelt::beltSpriteIndexX = 0;
+	if (++CTransportBelt::beltSpriteIndexX >= 16 * CTransportBelt::beltSpriteFrameDelay) CTransportBelt::beltSpriteIndexX = 0;
 	//ObjManager->GetList(OBJ::ENTITY)->sort([](CObj* obj1, CObj* obj2) {
 	//	CTranportBelt* belt = dynamic_cast<CTranportBelt*>(obj1);
 	//	if (belt->headBelt == nullptr || belt->headBelt->tailBelt != belt)
@@ -69,8 +69,7 @@ void CPlayScene::UpdateScene() {
 	//	else {
 	//		iterBelt++;
 	//	}
-	//}
-
+	//} 
 	ObjManager->UpdateObjectManager();
 }
 
@@ -94,11 +93,7 @@ void CPlayScene::RenderScene(HDC hDC) {
 	oldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
 	////////////////
 	CTileManager::GetInstance()->Render(hMemDC);
-	for (size_t i = 0; i < OBJ::END; i++) {
-		for (auto pObj : *ObjManager->GetList((OBJ::TYPE)i)) {
-			pObj->Render_Object(hMemDC);
-		}
-	}
+	ObjManager->RenderObjectManager(hMemDC);
 	INT playerScore = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetScore();
 	TCHAR szBuffer[32];
 	wsprintf(szBuffer, L"Player Score : %d", playerScore);

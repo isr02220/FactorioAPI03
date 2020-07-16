@@ -146,6 +146,7 @@
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="BeltManager.h" />
     <ClInclude Include="BitmapManager.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="ItemManager.h" />
@@ -169,11 +170,12 @@
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileManager.h" />
-    <ClInclude Include="TranportBelt.h" />
+    <ClInclude Include="TransportBelt.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="BeltManager.cpp" />
     <ClCompile Include="BitmapManager.cpp" />
     <ClCompile Include="MyBitmap.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -194,7 +196,7 @@
     <ClCompile Include="ScrollManager.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileManager.cpp" />
-    <ClCompile Include="TranportBelt.cpp" />
+    <ClCompile Include="TransportBelt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

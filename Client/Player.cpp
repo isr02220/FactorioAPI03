@@ -2,7 +2,7 @@
 #include "Mouse.h"
 #include "Player.h"
 #include "Entity.h"
-#include "TranportBelt.h"
+#include "TransportBelt.h"
 CPlayer::CPlayer() : CActor() {
     objectType = OBJ::PLAYER;
 }
@@ -16,11 +16,13 @@ CPlayer::~CPlayer() {
 }
 
 void CPlayer::Ready_Object() {
-    info.position.x = FLOAT(WINCX >> 1);
-    info.position.y = FLOAT(WINCY >> 1);
+    info.position.x = FLOAT(GRIDCX * (GRIDX >> 1));
+    info.position.y = FLOAT(GRIDCY * (GRIDY >> 1));
     playerMouse = dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front());
-    info.iCX = 92;
-    info.iCY = 116;
+    info.iCX = 64;
+    info.iCY = 64;
+    info.CCX = 92;
+    info.CCY = 116;
     speed = 7.f;
     info.force.x = 0.f;
     info.force.y = 0.f;
@@ -32,75 +34,15 @@ int CPlayer::Update_Object() {
     //m_tInfo.position.y += m_fSpeed * forceY;
     info.position += (info.force * speed);
     CObj::Update_Rect_Object();
-    Move();
+    if (g_hWnd == GetForegroundWindow()) {
+        Move();
+        if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction)) PlaceEntity();
 
-    if (CKeyManager::GetInstance()->Press(KEY::Inventory)) {
-        list<CObj*>* listEntity = CObjManager::GetInstance()->GetList(OBJ::ENTITY);
-        for (auto entity : *listEntity) {
-            dynamic_cast<CEntity*>(entity)->SetSpriteIndexX(0);
-        }
-    }
+        if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction)) UnPlaceEntity();
 
-    if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction))
-        if (selectedActor)
-            selectedActor->SetDead();
-
-    if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction)) {
-        if (selectedActor == nullptr) {
-            POSITION tPos = playerMouse->GetPosition();
-            CObj* tempObj = CAbstractFactory<CTranportBelt>::Create(ToGridPos(tPos, 64));
-            dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
-            CObjManager::GetInstance()->AddObject(tempObj, OBJ::ENTITY);
-        }
-        else if(selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
-            selectedActor->SetDead();
-            POSITION tPos = playerMouse->GetPosition();
-            CObj* tempObj = CAbstractFactory<CTranportBelt>::Create(ToGridPos(tPos, 64));
-            dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
-            CObjManager::GetInstance()->AddObject(tempObj, OBJ::ENTITY);
-        }
-    }
-    if (CKeyManager::GetInstance()->OnPress(KEY::Rotate)) {
-        if (selectedActor) {
-
-            WALKINGSTATE tWalkingStat = selectedActor->GetWalkingState();
-            switch (tWalkingStat.direction) {
-            case DIRECTION::DIR::NORTH:
-                tWalkingStat.direction = DIRECTION::DIR::EAST;
-                break;
-            case DIRECTION::DIR::EAST:
-                tWalkingStat.direction = DIRECTION::DIR::SOUTH;
-                break;
-            case DIRECTION::DIR::SOUTH:
-                tWalkingStat.direction = DIRECTION::DIR::WEST;
-                break;
-            case DIRECTION::DIR::WEST:
-                tWalkingStat.direction = DIRECTION::DIR::NORTH;
-                break;
-            default:
-                tWalkingStat.direction = DIRECTION::DIR::NORTH;
-                break;
-            }
-            selectedActor->SetWalkingState(tWalkingStat);
-        }
-        else {
-            switch (playerMouse->cursorDir) {
-            case DIRECTION::DIR::NORTH:
-                playerMouse->cursorDir = DIRECTION::DIR::EAST;
-                break;
-            case DIRECTION::DIR::EAST:
-                playerMouse->cursorDir = DIRECTION::DIR::SOUTH;
-                break;
-            case DIRECTION::DIR::SOUTH:
-                playerMouse->cursorDir = DIRECTION::DIR::WEST;
-                break;
-            case DIRECTION::DIR::WEST:
-                playerMouse->cursorDir = DIRECTION::DIR::NORTH;
-                break;
-            default:
-                playerMouse->cursorDir = DIRECTION::DIR::NORTH;
-                break;
-            }
+        if (CKeyManager::GetInstance()->OnPress(KEY::Rotate)) {
+            if (selectedActor) RotateEntity();
+            else               RotateCursor();
         }
     }
     return STATE_NO_EVENT;
@@ -115,8 +57,8 @@ void CPlayer::Render_Object(HDC hDC) {
         spriteFrameDelay = 4;
         HDC hMemDC;
         if (walkingState.walking) {
-            info.iCX = 88;
-            info.iCY = 132;
+            info.CCX = 88;
+            info.CCY = 132;
             spriteFrameDelay = 2;
             hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-level1_running");
 
@@ -127,8 +69,8 @@ void CPlayer::Render_Object(HDC hDC) {
             //MessageBox(g_hWnd, szBuffer, L" ", MB_OK);
         }
         else {
-            info.iCX = 92;
-            info.iCY = 116;
+            info.CCX = 92;
+            info.CCY = 116;
             spriteFrameDelay = 4;
             hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-level1_idle");
         }
@@ -139,15 +81,15 @@ void CPlayer::Render_Object(HDC hDC) {
         INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
         INT iScrollY = (INT)CScrollManager::GetInstance()->GetScrollY();
         GdiTransparentBlt(hDC,
-            rect.left + iScrollX,
-            rect.top  + iScrollY,
-            info.iCX,
-            info.iCY,
+            cRect.left + iScrollX,
+            cRect.top  + iScrollY,
+            info.CCX,
+            info.CCY,
             hMemDC,
-            spriteIndexX / spriteFrameDelay * info.iCX,
-            spriteIndexY * info.iCY,
-            info.iCX,
-            info.iCY,
+            spriteIndexX / spriteFrameDelay * info.CCX,
+            spriteIndexY * info.CCY,
+            info.CCX,
+            info.CCY,
             RGB(255, 0, 255));
 
         //HPEN   hPen = CreatePen(PS_SOLID, 1, strokeColor);
@@ -219,4 +161,67 @@ void CPlayer::Move() {
 
     CScrollManager::GetInstance()->SetScroll((info.position * -1.f) + POSITION(WINCX >> 1, WINCY >> 1));
     info.force = moveForce;
+}
+
+void CPlayer::PlaceEntity() { 
+    if (selectedActor == nullptr) {
+        POSITION tPos = playerMouse->GetPosition();
+        CObj* tempObj = CAbstractFactory<CTransportBelt>::Create(ToGridPos(tPos, 64));
+        dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
+        CObjManager::GetInstance()->InsertObject(tempObj, OBJ::ENTITY);
+    }
+    else if (selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
+        selectedActor->SetDead();
+        POSITION tPos = playerMouse->GetPosition();
+        CObj* tempObj = CAbstractFactory<CTransportBelt>::Create(ToGridPos(tPos, 64));
+        dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
+        CObjManager::GetInstance()->InsertObject(tempObj, OBJ::ENTITY);
+    }
+}
+
+void CPlayer::UnPlaceEntity() {
+    if (selectedActor)
+        selectedActor->SetDead();
+}
+
+void CPlayer::RotateEntity() {
+    WALKINGSTATE tWalkingStat = selectedActor->GetWalkingState();
+    switch (tWalkingStat.direction) {
+    case DIRECTION::DIR::NORTH:
+        tWalkingStat.direction = DIRECTION::DIR::EAST;
+        break;
+    case DIRECTION::DIR::EAST:
+        tWalkingStat.direction = DIRECTION::DIR::SOUTH;
+        break;
+    case DIRECTION::DIR::SOUTH:
+        tWalkingStat.direction = DIRECTION::DIR::WEST;
+        break;
+    case DIRECTION::DIR::WEST:
+        tWalkingStat.direction = DIRECTION::DIR::NORTH;
+        break;
+    default:
+        tWalkingStat.direction = DIRECTION::DIR::NORTH;
+        break;
+    }
+    selectedActor->SetWalkingState(tWalkingStat);
+}
+
+void CPlayer::RotateCursor() {
+    switch (playerMouse->cursorDir) {
+    case DIRECTION::DIR::NORTH:
+        playerMouse->cursorDir = DIRECTION::DIR::EAST;
+        break;
+    case DIRECTION::DIR::EAST:
+        playerMouse->cursorDir = DIRECTION::DIR::SOUTH;
+        break;
+    case DIRECTION::DIR::SOUTH:
+        playerMouse->cursorDir = DIRECTION::DIR::WEST;
+        break;
+    case DIRECTION::DIR::WEST:
+        playerMouse->cursorDir = DIRECTION::DIR::NORTH;
+        break;
+    default:
+        playerMouse->cursorDir = DIRECTION::DIR::NORTH;
+        break;
+    }
 }

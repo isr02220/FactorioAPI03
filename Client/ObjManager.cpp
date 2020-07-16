@@ -5,6 +5,9 @@
 CObjManager* CObjManager::m_pInstance = nullptr;
 
 CObjManager::CObjManager() {
+	for (int i = 0; i < OBJ::END; ++i) {
+		vecObj[i].resize(GRIDX * GRIDY, nullptr);
+	}
 }
 
 
@@ -14,6 +17,10 @@ CObjManager::~CObjManager() {
 
 void CObjManager::AddObject(CObj* pObj, OBJ::TYPE eID) {
 	m_listObj[eID].emplace_back(pObj);
+}
+
+void CObjManager::InsertObject(CObj* pObj, OBJ::TYPE eID) {
+	vecObj[eID][((INT)pObj->GetPosition().y / GRIDCY * GRIDY) + ((INT)pObj->GetPosition().x / GRIDCX)] = pObj;
 }
 
 void CObjManager::UpdateObjectManager() {
@@ -30,6 +37,17 @@ void CObjManager::UpdateObjectManager() {
 				++iter;
 		}
 	}
+
+	for (size_t i = 0; i < OBJ::END; ++i) {
+		for (auto& Object : vecObj[i]) {
+			if (Object == nullptr)
+				continue;
+			int iEvent = Object->Update_Object();
+			if (STATE_DEAD == iEvent) {
+				Safe_Delete(Object);
+			}
+		}
+	}
 }
 
 void CObjManager::LateUpdateObjectManager() {
@@ -37,16 +55,40 @@ void CObjManager::LateUpdateObjectManager() {
 		for (auto& pObj : m_listObj[i]) {
 			pObj->LateUpdate_Object();
 		}
+		for (auto& pObj : vecObj[i]) {
+			if (pObj == nullptr)
+				continue;
+			pObj->LateUpdate_Object();
+		}
 	}
+	CCollisionManager::CollisionBelt(m_listObj[OBJ::PLAYER]);
 	CCollisionManager::CollisionSphere(m_listObj[OBJ::PLAYER], m_listObj[OBJ::ITEM]);
 	CCollisionManager::CollisionRectEX(m_listObj[OBJ::PLAYER], m_listObj[OBJ::ENTITY]);
 	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), m_listObj[OBJ::PLAYER]);
 	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), m_listObj[OBJ::ENTITY]);
+	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), vecObj[OBJ::ENTITY]);
 	
 }
 
 void CObjManager::RenderObjectManager(HDC hDC) {
+
+	INT scrollX = -CScrollManager::GetInstance()->GetScrollX();
+	INT scrollY = -CScrollManager::GetInstance()->GetScrollY();
+	INT startX = scrollX / GRIDCX;
+	INT startY = scrollY / GRIDCY;
+	INT endX = (scrollX + WINCX) / GRIDCX;
+	INT endY = (scrollY + WINCY) / GRIDCY;
+
 	for (int i = 0; i < OBJ::END; ++i) {
+
+		for (INT y = startY; y < endY; y++) {
+			for (INT x = startX; x < endX; x++) {
+				if (vecObj[i][(y * GRIDX) + x] == nullptr)
+					continue;
+				vecObj[i][(y * GRIDX) + x]->Render_Object(hDC);
+			}
+		}
+
 		for (auto& pObj : m_listObj[i]) {
 			pObj->Render_Object(hDC);
 		}
@@ -58,5 +100,10 @@ void CObjManager::ReleaseObjectManager() {
 		for (auto& pObj : m_listObj[i])
 			Safe_Delete(pObj);
 		m_listObj[i].clear();
+
+		for (auto& pObj : vecObj[i])
+			Safe_Delete(pObj);
+		vecObj[i].clear();
+		vecObj[i].shrink_to_fit();
 	}
 }

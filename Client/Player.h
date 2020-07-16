@@ -16,6 +16,10 @@ public:
 
 public:
 	void Move();
+	void PlaceEntity();
+	void UnPlaceEntity();
+	void RotateEntity();
+	void RotateCursor();
 private:
 	CMouse* playerMouse;
 	

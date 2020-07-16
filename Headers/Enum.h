@@ -1,8 +1,8 @@
 #pragma once
 namespace OBJ {
 	enum TYPE{
-		PLAYER,
 		ENTITY,
+		PLAYER,
 		ITEM,
 		MONSTER,
 		MOUSE,

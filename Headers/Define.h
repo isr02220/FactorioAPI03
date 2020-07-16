@@ -12,10 +12,15 @@ const FLOAT radian = 180 / pi;
 #define SCENE_MAIN 0
 #define SCENE_PLAY 1
 
+#define GRIDCX 64
+#define GRIDCY 64
+#define GRIDX 100
+#define GRIDY 100
+
 #define TILECX 256
 #define TILECY 256
-#define TILEX 20
-#define TILEY 20
+#define TILEX 100
+#define TILEY 100
 
 #define KEY_CHECK(keyId) if (GetAsyncKeyState(keyMap[KEY::ID::##keyId]) & 0x8000) m_dwKey |= KEY::##keyId
 #define GRAPHICS_DIR L"C:/Program Files (x86)/Steam/steamapps/common/Factorio/data/base/graphics/"

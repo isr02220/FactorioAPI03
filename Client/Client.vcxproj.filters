@@ -51,6 +51,9 @@
     <Filter Include="02.Obj\Tile">
       <UniqueIdentifier>{166ff03f-64ab-4e50-a130-d7570f9eaa73}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Obj\Actor\Entity\TransportBelt">
+      <UniqueIdentifier>{22f90e19-7a5b-492a-bab4-864473a0b0f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -125,14 +128,17 @@
     <ClInclude Include="BitmapManager.h">
       <Filter>01.Manager</Filter>
     </ClInclude>
-    <ClInclude Include="TranportBelt.h">
-      <Filter>02.Obj\Actor\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>02.Obj\Tile</Filter>
     </ClInclude>
     <ClInclude Include="TileManager.h">
       <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="BeltManager.h">
+      <Filter>02.Obj\Actor\Entity\TransportBelt</Filter>
+    </ClInclude>
+    <ClInclude Include="TransportBelt.h">
+      <Filter>02.Obj\Actor\Entity\TransportBelt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -204,14 +210,17 @@
     <ClCompile Include="BitmapManager.cpp">
       <Filter>01.Manager</Filter>
     </ClCompile>
-    <ClCompile Include="TranportBelt.cpp">
-      <Filter>02.Obj\Actor\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>02.Obj\Tile</Filter>
     </ClCompile>
     <ClCompile Include="TileManager.cpp">
       <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="BeltManager.cpp">
+      <Filter>02.Obj\Actor\Entity\TransportBelt</Filter>
+    </ClCompile>
+    <ClCompile Include="TransportBelt.cpp">
+      <Filter>02.Obj\Actor\Entity\TransportBelt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

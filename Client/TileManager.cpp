@@ -36,8 +36,19 @@ void CTileManager::Update()
 
 void CTileManager::Render(HDC hDC)
 {
-	for (auto& pTile : m_vecTile)
-		pTile->Render_Object(hDC); 
+	POINT pt = {};
+	RECT rc = {};
+	rc.left = -TILECX;
+	rc.right = WINCX + TILECX;
+	rc.top = -TILECY;
+	rc.bottom = WINCX + TILECY;
+	for (auto& pTile : m_vecTile) {
+		pt.x = (INT)pTile->GetPosition().x + CScrollManager::GetInstance()->GetScrollX();
+		pt.y = (INT)pTile->GetPosition().y + CScrollManager::GetInstance()->GetScrollY();
+
+		if (PtInRect(&rc, pt))
+			pTile->Render_Object(hDC);
+	}
 }
 
 void CTileManager::Release()

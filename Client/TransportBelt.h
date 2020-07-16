@@ -1,10 +1,10 @@
 #pragma once
 #include "Entity.h"
-class CTranportBelt :
+class CTransportBelt :
     public CEntity {
 public:
-    CTranportBelt();
-    virtual ~CTranportBelt();
+    CTransportBelt();
+    virtual ~CTransportBelt();
 
     static INT beltSpriteIndexX;
     static INT beltSpriteFrameDelay;
@@ -20,10 +20,10 @@ public:
     void GetBeltConnect();
 
 public:
-    CTranportBelt* headBelt = nullptr;
-    CTranportBelt* tailBelt = nullptr;
-    CTranportBelt* portBelt = nullptr;
-    CTranportBelt* starBelt = nullptr;
+    CTransportBelt* headBelt = nullptr;
+    CTransportBelt* tailBelt = nullptr;
+    CTransportBelt* portBelt = nullptr;
+    CTransportBelt* starBelt = nullptr;
 protected:
     INT headSpriteIndex = 0;
     INT tailSpriteIndex = 0;
