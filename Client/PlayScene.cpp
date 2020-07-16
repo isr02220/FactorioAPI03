@@ -42,6 +42,33 @@ void CPlayScene::UpdateScene() {
 	DeadLineBottom = FLOAT(WINCY - DeadLineMargin) - spanY;
 	DeadLineRight  = FLOAT(WINCX - DeadLineMargin) - spanX;
 
+	if (++CTranportBelt::beltSpriteIndexX >= 16 * CTranportBelt::beltSpriteFrameDelay) CTranportBelt::beltSpriteIndexX = 0;
+	//ObjManager->GetList(OBJ::ENTITY)->sort([](CObj* obj1, CObj* obj2) {
+	//	CTranportBelt* belt = dynamic_cast<CTranportBelt*>(obj1);
+	//	if (belt->headBelt == nullptr || belt->headBelt->tailBelt != belt)
+	//		true;
+	//	else
+	//		false;
+	//	});
+	//auto iterBelt = ObjManager->GetList(OBJ::ENTITY)->begin();
+	//for (; iterBelt != ObjManager->GetList(OBJ::ENTITY)->end();) {
+	//	CTranportBelt* belt = dynamic_cast<CTranportBelt*>(*iterBelt);
+	//	if (belt->headBelt == nullptr || belt->headBelt->tailBelt != belt) {
+	//		CObj* tempObj = *iterBelt;
+	//		iterBelt = ObjManager->GetList(OBJ::ENTITY)->erase(iterBelt);
+	//		if(iterBelt != ObjManager->GetList(OBJ::ENTITY)->end())
+	//			ObjManager->GetList(OBJ::ENTITY)->emplace_back(tempObj);
+	//		else {
+	//			ObjManager->GetList(OBJ::ENTITY)->emplace_back(tempObj);
+	//			break;
+	//		}
+	//		
+	//	}
+	//	else {
+	//		iterBelt++;
+	//	}
+	//}
+
 	ObjManager->UpdateObjectManager();
 }
 

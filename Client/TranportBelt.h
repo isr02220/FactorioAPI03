@@ -6,6 +6,8 @@ public:
     CTranportBelt();
     virtual ~CTranportBelt();
 
+    static INT beltSpriteIndexX;
+    static INT beltSpriteFrameDelay;
 public:
     virtual void Ready_Object() override;
     virtual INT  Update_Object() override;
@@ -17,10 +19,15 @@ public:
     void SetIndexY();
     void GetBeltConnect();
 
-private:
+public:
     CTranportBelt* headBelt = nullptr;
     CTranportBelt* tailBelt = nullptr;
     CTranportBelt* portBelt = nullptr;
     CTranportBelt* starBelt = nullptr;
+protected:
+    INT headSpriteIndex = 0;
+    INT tailSpriteIndex = 0;
+    INT HeadTailDistX = 0;
+    INT HeadTailDistY = 0;
 };
 
