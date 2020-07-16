@@ -14,8 +14,8 @@ const FLOAT radian = 180 / pi;
 
 #define GRIDCX 64
 #define GRIDCY 64
-#define GRIDX 100
-#define GRIDY 100
+#define GRIDX 200
+#define GRIDY 200
 
 #define TILECX 256
 #define TILECY 256

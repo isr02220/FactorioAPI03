@@ -78,7 +78,10 @@ void CObjManager::RenderObjectManager(HDC hDC) {
 	INT startY = scrollY / GRIDCY;
 	INT endX = (scrollX + WINCX) / GRIDCX;
 	INT endY = (scrollY + WINCY) / GRIDCY;
-
+	if (startX < 0) startX = 0;
+	if (startY < 0) startY = 0;
+	if (endX > GRIDX) endX = GRIDX;
+	if (endY > GRIDY) endY = GRIDY;
 	for (int i = 0; i < OBJ::END; ++i) {
 
 		for (INT y = startY; y < endY; y++) {
