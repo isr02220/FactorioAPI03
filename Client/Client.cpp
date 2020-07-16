@@ -50,6 +50,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
     msg.message = WM_NULL;
     DWORD dwOldTime = GetTickCount();
+    DWORD dwOldRenderTime = GetTickCount();
 
     // 기본 메시지 루프입니다:
     while (msg.message != WM_QUIT) {
@@ -59,11 +60,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 DispatchMessage(&msg);
             }
         }
-        if (dwOldTime + 10 < GetTickCount()) {
+        if (dwOldTime + 13 < GetTickCount()) {
             mainApp.Update_MainApp();
             mainApp.LateUpdate_MainApp();
-            mainApp.Render_MainApp();
             dwOldTime = GetTickCount();
+        }
+        if (dwOldRenderTime + 13 < GetTickCount()) {
+            if(dwOldRenderTime + 26 > GetTickCount())
+                mainApp.Render_MainApp();
+            dwOldRenderTime = GetTickCount();
         }
     }
 

@@ -167,6 +167,8 @@
     <ClInclude Include="ScrollManager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="KeyManager.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileManager.h" />
     <ClInclude Include="TranportBelt.h" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +192,8 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ScrollManager.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileManager.cpp" />
     <ClCompile Include="TranportBelt.cpp" />
   </ItemGroup>
   <ItemGroup>

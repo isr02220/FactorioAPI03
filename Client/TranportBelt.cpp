@@ -2,7 +2,7 @@
 #include "Entity.h"
 
 INT CTranportBelt::beltSpriteIndexX = 0;
-INT CTranportBelt::beltSpriteFrameDelay = 2;
+INT CTranportBelt::beltSpriteFrameDelay = 1;
 
 CTranportBelt::CTranportBelt() : CEntity() {
     objectType = OBJ::ENTITY;
@@ -27,7 +27,6 @@ void CTranportBelt::Ready_Object() {
 INT CTranportBelt::Update_Object() {
     info.position += (info.force * speed);
 
-    GetBeltConnect();
     CObj::Update_Rect_Object();
     if (dead) {
         return STATE_DEAD;
@@ -45,9 +44,9 @@ void CTranportBelt::Render_Object(HDC hDC) {
     if (isVisible) {
         HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt");
 
-
         if (nullptr == hMemDC)
             return;
+        GetBeltConnect();
         INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
         INT iScrollY = (INT)CScrollManager::GetInstance()->GetScrollY();
 
@@ -117,6 +116,7 @@ void CTranportBelt::Render_Object(HDC hDC) {
                 RGB(255, 0, 255));
         }
     }
+
 }
 
 void CTranportBelt::Release_Object() {
@@ -185,6 +185,8 @@ void CTranportBelt::GetBeltConnect() {
 
         tailSpriteIndex = 12;
         headSpriteIndex = 17;
+        HeadTailDistX = 0;
+        HeadTailDistY = -64;
 
         if (tailBelt && tailBelt->walkingState.direction == walkingState.direction) {
             spriteIndexY = 2;
@@ -223,8 +225,6 @@ void CTranportBelt::GetBeltConnect() {
         else {
             spriteIndexY = 2;
         }
-        HeadTailDistX = 0;
-        HeadTailDistY = -64;
         break;
     case DIRECTION::DIR::EAST:
         headBelt = tempStarBelt;

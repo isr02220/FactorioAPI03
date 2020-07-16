@@ -112,7 +112,7 @@ void CPlayer::LateUpdate_Object() {
 void CPlayer::Render_Object(HDC hDC) {
     CObj::Update_Rect_Object();
     if (isVisible) {
-        INT spriteFrameDelay = 4;
+        spriteFrameDelay = 4;
         HDC hMemDC;
         if (walkingState.walking) {
             info.iCX = 88;
@@ -133,7 +133,6 @@ void CPlayer::Render_Object(HDC hDC) {
             hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-level1_idle");
         }
 
-        if (++spriteIndexX >= 22 * spriteFrameDelay) spriteIndexX = 0;
 
         if (nullptr == hMemDC)
             return;
@@ -216,6 +215,8 @@ void CPlayer::Move() {
         spriteIndexY = (INT)walkingState.direction;
     }
     //CScrollManager::GetInstance()->SetScroll(moveForce * speed * -1.f);
+    if (++spriteIndexX >= 22 * spriteFrameDelay) spriteIndexX = 0;
+
     CScrollManager::GetInstance()->SetScroll((info.position * -1.f) + POSITION(WINCX >> 1, WINCY >> 1));
     info.force = moveForce;
 }

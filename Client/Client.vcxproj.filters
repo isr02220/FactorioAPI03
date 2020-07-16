@@ -48,6 +48,9 @@
     <Filter Include="10.Bitmap">
       <UniqueIdentifier>{ddd72ce5-f787-4fd2-8490-088e087145b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Obj\Tile">
+      <UniqueIdentifier>{166ff03f-64ab-4e50-a130-d7570f9eaa73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -125,6 +128,12 @@
     <ClInclude Include="TranportBelt.h">
       <Filter>02.Obj\Actor\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>02.Obj\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="TileManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -197,6 +206,12 @@
     </ClCompile>
     <ClCompile Include="TranportBelt.cpp">
       <Filter>02.Obj\Actor\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>02.Obj\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="TileManager.cpp">
+      <Filter>01.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

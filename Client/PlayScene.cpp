@@ -7,6 +7,8 @@
 #include "ObjManager.h"
 #include "AbstractFactory.h"
 #include "PlayScene.h"
+#include "Tile.h"
+#include "TileManager.h"
 
 extern FLOAT spanX = 0.f;
 extern FLOAT spanY = 0.f;
@@ -26,7 +28,7 @@ void CPlayScene::ReadyScene() {
 	if (!GetActive()) {
 		m_dwOldTime = GetTickCount();
 		m_dwOldTime = GetTickCount();
-
+		CTileManager::GetInstance()->Ready();
 		ObjManager->AddObject(CAbstractFactory<CMouse>::Create(), OBJ::MOUSE);
 
 		ObjManager->AddObject(CAbstractFactory<CPlayer>::Create(), OBJ::PLAYER);
@@ -91,9 +93,7 @@ void CPlayScene::RenderScene(HDC hDC) {
 	hBitmap = CreateCompatibleBitmap(hDC, WINCX, WINCY);
 	oldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
 	////////////////
-
-	Rectangle(hMemDC, 0, 0, WINCX, WINCY);
-	Rectangle(hMemDC, DeadLineMargin, DeadLineMargin, WINCX - DeadLineMargin, WINCY - DeadLineMargin);
+	CTileManager::GetInstance()->Render(hMemDC);
 	for (size_t i = 0; i < OBJ::END; i++) {
 		for (auto pObj : *ObjManager->GetList((OBJ::TYPE)i)) {
 			pObj->Render_Object(hMemDC);
