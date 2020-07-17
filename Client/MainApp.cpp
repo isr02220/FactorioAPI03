@@ -23,56 +23,34 @@ void CMainApp::Ready_MainApp() {
 	m_mapScene.insert(map<SCENE_NUMBER, CScene*>::value_type(SCENE_MAIN, new CMainScene()));
 	TCHAR szBuffer[200];
 	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"entity/character/bmp/hr-level1_idle.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-level1_idle");
 
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"entity/character/bmp/hr-level1_running.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-level1_running");
+	INSERT_TEXTURE(L"entity/character/bmp/hr-level1_idle.bmp", L"hr-level1_idle");
+
+	INSERT_TEXTURE(L"entity/character/bmp/hr-level1_running.bmp", L"hr-level1_running");
 	
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"entity/character/bmp/hr-level1_mining_tool.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-level1_mining_tool");
+	INSERT_TEXTURE(L"entity/character/bmp/hr-level1_mining_tool.bmp", L"hr-level1_mining_tool");
 
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"entity/transport-belt/bmp/hr-transport-belt.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-transport-belt");
+	INSERT_TEXTURE(L"entity/transport-belt/bmp/hr-transport-belt.bmp", L"hr-transport-belt");
 
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"entity/transport-belt/bmp/hr-transport-belt-placable.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-transport-belt-placable");
+	INSERT_TEXTURE(L"entity/transport-belt/bmp/hr-transport-belt-placable.bmp", L"hr-transport-belt-placable");
 
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"entity/transport-belt/bmp/hr-transport-belt-unplacable.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-transport-belt-unplacable");
+	INSERT_TEXTURE(L"entity/transport-belt/bmp/hr-transport-belt-unplacable.bmp", L"hr-transport-belt-unplacable");
 
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"bmp/GUI_Panel.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_Panel");
+	INSERT_TEXTURE(L"bmp/GUI_Panel.bmp", L"GUI_Panel");
 
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"bmp/GUI_Inventory.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_Inventory");
+	INSERT_TEXTURE(L"bmp/GUI_Inventory.bmp", L"GUI_Inventory");
 
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"bmp/GUI_InventoryMerged.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_InventoryMerged");
-	
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"bmp/GUI_QuickSlot.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_QuickSlot");
-	
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"bmp/GUI_ProgressBarPanel.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_ProgressBarPanel");
-	
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"bmp/GUI_ProgressBarProgress.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_ProgressBarProgress");
+	INSERT_TEXTURE(L"bmp/GUI_InventoryMerged.bmp", L"GUI_InventoryMerged");
 
-	lstrcpy(szBuffer, GRAPHICS_DIR);
-	lstrcat(szBuffer, L"bmp/dirt.bmp");
-	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"dirt");
+	INSERT_TEXTURE(L"bmp/GUI_QuickSlot.bmp", L"GUI_QuickSlot");
+
+	INSERT_TEXTURE(L"bmp/GUI_ProgressBarPanel.bmp", L"GUI_ProgressBarPanel");
+
+	INSERT_TEXTURE(L"bmp/GUI_ProgressBarProgress.bmp", L"GUI_ProgressBarProgress");
+
+	INSERT_TEXTURE(L"bmp/hr-coal.bmp", L"hr-coal");
+
+	INSERT_TEXTURE(L"bmp/dirt.bmp", L"dirt");
 
 	m_mapScene[SCENE_MAIN]->ReadyScene();
 

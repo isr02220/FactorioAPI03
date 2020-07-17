@@ -5,6 +5,7 @@ CResourceOre::CResourceOre() : CActor() {
 	objectType = OBJ::RESOURCEORE;
 	strokeColor = RGB(128, 128, 255);
 	fillColor = RGB(0, 255, 255);
+	storage = 1;
 }
 
 CResourceOre::~CResourceOre() {
@@ -12,14 +13,15 @@ CResourceOre::~CResourceOre() {
 }
 
 void CResourceOre::Ready_Object() {
-	info.iCX = 32;
-	info.iCY = 32;
+	info.iCX = 64;
+	info.iCY = 64;
 	info.CCX = 128;
 	info.CCY = 128;
 	speed = 3.f;
 	MaxHP = 10;
 	HP = MaxHP;
 	spriteIndexX = rand() % 8;
+	storage = 100;
 }
 
 INT CResourceOre::Update_Object() {
@@ -37,7 +39,7 @@ void CResourceOre::LateUpdate_Object() {
 void CResourceOre::Render_Object(HDC hDC) {
 	CObj::Update_Rect_Object();
 	if (isVisible) {
-		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt");
+		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-coal");
 		if (nullptr == hMemDC)
 			return;
 		INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
@@ -69,7 +71,7 @@ void CResourceOre::OnCollision(CObj* _TargetObj) {
 void CResourceOre::Gather() {
 	if (storage) {
 		storage--;
-		spriteIndexY = 8 - (storage / 100);
+		spriteIndexY = 7 - (storage / 100);
 		if (spriteIndexY < 0) spriteIndexY = 0;
 	}
 	else {

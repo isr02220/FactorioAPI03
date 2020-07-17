@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "TransportBelt.h"
 #include "ResourceOre.h"
+#include "CoalOre.h"
 #include "Mouse.h"
 #include "CollisionManager.h"
 #include "ObjManager.h"
@@ -34,8 +35,12 @@ void CPlayScene::ReadyScene() {
 
 		ObjManager->AddObject(CAbstractFactory<CPlayer>::Create(), OBJ::PLAYER);
 		ObjManager->GetPlayer()->SetName(L"사막여우");
+		POSITION playerPos = ToGridPos(ObjManager->GetPlayer()->GetPosition(), GRIDCX);
+		
+		for (size_t i = 0; i < 8; i++) 
+			for (size_t j = 0; j < 8; j++)
+				ObjManager->AddObject(CAbstractFactory<CCoalOre>::Create(playerPos.x + GRIDCX * j, playerPos.y + GRIDCX * i), OBJ::RESOURCEORE);
 
-		ObjManager->AddObject(CAbstractFactory<CResourceOre>::Create(ObjManager->GetPlayer()->GetPosition().x, ObjManager->GetPlayer()->GetPosition().y), OBJ::RESOURCEORE);
 
 		SetActive(true);
 	}
@@ -48,31 +53,7 @@ void CPlayScene::UpdateScene() {
 	DeadLineRight  = FLOAT(WINCX - DeadLineMargin) - spanX;
 
 	if (++CTransportBelt::beltSpriteIndexX >= 16 * CTransportBelt::beltSpriteFrameDelay) CTransportBelt::beltSpriteIndexX = 0;
-	//ObjManager->GetList(OBJ::ENTITY)->sort([](CObj* obj1, CObj* obj2) {
-	//	CTranportBelt* belt = dynamic_cast<CTranportBelt*>(obj1);
-	//	if (belt->headBelt == nullptr || belt->headBelt->tailBelt != belt)
-	//		true;
-	//	else
-	//		false;
-	//	});
-	//auto iterBelt = ObjManager->GetList(OBJ::ENTITY)->begin();
-	//for (; iterBelt != ObjManager->GetList(OBJ::ENTITY)->end();) {
-	//	CTranportBelt* belt = dynamic_cast<CTranportBelt*>(*iterBelt);
-	//	if (belt->headBelt == nullptr || belt->headBelt->tailBelt != belt) {
-	//		CObj* tempObj = *iterBelt;
-	//		iterBelt = ObjManager->GetList(OBJ::ENTITY)->erase(iterBelt);
-	//		if(iterBelt != ObjManager->GetList(OBJ::ENTITY)->end())
-	//			ObjManager->GetList(OBJ::ENTITY)->emplace_back(tempObj);
-	//		else {
-	//			ObjManager->GetList(OBJ::ENTITY)->emplace_back(tempObj);
-	//			break;
-	//		}
-	//		
-	//	}
-	//	else {
-	//		iterBelt++;
-	//	}
-	//} 
+
 	ObjManager->UpdateObjectManager();
 }
 
@@ -101,52 +82,6 @@ void CPlayScene::RenderScene(HDC hDC) {
 	TCHAR szBuffer[32];
 	wsprintf(szBuffer, L"Player Score : %d", playerScore);
 	TextOut(hMemDC, (WINCX >> 1) - 50, 50, szBuffer, lstrlen(szBuffer));
-
-	/*wsprintf(szBuffer, L"목숨");
-	for (INT i = 0; i < dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetLife(); i++) {
-		RECT rc = {};
-		rc.left = 100 + i * 70;
-		rc.right = 150 + i * 70;
-		rc.top = 100;
-		rc.bottom = 150;
-		Rectangle(hMemDC, rc.left, rc.top, rc.right, rc.bottom);
-		rc.top = 115;
-		DrawText(hMemDC, szBuffer, lstrlen(szBuffer), &rc, DT_VCENTER | DT_CENTER | DT_NOCLIP);
-	}*/
-
-	// Player HP bar
-	{
-		COLORREF bColor = RGB(250, 250, 0);	// 브러쉬 색
-		HBRUSH hBrush = CreateSolidBrush(bColor);
-		HBRUSH  oldBrush = (HBRUSH)SelectObject(hMemDC, hBrush);
-		RECT rcMaxHp = { 10,100, 10 + dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetMaxHp(),130 };
-		Rectangle(hMemDC, rcMaxHp.left, rcMaxHp.top, rcMaxHp.right, rcMaxHp.bottom);
-		SelectObject(hMemDC, oldBrush);
-		DeleteObject(hBrush);
-	}
-	{
-		COLORREF bColor = RGB(250, 0, 0);	// 브러쉬 색
-		HBRUSH hBrush = CreateSolidBrush(bColor);
-		HBRUSH  oldBrush = (HBRUSH)SelectObject(hMemDC, hBrush);
-		RECT rcHp = { 10,100, 10 + dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetHP(),130 };
-		Rectangle(hMemDC, rcHp.left, rcHp.top, rcHp.right, rcHp.bottom);
-		SelectObject(hMemDC, oldBrush);
-		DeleteObject(hBrush);
-	}
-
-	//
-	//wsprintf(szBuffer, L"폭탄");
-	//for (INT i = 0; i < dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetBomb(); i++) {
-	//	RECT rc = {};
-	//	rc.left = (WINCX >> 1) + 100 + i * 70;
-	//	rc.right = (WINCX >> 1) + 150 + i * 70;
-	//	rc.top = 100;
-	//	rc.bottom = 150;
-	//	Rectangle(hMemDC, rc.left, rc.top, rc.right, rc.bottom);
-	//	rc.top = 120;
-	//	DrawText(hMemDC, szBuffer, lstrlen(szBuffer), &rc, DT_VCENTER | DT_CENTER | DT_NOCLIP);
-	//}
-
 
 	m_iFPS++;
 

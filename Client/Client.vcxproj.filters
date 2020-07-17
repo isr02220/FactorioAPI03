@@ -164,6 +164,9 @@
     <ClInclude Include="ResourceOre.h">
       <Filter>02.Obj\Actor\ResourceOre</Filter>
     </ClInclude>
+    <ClInclude Include="CoalOre.h">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -262,6 +265,9 @@
       <Filter>02.Obj\UI</Filter>
     </ClCompile>
     <ClCompile Include="ResourceOre.cpp">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClCompile>
+    <ClCompile Include="CoalOre.cpp">
       <Filter>02.Obj\Actor\ResourceOre</Filter>
     </ClCompile>
   </ItemGroup>

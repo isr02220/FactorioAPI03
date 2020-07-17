@@ -6,6 +6,7 @@ INT CTransportBelt::beltSpriteFrameDelay = 1;
 
 CTransportBelt::CTransportBelt() : CEntity() {
     objectType = OBJ::BELT;
+	lstrcpy(info.name, L"TransportBelt");
     strokeColor = RGB(128, 128, 255);
     fillColor = RGB(0, 255, 255);
 }

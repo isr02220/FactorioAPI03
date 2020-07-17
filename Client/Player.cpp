@@ -56,7 +56,9 @@ int CPlayer::Update_Object() {
     if (g_hWnd == GetForegroundWindow()) {
 
         Move();
+
         if(ProgressBarUI != nullptr) ProgressBarUI->SetVisible(false);
+        miningState.mining = false;
 
         if (CKeyManager::GetInstance()->OnPress(KEY::Inventory))
             inventoryUI->SetVisible(!inventoryUI->GetVisible());
@@ -78,7 +80,6 @@ void CPlayer::LateUpdate_Object() {
 }
 
 void CPlayer::Render_Object(HDC hDC) {
-    CObj::Update_Rect_Object();
     if (isVisible) {
         spriteFrameDelay = 4;
         HDC hMemDC;
@@ -93,12 +94,6 @@ void CPlayer::Render_Object(HDC hDC) {
             info.CCY = 132;
             spriteFrameDelay = 2;
             hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-level1_running");
-
-            //TCHAR szBuffer[64];
-            //wsprintf(szBuffer, L"Player 위치 : %d, %d", info.position.x, info.position.y);
-            //MessageBox(g_hWnd, szBuffer, L" ", MB_OK);
-            //wsprintf(szBuffer, L"스크롤 위치 : %d, %d", CScrollManager::GetInstance()->GetScrollX(), CScrollManager::GetInstance()->GetScrollY());
-            //MessageBox(g_hWnd, szBuffer, L" ", MB_OK);
         }
         else {
             info.CCX = 92;
@@ -106,7 +101,8 @@ void CPlayer::Render_Object(HDC hDC) {
             spriteFrameDelay = 4;
             hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-level1_idle");
         }
-
+        CObj::Update_Rect_Object();
+        spriteIndexY = (INT)walkingState.direction;
 
         if (nullptr == hMemDC)
             return;
@@ -118,7 +114,7 @@ void CPlayer::Render_Object(HDC hDC) {
             info.CCX,
             info.CCY,
             hMemDC,
-            spriteIndexX / spriteFrameDelay * info.CCX,
+            (spriteIndexX / spriteFrameDelay) * info.CCX,
             spriteIndexY * info.CCY,
             info.CCX,
             info.CCY,
@@ -186,7 +182,6 @@ void CPlayer::Move() {
             walkingState.direction = DIRECTION::DIR::SOUTHWEST;
         else if (moveForce.x < 0.f && moveForce.y < 0.f)
             walkingState.direction = DIRECTION::DIR::NORTHWEST;
-        spriteIndexY = (INT)walkingState.direction;
     }
     //CScrollManager::GetInstance()->SetScroll(moveForce * speed * -1.f);
     if (++spriteIndexX >= 22 * spriteFrameDelay) spriteIndexX = 0;
@@ -229,14 +224,7 @@ void CPlayer::SecondaryAction() {
 }
 
 void CPlayer::PlaceEntity() { 
-    if (selectedActor == nullptr) {
-        POSITION tPos = playerMouse->GetPosition();
-        CObj* tempObj = CAbstractFactory<CTransportBelt>::Create(ToGridPos(tPos, 64));
-        dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
-        CObjManager::GetInstance()->InsertObject(tempObj, OBJ::BELT);
-    }
-    else if (selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
-        selectedActor->SetDead();
+    if (selectedActor == nullptr || selectedActor->GetObjectType() != OBJ::BELT || !lstrcmp(selectedActor->GetName(), L"TransportBelt") && selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
         POSITION tPos = playerMouse->GetPosition();
         CObj* tempObj = CAbstractFactory<CTransportBelt>::Create(ToGridPos(tPos, 64));
         dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
@@ -255,9 +243,34 @@ void CPlayer::UnPlaceEntity() {
 void CPlayer::GatherResource() {
     ProgressBarUI->SetVisible(true);
     miningState.mining = true;
-    if (dynamic_cast<CProgressBar*>(ProgressBarUI)->IncreaseProgress(0.05f)) {
-        if (++spriteIndexX >= 26 * spriteFrameDelay) spriteIndexX = 0;
+    FLOAT dx = selectedActor->GetPosition().x - info.position.x;
+    FLOAT dy = selectedActor->GetPosition().y - info.position.y;
+    FLOAT rad = atan2f(dy, dx);
+    if (rad < 0) rad += 2.f * pi;
+
+    if (rad > 0 && rad <= pi / 8.f) 
+        walkingState.direction = DIRECTION::DIR::EAST;
+    else if (rad > pi / 8.f && rad <= pi / 8.f * 3.f)
+        walkingState.direction = DIRECTION::DIR::SOUTHEAST;
+    else if (rad > pi / 8.f * 3.f && rad <= pi / 8.f * 5.f)
+        walkingState.direction = DIRECTION::DIR::SOUTH;
+    else if (rad > pi / 8.f * 5.f && rad <= pi / 8.f * 7.f)
+        walkingState.direction = DIRECTION::DIR::SOUTHWEST;
+    else if (rad > pi / 8.f * 7.f && rad <= pi / 8.f * 9.f)
+        walkingState.direction = DIRECTION::DIR::WEST;
+    else if (rad > pi / 8.f * 9.f && rad <= pi / 8.f * 11.f)
+        walkingState.direction = DIRECTION::DIR::NORTHWEST;
+    else if (rad > pi / 8.f * 11.f && rad <= pi / 8.f * 13.f)
+        walkingState.direction = DIRECTION::DIR::NORTH;
+    else if (rad > pi / 8.f * 13.f && rad <= pi / 8.f * 15.f)
+        walkingState.direction = DIRECTION::DIR::NORTHEAST;
+    else
+        walkingState.direction = DIRECTION::DIR::EAST;
+
+    if (dynamic_cast<CProgressBar*>(ProgressBarUI)->IncreaseProgress(1.f / 110.f )) {
         miningState.mining = false;
+        dynamic_cast<CResourceOre*>(selectedActor)->Gather();
+        spriteIndexX = 0;
     }
 }
 

@@ -148,6 +148,7 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="BeltManager.h" />
     <ClInclude Include="BitmapManager.h" />
+    <ClInclude Include="CoalOre.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="InventoryUI.h" />
     <ClInclude Include="ItemManager.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BeltManager.cpp" />
     <ClCompile Include="BitmapManager.cpp" />
+    <ClCompile Include="CoalOre.cpp" />
     <ClCompile Include="InventoryUI.cpp" />
     <ClCompile Include="MyBitmap.cpp" />
     <ClCompile Include="Entity.cpp" />
