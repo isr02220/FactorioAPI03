@@ -1,6 +1,7 @@
 #pragma once
 #include "Obj.h"
 class CActor;
+class CUI;
 class CMouse final :
 	public CObj {
 public:
@@ -17,6 +18,7 @@ public:
 
 private:
 	CActor* selectedActor = nullptr;
+	CUI* selectedUI = nullptr;
 public:
 	DIRECTION::DIR cursorDir = DIRECTION::DIR::NORTH;
 };

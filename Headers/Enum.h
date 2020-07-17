@@ -1,10 +1,13 @@
 #pragma once
 namespace OBJ {
 	enum TYPE{
+		BELT,
+		BELTEND,
 		ENTITY,
 		PLAYER,
 		ITEM,
 		MONSTER,
+		UI,
 		MOUSE,
 		END
 	};

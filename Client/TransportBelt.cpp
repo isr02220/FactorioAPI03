@@ -5,7 +5,7 @@ INT CTransportBelt::beltSpriteIndexX = 0;
 INT CTransportBelt::beltSpriteFrameDelay = 1;
 
 CTransportBelt::CTransportBelt() : CEntity() {
-    objectType = OBJ::ENTITY;
+    objectType = OBJ::BELT;
     strokeColor = RGB(128, 128, 255);
     fillColor = RGB(0, 255, 255);
 }
@@ -61,32 +61,7 @@ void CTransportBelt::Render_Object(HDC hDC) {
             info.CCX,
             info.CCY,
             RGB(255, 0, 255));
-        if (headBelt == nullptr) {
-            GdiTransparentBlt(hDC,
-                cRect.left + iScrollX + HeadTailDistX,
-                cRect.top + iScrollY + HeadTailDistY,
-                info.CCX,
-                info.CCY,
-                hMemDC,
-                beltSpriteIndexX / beltSpriteFrameDelay * info.CCX,
-                headSpriteIndex * info.CCY,
-                info.CCX,
-                info.CCY,
-                RGB(255, 0, 255));
-        }
-        else if (headBelt->tailBelt != this) {
-            GdiTransparentBlt(hDC,
-                cRect.left + iScrollX + HeadTailDistX,
-                cRect.top + iScrollY + HeadTailDistY,
-                info.CCX,
-                info.CCY,
-                hMemDC,
-                beltSpriteIndexX / beltSpriteFrameDelay * info.CCX,
-                headSpriteIndex * info.CCY,
-                info.CCX,
-                info.CCY,
-                RGB(255, 0, 255));
-        }
+
         if (tailBelt == nullptr) {
             GdiTransparentBlt(hDC,
                 cRect.left + iScrollX - HeadTailDistX,
@@ -117,7 +92,7 @@ void CTransportBelt::SetIndexY() {
 }
 
 void CTransportBelt::GetBeltConnect() {
-    vector<CObj*>* beltVec = CObjManager::GetInstance()->GetVector(OBJ::ENTITY);
+    vector<CObj*>* beltVec = CObjManager::GetInstance()->GetVector(OBJ::BELT);
     INT thisIndex = ((INT)info.position.y / GRIDCY * GRIDX) + ((INT)info.position.x / GRIDCX);
 	CTransportBelt* tempHeadBelt = dynamic_cast<CTransportBelt*>((*beltVec)[thisIndex - GRIDX]);
 	CTransportBelt* tempTailBelt = dynamic_cast<CTransportBelt*>((*beltVec)[thisIndex + GRIDX]);

@@ -30,6 +30,7 @@ public:
 		return info.name;
 	}
 	RECT* GetRect() { return &rect; }
+	RECT* GetCRect() { return &cRect; }
 	INFO* GetInfo() { return &info; }
 	POSITION GetPosition() { return POSITION(info.position); }
 	OBJ::TYPE GetObjectType() { return objectType; }

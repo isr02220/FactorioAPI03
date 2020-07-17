@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "ObjManager.h"
+#include "TransportBelt.h"
 #include "Obj.h"
 
 CObjManager* CObjManager::m_pInstance = nullptr;
@@ -51,6 +52,12 @@ void CObjManager::UpdateObjectManager() {
 }
 
 void CObjManager::LateUpdateObjectManager() {
+	CCollisionManager::CollisionBelt(m_listObj[OBJ::PLAYER]);
+	CCollisionManager::CollisionSphere(m_listObj[OBJ::PLAYER], m_listObj[OBJ::ITEM]);
+	CCollisionManager::CollisionRectEX(m_listObj[OBJ::PLAYER], m_listObj[OBJ::BELT]);
+	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), m_listObj[OBJ::PLAYER]);
+	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), vecObj[OBJ::BELT]);
+
 	for (int i = 0; i < OBJ::END; ++i) {
 		for (auto& pObj : m_listObj[i]) {
 			pObj->LateUpdate_Object();
@@ -61,13 +68,6 @@ void CObjManager::LateUpdateObjectManager() {
 			pObj->LateUpdate_Object();
 		}
 	}
-	CCollisionManager::CollisionBelt(m_listObj[OBJ::PLAYER]);
-	CCollisionManager::CollisionSphere(m_listObj[OBJ::PLAYER], m_listObj[OBJ::ITEM]);
-	CCollisionManager::CollisionRectEX(m_listObj[OBJ::PLAYER], m_listObj[OBJ::ENTITY]);
-	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), m_listObj[OBJ::PLAYER]);
-	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), m_listObj[OBJ::ENTITY]);
-	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), vecObj[OBJ::ENTITY]);
-	
 }
 
 void CObjManager::RenderObjectManager(HDC hDC) {
@@ -86,9 +86,30 @@ void CObjManager::RenderObjectManager(HDC hDC) {
 
 		for (INT y = startY; y < endY; y++) {
 			for (INT x = startX; x < endX; x++) {
-				if (vecObj[i][(y * GRIDX) + x] == nullptr)
-					continue;
-				vecObj[i][(y * GRIDX) + x]->Render_Object(hDC);
+				if (i == OBJ::BELTEND) {
+					if (vecObj[i-1][(y * GRIDX) + x] == nullptr)
+						continue;
+					CTransportBelt* tempBelt = dynamic_cast<CTransportBelt*>(vecObj[i - 1][(y * GRIDX) + x]);
+					if (tempBelt->headBelt == nullptr || tempBelt->headBelt->tailBelt != tempBelt) {
+						HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt");
+						GdiTransparentBlt(hDC,
+							tempBelt->GetCRect()->left - scrollX + tempBelt->HeadTailDistX,
+							tempBelt->GetCRect()->top - scrollY + tempBelt->HeadTailDistY,
+							tempBelt->GetInfo()->CCX,
+							tempBelt->GetInfo()->CCY,
+							hMemDC,
+							CTransportBelt::beltSpriteIndexX / CTransportBelt::beltSpriteFrameDelay * tempBelt->GetInfo()->CCX,
+							tempBelt->headSpriteIndex * tempBelt->GetInfo()->CCY,
+							tempBelt->GetInfo()->CCX,
+							tempBelt->GetInfo()->CCY,
+							RGB(255, 0, 255));
+					}
+				}
+				else {
+					if (vecObj[i][(y * GRIDX) + x] == nullptr)
+						continue;
+					vecObj[i][(y * GRIDX) + x]->Render_Object(hDC);
+				}
 			}
 		}
 

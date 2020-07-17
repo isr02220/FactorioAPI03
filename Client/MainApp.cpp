@@ -35,6 +35,22 @@ void CMainApp::Ready_MainApp() {
 	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-transport-belt");
 
 	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"bmp/GUI_Panel.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_Panel");
+
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"bmp/GUI_Inventory.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_Inventory");
+
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"bmp/GUI_InventoryMerged.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_InventoryMerged");
+	
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"bmp/GUI_QuickSlot.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_QuickSlot");
+
+	lstrcpy(szBuffer, GRAPHICS_DIR);
 	lstrcat(szBuffer, L"bmp/dirt.bmp");
 	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"dirt");
 

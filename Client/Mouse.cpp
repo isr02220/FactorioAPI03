@@ -1,6 +1,7 @@
 #include "Obj.h"
 #include "Mouse.h"
 #include "Player.h"
+#include "UI.h"
 CMouse::CMouse() {
 	objectType = OBJ::MOUSE;
 }
@@ -24,11 +25,24 @@ int CMouse::Update_Object() {
 	info.position.x = FLOAT(pt.x);
 	info.position.y = FLOAT(pt.y);
 	selectedActor = nullptr;
+	selectedUI = nullptr;
 	dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->UpdateSelected(selectedActor);
+	dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->UpdateSelectedUI(selectedUI);
 	return 0;
 }
 
 void CMouse::LateUpdate_Object() {
+	POINT pt = {};
+	GetCursorPos(&pt);
+	ScreenToClient(g_hWnd, &pt);
+	for (auto ui : *CObjManager::GetInstance()->GetList(OBJ::UI)) {
+		if (PtInRect(ui->GetRect(), pt) && dynamic_cast<CUI*>(ui)->GetVisible()) {
+			selectedUI = dynamic_cast<CUI*>(ui);
+			selectedActor = nullptr;
+			dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->UpdateSelected(selectedActor);
+			dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->UpdateSelectedUI(selectedUI);
+		}
+	}
 }
 
 void CMouse::Render_Object(HDC hDC) {
@@ -53,6 +67,10 @@ void CMouse::Render_Object(HDC hDC) {
 		RECT* tRect = selectedActor->GetRect();
 		Rectangle(hDC, tRect->left + ScrollX, tRect->top + ScrollY, tRect->right + ScrollX, tRect->bottom + ScrollY);
 	}
+	else if (selectedUI) {
+		RECT * tRect = selectedUI->GetRect();
+		Rectangle(hDC, tRect->left, tRect->top, tRect->right, tRect->bottom);
+	}
 
 	SelectObject(hDC, oldPen);
 	SelectObject(hDC, oldBrush);
@@ -65,7 +83,7 @@ void CMouse::Release_Object() {
 
 void CMouse::OnCollision(CObj* _TargetObj) {
 	selectedActor = dynamic_cast<CActor*>(_TargetObj);
-	if (selectedActor) {
+	if (selectedActor && selectedUI == nullptr) {
 		dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->UpdateSelected(selectedActor);
 	}
 }

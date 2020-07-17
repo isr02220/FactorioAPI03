@@ -54,6 +54,9 @@
     <Filter Include="02.Obj\Actor\Entity\TransportBelt">
       <UniqueIdentifier>{22f90e19-7a5b-492a-bab4-864473a0b0f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Obj\UI">
+      <UniqueIdentifier>{63eca2ff-c218-4f52-9682-54e8a3e79389}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -140,6 +143,18 @@
     <ClInclude Include="TransportBelt.h">
       <Filter>02.Obj\Actor\Entity\TransportBelt</Filter>
     </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="QuickSlotUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -221,6 +236,18 @@
     </ClCompile>
     <ClCompile Include="TransportBelt.cpp">
       <Filter>02.Obj\Actor\Entity\TransportBelt</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="QuickSlotUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>01.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

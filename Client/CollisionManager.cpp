@@ -45,7 +45,7 @@ void CCollisionManager::CollisionBelt(list<CObj*>& rSrcList) {
 	INT thisIndex = 0;
 	DIRECTION::DIR beltDir;
 	DIRECTION::DIR tailDir;
-	vector<CObj*>* beltVec = CObjManager::GetInstance()->GetVector(OBJ::ENTITY);
+	vector<CObj*>* beltVec = CObjManager::GetInstance()->GetVector(OBJ::BELT);
 	for (auto SrcObj : rSrcList) {
 		INT thisIndex = ((INT)SrcObj->GetPosition().y / GRIDCY * GRIDX + 1) + ((INT)SrcObj->GetPosition().x / GRIDCX - 1);
 		if ((*beltVec)[thisIndex] == nullptr)

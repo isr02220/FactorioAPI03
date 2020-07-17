@@ -149,6 +149,7 @@
     <ClInclude Include="BeltManager.h" />
     <ClInclude Include="BitmapManager.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="InventoryUI.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Client.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Obj.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="QuickSlotUI.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ScrollManager.h" />
@@ -171,12 +173,15 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileManager.h" />
     <ClInclude Include="TransportBelt.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="UIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BeltManager.cpp" />
     <ClCompile Include="BitmapManager.cpp" />
+    <ClCompile Include="InventoryUI.cpp" />
     <ClCompile Include="MyBitmap.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="ItemManager.cpp" />
@@ -192,11 +197,14 @@
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="QuickSlotUI.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ScrollManager.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileManager.cpp" />
     <ClCompile Include="TransportBelt.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

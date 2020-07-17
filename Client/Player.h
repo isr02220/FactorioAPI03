@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+class CUI;
 class CMouse;
 class CPlayer : public CActor {
 public:
@@ -20,8 +21,12 @@ public:
 	void UnPlaceEntity();
 	void RotateEntity();
 	void RotateCursor();
+	void UpdateSelectedUI(CUI* _targetUI);
 private:
 	CMouse* playerMouse;
+	CUI* selectedUI;
+	CUI* inventoryUI;
+	CUI* QuickSlotUI;
 	
 };
 

@@ -2,6 +2,8 @@
 #include "Mouse.h"
 #include "Player.h"
 #include "Entity.h"
+#include "UI.h"
+#include "InventoryUI.h"
 #include "TransportBelt.h"
 CPlayer::CPlayer() : CActor() {
     objectType = OBJ::PLAYER;
@@ -18,6 +20,9 @@ CPlayer::~CPlayer() {
 void CPlayer::Ready_Object() {
     info.position.x = FLOAT(GRIDCX * (GRIDX >> 1));
     info.position.y = FLOAT(GRIDCY * (GRIDY >> 1));
+    CObj* tempUi = CAbstractFactory<CInventoryUI>::Create(WINCX >> 2, WINCY >> 1);
+    CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
+    inventoryUI = dynamic_cast<CUI*>(tempUi);
     playerMouse = dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front());
     info.iCX = 64;
     info.iCY = 64;
@@ -36,11 +41,14 @@ int CPlayer::Update_Object() {
     CObj::Update_Rect_Object();
     if (g_hWnd == GetForegroundWindow()) {
         Move();
-        if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction)) PlaceEntity();
+        if (CKeyManager::GetInstance()->OnPress(KEY::Inventory))
+            inventoryUI->SetVisible(!inventoryUI->GetVisible());
+                
+        if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction) && selectedUI == nullptr) PlaceEntity();
 
-        if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction)) UnPlaceEntity();
+        if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction) && selectedUI == nullptr) UnPlaceEntity();
 
-        if (CKeyManager::GetInstance()->OnPress(KEY::Rotate)) {
+        if (CKeyManager::GetInstance()->OnPress(KEY::Rotate) && selectedUI == nullptr) {
             if (selectedActor) RotateEntity();
             else               RotateCursor();
         }
@@ -168,14 +176,14 @@ void CPlayer::PlaceEntity() {
         POSITION tPos = playerMouse->GetPosition();
         CObj* tempObj = CAbstractFactory<CTransportBelt>::Create(ToGridPos(tPos, 64));
         dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
-        CObjManager::GetInstance()->InsertObject(tempObj, OBJ::ENTITY);
+        CObjManager::GetInstance()->InsertObject(tempObj, OBJ::BELT);
     }
     else if (selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
         selectedActor->SetDead();
         POSITION tPos = playerMouse->GetPosition();
         CObj* tempObj = CAbstractFactory<CTransportBelt>::Create(ToGridPos(tPos, 64));
         dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
-        CObjManager::GetInstance()->InsertObject(tempObj, OBJ::ENTITY);
+        CObjManager::GetInstance()->InsertObject(tempObj, OBJ::BELT);
     }
 }
 
@@ -224,4 +232,8 @@ void CPlayer::RotateCursor() {
         playerMouse->cursorDir = DIRECTION::DIR::NORTH;
         break;
     }
+}
+
+void CPlayer::UpdateSelectedUI(CUI* _targetUI) {
+        selectedUI = _targetUI;
 }

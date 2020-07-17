@@ -24,10 +24,10 @@ public:
     CTransportBelt* tailBelt = nullptr;
     CTransportBelt* portBelt = nullptr;
     CTransportBelt* starBelt = nullptr;
-protected:
-    INT headSpriteIndex = 0;
-    INT tailSpriteIndex = 0;
     INT HeadTailDistX = 0;
     INT HeadTailDistY = 0;
+    INT headSpriteIndex = 0;
+    INT tailSpriteIndex = 0;
+protected:
 };
 
