@@ -164,8 +164,10 @@
     <ClInclude Include="Obj.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="QuickSlotUI.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResourceOre.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ScrollManager.h" />
     <ClInclude Include="targetver.h" />
@@ -197,7 +199,9 @@
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="QuickSlotUI.cpp" />
+    <ClCompile Include="ResourceOre.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ScrollManager.cpp" />
     <ClCompile Include="Tile.cpp" />

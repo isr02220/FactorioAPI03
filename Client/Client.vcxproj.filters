@@ -57,6 +57,9 @@
     <Filter Include="02.Obj\UI">
       <UniqueIdentifier>{63eca2ff-c218-4f52-9682-54e8a3e79389}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Obj\Actor\ResourceOre">
+      <UniqueIdentifier>{0c8516f4-afbb-45ea-b776-8abe26663e75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -155,6 +158,12 @@
     <ClInclude Include="UIManager.h">
       <Filter>01.Manager</Filter>
     </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceOre.h">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -248,6 +257,12 @@
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
       <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceOre.cpp">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -17,8 +17,10 @@ public:
 
 public:
 	void Move();
+	void SecondaryAction();
 	void PlaceEntity();
 	void UnPlaceEntity();
+	void GatherResource();
 	void RotateEntity();
 	void RotateCursor();
 	void UpdateSelectedUI(CUI* _targetUI);
@@ -27,6 +29,7 @@ private:
 	CUI* selectedUI;
 	CUI* inventoryUI;
 	CUI* QuickSlotUI;
+	CUI* ProgressBarUI;
 	
 };
 

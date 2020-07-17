@@ -21,7 +21,7 @@ CMainApp::~CMainApp() {
 void CMainApp::Ready_MainApp() {
 	m_hDC = GetDC(g_hWnd);
 	m_mapScene.insert(map<SCENE_NUMBER, CScene*>::value_type(SCENE_MAIN, new CMainScene()));
-	TCHAR szBuffer[128];
+	TCHAR szBuffer[200];
 	lstrcpy(szBuffer, GRAPHICS_DIR);
 	lstrcat(szBuffer, L"entity/character/bmp/hr-level1_idle.bmp");
 	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-level1_idle");
@@ -29,10 +29,22 @@ void CMainApp::Ready_MainApp() {
 	lstrcpy(szBuffer, GRAPHICS_DIR);
 	lstrcat(szBuffer, L"entity/character/bmp/hr-level1_running.bmp");
 	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-level1_running");
+	
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"entity/character/bmp/hr-level1_mining_tool.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-level1_mining_tool");
 
 	lstrcpy(szBuffer, GRAPHICS_DIR);
 	lstrcat(szBuffer, L"entity/transport-belt/bmp/hr-transport-belt.bmp");
 	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-transport-belt");
+
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"entity/transport-belt/bmp/hr-transport-belt-placable.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-transport-belt-placable");
+
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"entity/transport-belt/bmp/hr-transport-belt-unplacable.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"hr-transport-belt-unplacable");
 
 	lstrcpy(szBuffer, GRAPHICS_DIR);
 	lstrcat(szBuffer, L"bmp/GUI_Panel.bmp");
@@ -49,6 +61,14 @@ void CMainApp::Ready_MainApp() {
 	lstrcpy(szBuffer, GRAPHICS_DIR);
 	lstrcat(szBuffer, L"bmp/GUI_QuickSlot.bmp");
 	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_QuickSlot");
+	
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"bmp/GUI_ProgressBarPanel.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_ProgressBarPanel");
+	
+	lstrcpy(szBuffer, GRAPHICS_DIR);
+	lstrcat(szBuffer, L"bmp/GUI_ProgressBarProgress.bmp");
+	CBitmapManager::GetInstance()->InsertTexture(szBuffer, L"GUI_ProgressBarProgress");
 
 	lstrcpy(szBuffer, GRAPHICS_DIR);
 	lstrcat(szBuffer, L"bmp/dirt.bmp");

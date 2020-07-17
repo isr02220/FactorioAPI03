@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Entity.h"
 #include "TransportBelt.h"
+#include "ResourceOre.h"
 #include "Mouse.h"
 #include "CollisionManager.h"
 #include "ObjManager.h"
@@ -33,6 +34,8 @@ void CPlayScene::ReadyScene() {
 
 		ObjManager->AddObject(CAbstractFactory<CPlayer>::Create(), OBJ::PLAYER);
 		ObjManager->GetPlayer()->SetName(L"사막여우");
+
+		ObjManager->AddObject(CAbstractFactory<CResourceOre>::Create(ObjManager->GetPlayer()->GetPosition().x, ObjManager->GetPlayer()->GetPosition().y), OBJ::RESOURCEORE);
 
 		SetActive(true);
 	}

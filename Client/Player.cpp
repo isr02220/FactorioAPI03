@@ -2,10 +2,12 @@
 #include "Mouse.h"
 #include "Player.h"
 #include "Entity.h"
+#include "ResourceOre.h"
+#include "TransportBelt.h"
 #include "UI.h"
 #include "InventoryUI.h"
 #include "QuickSlotUI.h"
-#include "TransportBelt.h"
+#include "ProgressBar.h"
 CPlayer::CPlayer() : CActor() {
     objectType = OBJ::PLAYER;
 }
@@ -27,6 +29,12 @@ void CPlayer::Ready_Object() {
 
     tempUi = CAbstractFactory<CQuickSlotUI>::Create(WINCX >> 1, WINCY - 48);
     tempUi->SetVisible(true);
+    QuickSlotUI = dynamic_cast<CUI*>(tempUi);
+    CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
+
+    tempUi = CAbstractFactory<CProgressBar>::Create(WINCX >> 1, WINCY - 108);
+    tempUi->SetVisible(false);
+    ProgressBarUI = dynamic_cast<CUI*>(tempUi);
     CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
 
     playerMouse = dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front());
@@ -46,13 +54,17 @@ int CPlayer::Update_Object() {
     info.position += (info.force * speed);
     CObj::Update_Rect_Object();
     if (g_hWnd == GetForegroundWindow()) {
+
         Move();
+        if(ProgressBarUI != nullptr) ProgressBarUI->SetVisible(false);
+
         if (CKeyManager::GetInstance()->OnPress(KEY::Inventory))
             inventoryUI->SetVisible(!inventoryUI->GetVisible());
                 
         if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction) && selectedUI == nullptr) PlaceEntity();
 
-        if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction) && selectedUI == nullptr) UnPlaceEntity();
+        if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction) && selectedUI == nullptr) SecondaryAction();
+        else if (ProgressBarUI != nullptr) dynamic_cast<CProgressBar*>(ProgressBarUI)->ResetProgress();
 
         if (CKeyManager::GetInstance()->OnPress(KEY::Rotate) && selectedUI == nullptr) {
             if (selectedActor) RotateEntity();
@@ -70,7 +82,13 @@ void CPlayer::Render_Object(HDC hDC) {
     if (isVisible) {
         spriteFrameDelay = 4;
         HDC hMemDC;
-        if (walkingState.walking) {
+        if (miningState.mining) {
+            info.CCX = 196;
+            info.CCY = 194;
+            spriteFrameDelay = 1;
+            hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-level1_mining_tool");
+        }
+        else if (walkingState.walking) {
             info.CCX = 88;
             info.CCY = 132;
             spriteFrameDelay = 2;
@@ -177,6 +195,39 @@ void CPlayer::Move() {
     info.force = moveForce;
 }
 
+void CPlayer::SecondaryAction() {
+    if (selectedActor) {
+
+        switch (selectedActor->GetObjectType()) {
+        case OBJ::RESOURCEORE:
+            GatherResource();
+            break;
+        case OBJ::BELT:
+            UnPlaceEntity();
+            break;
+        case OBJ::BELTEND:
+            break;
+        case OBJ::ENTITY:
+            UnPlaceEntity();
+            break;
+        case OBJ::PLAYER:
+            break;
+        case OBJ::ITEM:
+            break;
+        case OBJ::MONSTER:
+            break;
+        case OBJ::UI:
+            break;
+        case OBJ::MOUSE:
+            break;
+        case OBJ::END:
+            break;
+        default:
+            break;
+        }
+    }
+}
+
 void CPlayer::PlaceEntity() { 
     if (selectedActor == nullptr) {
         POSITION tPos = playerMouse->GetPosition();
@@ -194,8 +245,20 @@ void CPlayer::PlaceEntity() {
 }
 
 void CPlayer::UnPlaceEntity() {
-    if (selectedActor)
+    ProgressBarUI->SetVisible(true);
+    if (dynamic_cast<CProgressBar*>(ProgressBarUI)->IncreaseProgress(0.05f)) {
         selectedActor->SetDead();
+    }
+    
+}
+
+void CPlayer::GatherResource() {
+    ProgressBarUI->SetVisible(true);
+    miningState.mining = true;
+    if (dynamic_cast<CProgressBar*>(ProgressBarUI)->IncreaseProgress(0.05f)) {
+        if (++spriteIndexX >= 26 * spriteFrameDelay) spriteIndexX = 0;
+        miningState.mining = false;
+    }
 }
 
 void CPlayer::RotateEntity() {

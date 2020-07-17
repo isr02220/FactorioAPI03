@@ -1,6 +1,7 @@
 #pragma once
 namespace OBJ {
 	enum TYPE{
+		RESOURCEORE,
 		BELT,
 		BELTEND,
 		ENTITY,

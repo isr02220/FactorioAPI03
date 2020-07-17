@@ -42,9 +42,10 @@ void CTransportBelt::LateUpdate_Object() {
 void CTransportBelt::Render_Object(HDC hDC) {
     CObj::Update_Rect_Object();
     if (isVisible) {
-        HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt");
-
-        if (nullptr == hMemDC)
+        HDC hMemDC           = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt");
+		HDC hMemDCPlacable   = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt-placable");
+		HDC hMemDCUnPlacable = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt-unplacable");
+        if (nullptr == hMemDC || nullptr == hMemDCPlacable || nullptr == hMemDCUnPlacable)
             return;
         GetBeltConnect();
         INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
