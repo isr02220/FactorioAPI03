@@ -87,9 +87,9 @@ void CObjManager::RenderObjectManager(HDC hDC) {
 		for (INT y = startY; y < endY; y++) {
 			for (INT x = startX; x < endX; x++) {
 				if (i == OBJ::BELTEND) {
-					if (vecObj[i-1][(y * GRIDX) + x] == nullptr)
+					if (vecObj[i-1][(y * (INT)GRIDX) + x] == nullptr)
 						continue;
-					CTransportBelt* tempBelt = dynamic_cast<CTransportBelt*>(vecObj[i - 1][(y * GRIDX) + x]);
+					CTransportBelt* tempBelt = dynamic_cast<CTransportBelt*>(vecObj[i - 1][INT(INT(y * GRIDX) + x)]);
 					if (tempBelt->headBelt == nullptr || tempBelt->headBelt->tailBelt != tempBelt) {
 						HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt");
 						GdiTransparentBlt(hDC,

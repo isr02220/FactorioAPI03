@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "UI.h"
 #include "InventoryUI.h"
+#include "QuickSlotUI.h"
 #include "TransportBelt.h"
 CPlayer::CPlayer() : CActor() {
     objectType = OBJ::PLAYER;
@@ -23,6 +24,11 @@ void CPlayer::Ready_Object() {
     CObj* tempUi = CAbstractFactory<CInventoryUI>::Create(WINCX >> 2, WINCY >> 1);
     CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
     inventoryUI = dynamic_cast<CUI*>(tempUi);
+
+    tempUi = CAbstractFactory<CQuickSlotUI>::Create(WINCX >> 1, WINCY - 48);
+    tempUi->SetVisible(true);
+    CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
+
     playerMouse = dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front());
     info.iCX = 64;
     info.iCY = 64;

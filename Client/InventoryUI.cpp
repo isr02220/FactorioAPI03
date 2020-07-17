@@ -31,11 +31,6 @@ void CInventoryUI::Render_Object(HDC hDC) {
 
 		if (nullptr == hMemDC)
 			return;
-		BLENDFUNCTION bf = {};
-		bf.AlphaFormat = 0;
-		bf.BlendFlags = 0;
-		bf.BlendOp = AC_SRC_OVER;
-		bf.SourceConstantAlpha = 216;
 
 		BitBlt(hDC,
 			cRect.left,
