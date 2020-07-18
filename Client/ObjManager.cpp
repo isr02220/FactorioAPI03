@@ -91,19 +91,21 @@ void CObjManager::RenderObjectManager(HDC hDC) {
 					if (vecObj[i-1][(y * (INT)GRIDX) + x] == nullptr)
 						continue;
 					CTransportBelt* tempBelt = dynamic_cast<CTransportBelt*>(vecObj[i - 1][INT(INT(y * GRIDX) + x)]);
-					if (tempBelt->headBelt == nullptr || tempBelt->headBelt->tailBelt != tempBelt) {
-						HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt");
-						GdiTransparentBlt(hDC,
-							tempBelt->GetCRect()->left - scrollX + tempBelt->HeadTailDistX,
-							tempBelt->GetCRect()->top - scrollY + tempBelt->HeadTailDistY,
-							tempBelt->GetInfo()->CCX,
-							tempBelt->GetInfo()->CCY,
-							hMemDC,
-							CTransportBelt::beltSpriteIndexX / CTransportBelt::beltSpriteFrameDelay * tempBelt->GetInfo()->CCX,
-							tempBelt->headSpriteIndex * tempBelt->GetInfo()->CCY,
-							tempBelt->GetInfo()->CCX,
-							tempBelt->GetInfo()->CCY,
-							RGB(255, 0, 255));
+					if ((tempBelt->headBelt == nullptr || tempBelt->headBelt->tailBelt != tempBelt) &&
+						(tempBelt->headBelt == nullptr || tempBelt->headBelt->headBelt == nullptr || tempBelt->headBelt->headBelt != tempBelt)) {
+							HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt");
+							GdiTransparentBlt(hDC,
+								tempBelt->GetCRect()->left - scrollX + tempBelt->HeadTailDistX,
+								tempBelt->GetCRect()->top - scrollY + tempBelt->HeadTailDistY,
+								tempBelt->GetInfo()->CCX,
+								tempBelt->GetInfo()->CCY,
+								hMemDC,
+								CTransportBelt::beltSpriteIndexX / CTransportBelt::beltSpriteFrameDelay * tempBelt->GetInfo()->CCX,
+								tempBelt->headSpriteIndex * tempBelt->GetInfo()->CCY,
+								tempBelt->GetInfo()->CCX,
+								tempBelt->GetInfo()->CCY,
+								RGB(255, 0, 255));
+						
 					}
 				}
 				else {

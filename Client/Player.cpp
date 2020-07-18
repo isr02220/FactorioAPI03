@@ -57,20 +57,32 @@ int CPlayer::Update_Object() {
 
         Move();
 
+        if (pickedActor) {
+            pickedActor->SetPosition(ToGridPos(playerMouse->GetPosition(), GRIDCX));
+            pickedActor->SetWalkingState(playerMouse->cursorDir);
+        }
+
         if(ProgressBarUI != nullptr) ProgressBarUI->SetVisible(false);
         miningState.mining = false;
 
+        if (CKeyManager::GetInstance()->OnPress(KEY::Num1)) {
+            Safe_Delete<CActor*>(pickedActor);
+            pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CTransportBelt>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
+        }
+        if (CKeyManager::GetInstance()->OnPress(KEY::ClearCursor)) {
+            Safe_Delete<CActor*>(pickedActor);
+        }
         if (CKeyManager::GetInstance()->OnPress(KEY::Inventory))
             inventoryUI->SetVisible(!inventoryUI->GetVisible());
                 
-        if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction) && selectedUI == nullptr) PlaceEntity();
+        if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction) && selectedUI == nullptr && pickedActor != nullptr) PlaceEntity();
 
         if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction) && selectedUI == nullptr) SecondaryAction();
         else if (ProgressBarUI != nullptr) dynamic_cast<CProgressBar*>(ProgressBarUI)->ResetProgress();
 
         if (CKeyManager::GetInstance()->OnPress(KEY::Rotate) && selectedUI == nullptr) {
-            if (selectedActor) RotateEntity();
-            else               RotateCursor();
+            if (selectedActor && pickedActor == nullptr) RotateEntity();
+            else RotateCursor();
         }
     }
     return STATE_NO_EVENT;
@@ -120,6 +132,9 @@ void CPlayer::Render_Object(HDC hDC) {
             info.CCY,
             RGB(255, 0, 255));
 
+        if (pickedActor) {
+            pickedActor->Render_Placable(hDC, true);
+        }
         //HPEN   hPen = CreatePen(PS_SOLID, 1, strokeColor);
         //HBRUSH hBrush = CreateSolidBrush(fillColor);
 
@@ -148,16 +163,16 @@ void CPlayer::Move() {
     CKeyManager* keyMgr = CKeyManager::GetInstance();
     keyMgr->UpdateKeyManager();
     FORCE moveForce = FORCE(0.f, 0.f);
-
-    if (keyMgr->Press(KEY::MoveLeft))
-        moveForce += FORCE(-1.f, 0.f);
-    if (keyMgr->Press(KEY::MoveRight))
-        moveForce += FORCE(1.f, 0.f);
-    if (keyMgr->Press(KEY::MoveUp))
-        moveForce += FORCE(0.f, -1.f);
-    if (keyMgr->Press(KEY::MoveDown))
-        moveForce += FORCE( 0.f,  1.f);
-    
+    if (miningState.mining == false) {
+        if (keyMgr->Press(KEY::MoveLeft))
+            moveForce += FORCE(-1.f, 0.f);
+        if (keyMgr->Press(KEY::MoveRight))
+            moveForce += FORCE(1.f, 0.f);
+        if (keyMgr->Press(KEY::MoveUp))
+            moveForce += FORCE(0.f, -1.f);
+        if (keyMgr->Press(KEY::MoveDown))
+            moveForce += FORCE(0.f, 1.f);
+    }
     FLOAT nomalizer = sqrtf(((fabsf(moveForce.x) * fabsf(moveForce.x)) + (fabsf(moveForce.y) * fabsf(moveForce.y))));
     if (nomalizer) moveForce /= nomalizer;
 
@@ -224,11 +239,16 @@ void CPlayer::SecondaryAction() {
 }
 
 void CPlayer::PlaceEntity() { 
-    if (selectedActor == nullptr || selectedActor->GetObjectType() != OBJ::BELT || !lstrcmp(selectedActor->GetName(), L"TransportBelt") && selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
-        POSITION tPos = playerMouse->GetPosition();
-        CObj* tempObj = CAbstractFactory<CTransportBelt>::Create(ToGridPos(tPos, 64));
+    if (selectedActor == nullptr || 
+        !lstrcmp(pickedActor->GetName(), L"TransportBelt") &&
+        selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
+        CObj* tempObj = pickedActor->GetNewActor();
+        tempObj->SetPosition(ToGridPos(playerMouse->GetPosition(), GRIDCX));
         dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
-        CObjManager::GetInstance()->InsertObject(tempObj, OBJ::BELT);
+        if(!lstrcmp(tempObj->GetName(), L"TransportBelt"))
+            CObjManager::GetInstance()->InsertObject(tempObj, OBJ::BELT);
+        else
+            CObjManager::GetInstance()->InsertObject(tempObj, OBJ::ENTITY);
     }
 }
 

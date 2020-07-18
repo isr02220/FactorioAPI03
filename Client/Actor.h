@@ -11,8 +11,10 @@ public:
     virtual INT Update_Object() override;
     virtual void LateUpdate_Object() override;
     virtual void Render_Object(HDC hDC) override;
+    virtual void Render_Placable(HDC hDC , BOOL placable);
     virtual void Release_Object() override;
     virtual void OnCollision(CObj* _TargetObj) override;
+    virtual CObj* GetNewActor();
 
 public:
     virtual void UpdateSelected(CActor* _Target);
@@ -52,7 +54,8 @@ public:
     void SetDead() { dead = true; }
     void IncreaseScore(const INT& _score) { score += _score; }
 protected:
-    CActor* selectedActor;
+    CActor* selectedActor = nullptr;
+    CActor* pickedActor = nullptr;
     WALKINGSTATE walkingState;
     MININGSTATE miningState;
     SHOOTINGSTATE shootingState;

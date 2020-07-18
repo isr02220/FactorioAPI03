@@ -66,3 +66,9 @@ void CEntity::Release_Object() {
 void CEntity::OnCollision(CObj* _TargetObj) {
 
 }
+
+CObj* CEntity::GetNewActor() {
+    CObj* tempObj = new CEntity();
+    tempObj->Ready_Object();
+    return tempObj;
+}

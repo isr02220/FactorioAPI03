@@ -38,6 +38,8 @@ CKeyManager::CKeyManager() {
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ChangeQuickBar, 'X'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ZoomIn, VK_NUMPAD6));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ZoomOut, VK_NUMPAD9));
+	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Num1, '1'));
+	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Num2, '2'));
 		  
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::SHIFT, VK_SHIFT));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::CONTROL, VK_CONTROL));

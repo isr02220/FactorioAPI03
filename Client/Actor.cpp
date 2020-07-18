@@ -29,12 +29,22 @@ void CActor::Render_Object(HDC hDC) {
 
 }
 
+void CActor::Render_Placable(HDC hDC, BOOL placable) {
+
+}
+
 void CActor::Release_Object() {
 
 }
 
 void CActor::OnCollision(CObj* _TargetObj) {
 
+}
+
+CObj* CActor::GetNewActor() {
+	CObj* tempObj = new CActor();
+	tempObj->Ready_Object();
+	return tempObj;
 }
 
 void CActor::UpdateSelected(CActor* _Target) {
