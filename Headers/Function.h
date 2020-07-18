@@ -13,8 +13,8 @@ inline FLOAT ToRadian(FLOAT _deg) { return _deg * pi / 180.f; }
 inline FLOAT ToDegree(FLOAT _rad) { return _rad / pi * 180.f; }
 inline POSITION ToGridPos(const POSITION& _position, const INT& _tileSize) {
 
-	INT gridPosX = (INT)_position.x / _tileSize;
-	INT gridPosY = (INT)_position.y / _tileSize;
+	INT gridPosX = (INT)_position.x / GRIDCX;
+	INT gridPosY = (INT)_position.y / GRIDCY;
 
 	//POINT Pos = {};
 	//Pos.x = (INT)_position.x;
@@ -33,5 +33,5 @@ inline POSITION ToGridPos(const POSITION& _position, const INT& _tileSize) {
 	//else
 	//	Pos.y -= (Pos.y % _tileSize) - _tileSize;
 
-	return POSITION(FLOAT(gridPosX * _tileSize + (_tileSize >> 1)), FLOAT(gridPosY * _tileSize + (_tileSize >> 1)));
+	return POSITION(FLOAT(gridPosX * GRIDCX + (_tileSize >> 1)), FLOAT(gridPosY * GRIDCY + (_tileSize >> 1)));
 }

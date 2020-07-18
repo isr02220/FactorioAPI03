@@ -167,6 +167,9 @@
     <ClInclude Include="CoalOre.h">
       <Filter>02.Obj\Actor\ResourceOre</Filter>
     </ClInclude>
+    <ClInclude Include="BurnerDrill.h">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -269,6 +272,9 @@
     </ClCompile>
     <ClCompile Include="CoalOre.cpp">
       <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClCompile>
+    <ClCompile Include="BurnerDrill.cpp">
+      <Filter>02.Obj\Actor\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

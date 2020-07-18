@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "ResourceOre.h"
 #include "TransportBelt.h"
+#include "BurnerDrill.h"
 #include "UI.h"
 #include "InventoryUI.h"
 #include "QuickSlotUI.h"
@@ -58,7 +59,7 @@ int CPlayer::Update_Object() {
         Move();
 
         if (pickedActor) {
-            pickedActor->SetPosition(ToGridPos(playerMouse->GetPosition(), GRIDCX));
+            pickedActor->SetPosition(ToGridPos(playerMouse->GetPosition(), pickedActor->GetInfo()->iCX));
             pickedActor->SetWalkingState(playerMouse->cursorDir);
         }
 
@@ -68,6 +69,10 @@ int CPlayer::Update_Object() {
         if (CKeyManager::GetInstance()->OnPress(KEY::Num1)) {
             Safe_Delete<CActor*>(pickedActor);
             pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CTransportBelt>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
+        }
+        if (CKeyManager::GetInstance()->OnPress(KEY::Num2)) {
+            Safe_Delete<CActor*>(pickedActor);
+            pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CBurnerDrill>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
         }
         if (CKeyManager::GetInstance()->OnPress(KEY::ClearCursor)) {
             Safe_Delete<CActor*>(pickedActor);
@@ -243,7 +248,7 @@ void CPlayer::PlaceEntity() {
         !lstrcmp(pickedActor->GetName(), L"TransportBelt") &&
         selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
         CObj* tempObj = pickedActor->GetNewActor();
-        tempObj->SetPosition(ToGridPos(playerMouse->GetPosition(), GRIDCX));
+        tempObj->SetPosition(ToGridPos(playerMouse->GetPosition(), tempObj->GetInfo()->iCX));
         dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
         if(!lstrcmp(tempObj->GetName(), L"TransportBelt"))
             CObjManager::GetInstance()->InsertObject(tempObj, OBJ::BELT);

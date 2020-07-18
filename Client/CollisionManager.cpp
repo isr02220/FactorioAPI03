@@ -12,20 +12,41 @@ CCollisionManager::~CCollisionManager() {
 
 void CCollisionManager::CollisionPoint(CObj* pointObj, list<CObj*>& rDstList) {
 	POSITION pos;
+	POINT pt = {};
 	for (auto DstObj : rDstList) {
-		if (CheckPoint(pointObj->GetPosition(), DstObj->GetInfo(), &pos)) {
+		pos = ToGridPos(pointObj->GetPosition(), DstObj->GetInfo()->iCX);
+		pt.x = (INT)pos.x;
+		pt.y = (INT)pos.y;
+		if (PtInRect(DstObj->GetRect(), pt))
 			pointObj->OnCollision(DstObj);
-		}
+		//if (CheckPoint(pointObj->GetPosition(), DstObj->GetInfo(), &pos)) {
+		//	pointObj->OnCollision(DstObj);
+		//}
 	}
 }
 
 void CCollisionManager::CollisionPoint(CObj* pointObj, vector<CObj*>& rDstVec) {
-	
+
 	INT thisIndex = ((INT)pointObj->GetPosition().y / GRIDCY * GRIDX) + ((INT)pointObj->GetPosition().x / GRIDCX);
-	if (rDstVec[thisIndex] == nullptr)
-		return;
-	else
+	if (rDstVec[thisIndex] == nullptr) {
+		//if ((rDstVec[thisIndex + 1] != nullptr && rDstVec[thisIndex + 1]->GetInfo()->iCX / GRIDCX > 1) ||
+		//	(rDstVec[thisIndex + GRIDX] != nullptr && rDstVec[thisIndex + GRIDX]->GetInfo()->iCY / GRIDCY > 1) ||
+		//	(rDstVec[thisIndex + GRIDX + 1] != nullptr && rDstVec[thisIndex + 1]->GetInfo()->iCX / GRIDCX > 1) && rDstVec[thisIndex + GRIDX + 1]->GetInfo()->iCY / GRIDCY > 1) {
+		//	pointObj->OnCollision(rDstVec[thisIndex]);
+		//}
+
+		if (rDstVec[thisIndex + 1] != nullptr && rDstVec[thisIndex + 1]->GetInfo()->iCX / GRIDCX > 1)
+			pointObj->OnCollision(rDstVec[thisIndex + 1]);
+		else if (rDstVec[thisIndex + GRIDX] != nullptr && rDstVec[thisIndex + GRIDX]->GetInfo()->iCY / GRIDCY > 1)
+			pointObj->OnCollision(rDstVec[thisIndex + GRIDX]);
+		else if ((rDstVec[thisIndex + GRIDX + 1] != nullptr && rDstVec[thisIndex + GRIDX + 1]->GetInfo()->iCX / GRIDCX > 1) && rDstVec[thisIndex + GRIDX + 1]->GetInfo()->iCY / GRIDCY > 1)
+			pointObj->OnCollision(rDstVec[thisIndex + GRIDX + 1]);
+		else
+			return;
+	}
+	else {
 		pointObj->OnCollision(rDstVec[thisIndex]);
+	}
 }
 
 void CCollisionManager::CollisionRect(list<CObj*>& rDstList, list<CObj*>& rSrcList) {

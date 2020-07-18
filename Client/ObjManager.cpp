@@ -58,6 +58,7 @@ void CObjManager::LateUpdateObjectManager() {
 	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), m_listObj[OBJ::PLAYER]);
 	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), m_listObj[OBJ::RESOURCEORE]);
 	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), vecObj[OBJ::BELT]);
+	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), vecObj[OBJ::ENTITY]);
 
 	for (int i = 0; i < OBJ::END; ++i) {
 		for (auto& pObj : m_listObj[i]) {

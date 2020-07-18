@@ -30,11 +30,6 @@ void CMainApp::Ready_MainApp() {
 	
 	INSERT_TEXTURE(L"entity/character/bmp/hr-level1_mining_tool.bmp", L"hr-level1_mining_tool");
 
-	INSERT_TEXTURE(L"entity/transport-belt/bmp/hr-transport-belt.bmp", L"hr-transport-belt");
-
-	INSERT_TEXTURE(L"entity/transport-belt/bmp/hr-transport-belt-placable.bmp", L"hr-transport-belt-placable");
-
-	INSERT_TEXTURE(L"entity/transport-belt/bmp/hr-transport-belt-unplacable.bmp", L"hr-transport-belt-unplacable");
 
 	INSERT_TEXTURE(L"bmp/GUI_Panel.bmp", L"GUI_Panel");
 
@@ -45,8 +40,15 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"bmp/GUI_QuickSlot.bmp", L"GUI_QuickSlot");
 
 	INSERT_TEXTURE(L"bmp/GUI_ProgressBarPanel.bmp", L"GUI_ProgressBarPanel");
-
 	INSERT_TEXTURE(L"bmp/GUI_ProgressBarProgress.bmp", L"GUI_ProgressBarProgress");
+
+	INSERT_TEXTURE(L"entity/transport-belt/bmp/hr-transport-belt.bmp", L"hr-transport-belt");
+	INSERT_TEXTURE(L"entity/transport-belt/bmp/hr-transport-belt-placable.bmp", L"hr-transport-belt-placable");
+	INSERT_TEXTURE(L"entity/transport-belt/bmp/hr-transport-belt-unplacable.bmp", L"hr-transport-belt-unplacable");
+
+	INSERT_TEXTURE(L"bmp/hr-burner-mining-drill.bmp", L"hr-burner-mining-drill");
+	INSERT_TEXTURE(L"bmp/hr-burner-mining-drill-placable.bmp", L"hr-burner-mining-drill-placable");
+	INSERT_TEXTURE(L"bmp/hr-burner-mining-drill-unplacable.bmp", L"hr-burner-mining-drill-unplacable");
 
 	INSERT_TEXTURE(L"bmp/hr-coal.bmp", L"hr-coal");
 
