@@ -72,3 +72,23 @@ CObj* CEntity::GetNewActor() {
     tempObj->Ready_Object();
     return tempObj;
 }
+
+void CEntity::SetSpriteDir() {
+    switch (walkingState.direction) {
+    case DIRECTION::DIR::NORTH:
+        spriteIndexY = 2;
+        break;
+    case DIRECTION::DIR::EAST:
+        spriteIndexY = 0;
+        break;
+    case DIRECTION::DIR::SOUTH:
+        spriteIndexY = 3;
+        break;
+    case DIRECTION::DIR::WEST:
+        spriteIndexY = 1;
+        break;
+    default:
+        spriteIndexY = 2;
+        break;
+    }
+}

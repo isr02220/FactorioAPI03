@@ -18,6 +18,12 @@ public:
     virtual void OnCollision(CObj* _TargetObj) override;
     virtual CObj* GetNewActor() override;
 
+    void GatherResourceOre(FLOAT speed);
+
+    POSITION GetOutputPos() { return outputPos; }
+    void SetOutputPos(POSITION _Pos) { outputPos = _Pos; }
+    void SetOutputPos();
 protected:
+    POSITION outputPos;
 };
 

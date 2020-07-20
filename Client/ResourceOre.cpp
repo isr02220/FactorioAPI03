@@ -1,6 +1,6 @@
 #include "ResourceOre.h"
 #include "Entity.h"
-
+#include "Item.h"
 CResourceOre::CResourceOre() : CActor() {
 	objectType = OBJ::RESOURCEORE;
 	strokeColor = RGB(128, 128, 255);
@@ -68,13 +68,17 @@ void CResourceOre::OnCollision(CObj* _TargetObj) {
 
 }
 
-void CResourceOre::Gather() {
+CObj* CResourceOre::Gather() {
 	if (storage) {
 		storage--;
 		spriteIndexY = 7 - (storage / 100);
 		if (spriteIndexY < 0) spriteIndexY = 0;
+		CObj* tempObj = new CItem();
+		tempObj->Ready_Object();
+		return tempObj;
 	}
 	else {
 		SetDead();
+		return nullptr;
 	}
 }

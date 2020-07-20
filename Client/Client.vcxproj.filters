@@ -60,6 +60,9 @@
     <Filter Include="02.Obj\Actor\ResourceOre">
       <UniqueIdentifier>{0c8516f4-afbb-45ea-b776-8abe26663e75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Obj\Item">
+      <UniqueIdentifier>{c9a83aaf-33fa-4bb8-af21-6b9588a738a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -115,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>02.Obj\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>03.Item</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>02.Obj\Actor\Entity</Filter>
@@ -176,6 +176,30 @@
     <ClInclude Include="FontManager.h">
       <Filter>01.Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>02.Obj\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemCoalOre.h">
+      <Filter>02.Obj\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemCopperOre.h">
+      <Filter>02.Obj\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemIronOre.h">
+      <Filter>02.Obj\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemStone.h">
+      <Filter>02.Obj\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="CopperOre.h">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClInclude>
+    <ClInclude Include="IronOre.h">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClInclude>
+    <ClInclude Include="Stone.h">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -227,9 +251,6 @@
     </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>02.Obj\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>03.Item</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>02.Obj\Actor\Entity</Filter>
@@ -287,6 +308,30 @@
     </ClCompile>
     <ClCompile Include="FontManager.cpp">
       <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>02.Obj\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemCoalOre.cpp">
+      <Filter>02.Obj\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemCopperOre.cpp">
+      <Filter>02.Obj\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemIronOre.cpp">
+      <Filter>02.Obj\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemStone.cpp">
+      <Filter>02.Obj\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CopperOre.cpp">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClCompile>
+    <ClCompile Include="IronOre.cpp">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,10 @@
 #include "TransportBelt.h"
 #include "ResourceOre.h"
 #include "CoalOre.h"
+#include "CopperOre.h"
+#include "IronOre.h"
+#include "Stone.h"
+
 #include "Mouse.h"
 #include "CollisionManager.h"
 #include "ObjManager.h"
@@ -37,9 +41,21 @@ void CPlayScene::ReadyScene() {
 		ObjManager->GetPlayer()->SetName(L"사막여우");
 		POSITION playerPos = ToGridPos(ObjManager->GetPlayer()->GetPosition(), GRIDCX);
 		
-		for (size_t i = 0; i < 8; i++) 
-			for (size_t j = 0; j < 8; j++)
-				ObjManager->AddObject(CAbstractFactory<CCoalOre>::Create(playerPos.x + GRIDCX * j, playerPos.y + GRIDCX * i), OBJ::RESOURCEORE);
+		for (INT i = 0; i < 4; i++) 
+			for (INT j = 0; j < 4; j++)
+				ObjManager->InsertObject(CAbstractFactory<CCoalOre>::Create(playerPos.x + GRIDCX * j, playerPos.y + GRIDCX * i), OBJ::RESOURCEORE);
+		
+		for (INT i = -8; i < -4; i++) 
+			for (INT j = -8; j < -4; j++)
+				ObjManager->InsertObject(CAbstractFactory<CCopperOre>::Create(playerPos.x + GRIDCX * j, playerPos.y + GRIDCX * i), OBJ::RESOURCEORE);
+		
+		for (INT i = -8; i < -4; i++) 
+			for (INT j = 0; j < 4; j++)
+				ObjManager->InsertObject(CAbstractFactory<CIronOre>::Create(playerPos.x + GRIDCX * j, playerPos.y + GRIDCX * i), OBJ::RESOURCEORE);
+		
+		for (INT i = 0; i < 4; i++) 
+			for (INT j = -8; j < -4; j++)
+				ObjManager->InsertObject(CAbstractFactory<CStone>::Create(playerPos.x + GRIDCX * j, playerPos.y + GRIDCX * i), OBJ::RESOURCEORE);
 
 
 		SetActive(true);
@@ -81,8 +97,21 @@ void CPlayScene::RenderScene(HDC hDC) {
 	ObjManager->RenderObjectManager(hMemDC);
 	INT playerScore = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetScore();
 	TCHAR szBuffer[32];
-	wsprintf(szBuffer, L"Player Score : %d", playerScore);
-	TextOut(hMemDC, (WINCX >> 1) - 50, 50, szBuffer, lstrlen(szBuffer));
+	SetBkMode(hMemDC, OPAQUE);
+	wsprintf(szBuffer, L"1번 : 운송벨트", playerScore);
+	TextOut(hMemDC, 100, 50, szBuffer, lstrlen(szBuffer));
+	wsprintf(szBuffer, L"2번 : 화력 채광드릴", playerScore);
+	TextOut(hMemDC, 100, 100, szBuffer, lstrlen(szBuffer));
+	wsprintf(szBuffer, L"좌클릭 : 설치", playerScore);
+	TextOut(hMemDC, 100, 150, szBuffer, lstrlen(szBuffer));
+	wsprintf(szBuffer, L"우클릭 : 채집, 수거", playerScore);
+	TextOut(hMemDC, 100, 200, szBuffer, lstrlen(szBuffer));
+	wsprintf(szBuffer, L"Q : 선택해제", playerScore);
+	TextOut(hMemDC, 100, 250, szBuffer, lstrlen(szBuffer));
+	wsprintf(szBuffer, L"R : 회전", playerScore);
+	TextOut(hMemDC, 100, 300, szBuffer, lstrlen(szBuffer));
+	wsprintf(szBuffer, L"E : 인벤토리", playerScore);
+	TextOut(hMemDC, 100, 350, szBuffer, lstrlen(szBuffer));
 
 	m_iFPS++;
 

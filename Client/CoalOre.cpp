@@ -1,4 +1,5 @@
 #include "CoalOre.h"
+#include "ItemCoalOre.h"
 #include "ResourceOre.h"
 CCoalOre::CCoalOre() : CResourceOre() {
 
@@ -43,4 +44,18 @@ void CCoalOre::Render_Object(HDC hDC) {
 			RGB(255, 0, 255));
 	}
 
+}
+CObj* CCoalOre::Gather() {
+	if (storage) {
+		storage--;
+		spriteIndexY = 7 - (storage / 100);
+		if (spriteIndexY < 0) spriteIndexY = 0;
+		CObj* tempObj = new CItemCoalOre();
+		tempObj->Ready_Object();
+		return tempObj;
+	}
+	else {
+		SetDead();
+		return nullptr;
+	}
 }
