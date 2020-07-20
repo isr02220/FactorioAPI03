@@ -32,3 +32,4 @@ using namespace std;
 #include "LineManager.h"
 #include "ScrollManager.h"
 #include "BitmapManager.h"
+#include "FontManager.h"

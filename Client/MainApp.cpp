@@ -53,6 +53,26 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"bmp/hr-coal.bmp", L"hr-coal");
 
 	INSERT_TEXTURE(L"bmp/dirt.bmp", L"dirt");
+	//30, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET, 0, 0, 0, 0, L"±Ã¼­Ã¼"
+	LOGFONT* pLogFont = new LOGFONT;
+	pLogFont->lfHeight = 30;
+	pLogFont->lfWidth = 0;
+	pLogFont->lfEscapement = 0;
+	pLogFont->lfOrientation = 0;
+	pLogFont->lfWeight = 0;
+	pLogFont->lfItalic = 0;
+	pLogFont->lfUnderline = 0;
+	pLogFont->lfStrikeOut = 0;
+	pLogFont->lfCharSet = DEFAULT_CHARSET;
+	pLogFont->lfOutPrecision = 0;
+	pLogFont->lfClipPrecision = 0;
+	pLogFont->lfQuality = 0;
+	pLogFont->lfPitchAndFamily = 0;
+	lstrcpy(pLogFont->lfFaceName, L"±Ã¼­Ã¼");
+
+	CFontManager::GetInstance()->InsertFont(pLogFont, L"±Ã¼­Ã¼");
+
+
 
 	m_mapScene[SCENE_MAIN]->ReadyScene();
 

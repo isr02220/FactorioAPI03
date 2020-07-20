@@ -170,6 +170,12 @@
     <ClInclude Include="BurnerDrill.h">
       <Filter>02.Obj\Actor\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="FloatingText.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -275,6 +281,12 @@
     </ClCompile>
     <ClCompile Include="BurnerDrill.cpp">
       <Filter>02.Obj\Actor\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingText.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>01.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

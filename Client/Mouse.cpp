@@ -11,8 +11,8 @@ CMouse::~CMouse() {
 }
 
 void CMouse::Ready_Object() {
-	info.iCX = 20;
-	info.iCY = 20;
+	info.iCX = 64;
+	info.iCY = 64;
 	//ShowCursor(false);
 }
 

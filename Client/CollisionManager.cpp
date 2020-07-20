@@ -30,23 +30,42 @@ void CCollisionManager::CollisionPoint(CObj* pointObj, vector<CObj*>& rDstVec) {
 	// 범위 수정할것
 	INT thisIndex = PosToIndex(pointObj->GetPosition());
 	CPlayer* pPlayer = dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer());
-	if (pPlayer != nullptr && pPlayer->GetPickedActor())
-		thisIndex = PosToIndex(pPlayer->GetPickedActor()->GetPosition());
-	{
-		if (rDstVec[thisIndex] == nullptr) {
-			if (rDstVec[thisIndex + 1] != nullptr && rDstVec[thisIndex + 1]->GetInfo()->iCX / GRIDCX > 1)
-				pointObj->OnCollision(rDstVec[thisIndex + 1]);
-			else if (rDstVec[thisIndex + GRIDX] != nullptr && rDstVec[thisIndex + GRIDX]->GetInfo()->iCY / GRIDCY > 1)
-				pointObj->OnCollision(rDstVec[thisIndex + GRIDX]);
-			else if ((rDstVec[thisIndex + GRIDX + 1] != nullptr && rDstVec[thisIndex + GRIDX + 1]->GetInfo()->iCX / GRIDCX > 1) && rDstVec[thisIndex + GRIDX + 1]->GetInfo()->iCY / GRIDCY > 1)
-				pointObj->OnCollision(rDstVec[thisIndex + GRIDX + 1]);
-			else
-				return;
-		}
-		else {
-			pointObj->OnCollision(rDstVec[thisIndex]);
+	if (pPlayer != nullptr && pPlayer->GetPickedActor()) {
+		CActor* pPickedActor = pPlayer->GetPickedActor();
+		pPickedActor->Update_Rect_Object();
+		INT startX = INT(pPickedActor->GetPosition().x - GRIDCX * 4) / GRIDCX;
+		INT startY = INT(pPickedActor->GetPosition().y - GRIDCY * 4) / GRIDCY;
+		INT endX   = INT(pPickedActor->GetPosition().x + GRIDCX * 4) / GRIDCX;
+		INT endY   = INT(pPickedActor->GetPosition().y + GRIDCY * 4) / GRIDCY;
+		for (INT y = startY; y < endY; y++) {
+			for (INT x = startX; x < endX; x++) {
+				if (rDstVec[(y * GRIDX) + x] == nullptr)
+					continue;
+				RECT rc = {};
+				if (IntersectRect(&rc, pPickedActor->GetRect(), rDstVec[(y * GRIDX) + x]->GetRect()))
+					pointObj->OnCollision(rDstVec[(y * GRIDX) + x]);
+			}
 		}
 	}
+	else {
+		POSITION tPos = ToGridPos(pointObj->GetPosition(), GRIDCX);
+		INT startX = INT(tPos.x - GRIDCX * 4) / GRIDCX;
+		INT startY = INT(tPos.y - GRIDCY * 4) / GRIDCY;
+		INT endX   = INT(tPos.x + GRIDCX * 4) / GRIDCX;
+		INT endY   = INT(tPos.y + GRIDCY * 4) / GRIDCY;
+		for (INT y = startY; y < endY; y++) {
+			for (INT x = startX; x < endX; x++) {
+				if (rDstVec[(y * GRIDX) + x] == nullptr)
+					continue;
+				POINT pt = {};
+				pt.x = INT(tPos.x);
+				pt.y = INT(tPos.y);
+				if (PtInRect(rDstVec[(y * GRIDX) + x]->GetRect(), pt))
+					pointObj->OnCollision(rDstVec[(y * GRIDX) + x]);
+			}
+		}
+	}
+	
 }
 
 void CCollisionManager::CollisionRect(list<CObj*>& rDstList, list<CObj*>& rSrcList) {

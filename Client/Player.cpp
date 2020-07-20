@@ -9,6 +9,7 @@
 #include "InventoryUI.h"
 #include "QuickSlotUI.h"
 #include "ProgressBar.h"
+#include "FloatingText.h"
 CPlayer::CPlayer() : CActor() {
     objectType = OBJ::PLAYER;
 }
@@ -138,20 +139,11 @@ void CPlayer::Render_Object(HDC hDC) {
             RGB(255, 0, 255));
 
         if (pickedActor) {
-            pickedActor->Render_Placable(hDC, true);
+            pickedActor->Render_Placable(hDC, (selectedActor == nullptr ||
+                !lstrcmp(pickedActor->GetName(), selectedActor->GetName()) &&
+                pickedActor->GetPosition() == selectedActor->GetPosition() &&
+                selectedActor->GetWalkingState().direction != playerMouse->cursorDir));
         }
-        //HPEN   hPen = CreatePen(PS_SOLID, 1, strokeColor);
-        //HBRUSH hBrush = CreateSolidBrush(fillColor);
-
-        //HPEN   oldPen = (HPEN)SelectObject(hDC, hPen);
-        //HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
-
-        //Rectangle(hDC, rect.left, rect.top, rect.right, rect.bottom);
-
-        //SelectObject(hDC, oldPen);
-        //SelectObject(hDC, oldBrush);
-        //DeleteObject(hPen);
-        //DeleteObject(hBrush);
     }
 
 }
@@ -203,7 +195,6 @@ void CPlayer::Move() {
         else if (moveForce.x < 0.f && moveForce.y < 0.f)
             walkingState.direction = DIRECTION::DIR::NORTHWEST;
     }
-    //CScrollManager::GetInstance()->SetScroll(moveForce * speed * -1.f);
     if (++spriteIndexX >= 22 * spriteFrameDelay) spriteIndexX = 0;
 
     CScrollManager::GetInstance()->SetScroll((info.position * -1.f) + POSITION(WINCX >> 1, WINCY >> 1));
@@ -245,11 +236,13 @@ void CPlayer::SecondaryAction() {
 
 void CPlayer::PlaceEntity() { 
     if (selectedActor == nullptr || 
-        !lstrcmp(pickedActor->GetName(), L"TransportBelt") &&
+        !lstrcmp(pickedActor->GetName(), selectedActor->GetName()) &&
+        pickedActor->GetPosition() == selectedActor->GetPosition() &&
         selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
         CObj* tempObj = pickedActor->GetNewActor();
         tempObj->SetPosition(ToGridPos(playerMouse->GetPosition(), tempObj->GetInfo()->iCX));
         dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
+
         if(!lstrcmp(tempObj->GetName(), L"TransportBelt"))
             CObjManager::GetInstance()->InsertObject(tempObj, OBJ::BELT);
         else
@@ -293,6 +286,9 @@ void CPlayer::GatherResource() {
         walkingState.direction = DIRECTION::DIR::EAST;
 
     if (dynamic_cast<CProgressBar*>(ProgressBarUI)->IncreaseProgress(1.f / 110.f )) {
+        CObj* tempObj = CAbstractFactory<CFloatingText>::Create(selectedActor->GetPosition().x, selectedActor->GetPosition().y);
+        tempObj->SetName(selectedActor->GetName());
+        CObjManager::GetInstance()->AddObject(tempObj, OBJ::UI);
         miningState.mining = false;
         dynamic_cast<CResourceOre*>(selectedActor)->Gather();
         spriteIndexX = 0;

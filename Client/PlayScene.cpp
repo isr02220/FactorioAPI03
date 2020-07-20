@@ -75,6 +75,7 @@ void CPlayScene::RenderScene(HDC hDC) {
 	hMemDC = CreateCompatibleDC(hDC);
 	hBitmap = CreateCompatibleBitmap(hDC, WINCX, WINCY);
 	oldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
+	SetBkMode(hMemDC, TRANSPARENT);
 	////////////////
 	CTileManager::GetInstance()->Render(hMemDC);
 	ObjManager->RenderObjectManager(hMemDC);

@@ -9,6 +9,7 @@ CCoalOre::~CCoalOre() {
 }
 
 void CCoalOre::Ready_Object() {
+	SetName(L"¼®Åº");
 	info.iCX = 64;
 	info.iCY = 64;
 	info.CCX = 128;

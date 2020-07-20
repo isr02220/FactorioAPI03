@@ -30,7 +30,7 @@ INT CBurnerDrill::Update_Object() {
 	if (dead) {
 		return STATE_DEAD;
 	}
-	if (active && ++spriteIndexX >= 8) spriteIndexX = 0;
+	if (miningState.mining && ++spriteIndexX >= 8) spriteIndexX = 0;
 
 	switch (walkingState.direction) {
 	case DIRECTION::DIR::NORTH:

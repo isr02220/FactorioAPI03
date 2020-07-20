@@ -26,6 +26,7 @@ typedef struct tagPosition {
 	tagPosition operator*(const FLOAT& dst) { return tagPosition(x * dst, y * dst); }
 	tagPosition operator/(const FLOAT& dst) { return tagPosition(x / dst, y / dst); }
 	tagPosition operator*=(const FLOAT& dst) { x *= dst; y *= dst; return *this; }
+	BOOL        operator==(const tagPosition& dst) { return (x == dst.x && y == dst.y); }
 	FLOAT x;
 	FLOAT y;
 }POSITION;
