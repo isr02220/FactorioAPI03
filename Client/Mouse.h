@@ -16,10 +16,9 @@ public:
 	virtual void Release_Object() override;
 	virtual void OnCollision(CObj* _TargetObj)override;
 
-private:
+public:
 	CActor* selectedActor = nullptr;
 	CUI* selectedUI = nullptr;
-public:
 	DIRECTION::DIR cursorDir = DIRECTION::DIR::NORTH;
 };
 

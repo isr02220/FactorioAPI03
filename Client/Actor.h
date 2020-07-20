@@ -23,7 +23,7 @@ public:
     WALKINGSTATE  GetWalkingState()   { return walkingState ; }
     MININGSTATE   GetMiningState()    { return miningState  ; }
     SHOOTINGSTATE GetShootingState()  { return shootingState; }
-    PICKINGSTATE  GetPickingState()   { return pickingState ; }
+    CActor*       GetPickedActor()    { return pickedActor  ; }
     REPAIRSTATE   GetRepairingState() { return repairState  ; }
     ORIENTATION   GetOrientation()    { return orientation  ; }
     BOOL          GetControllable()   { return controllable ; }
@@ -38,7 +38,6 @@ public:
     void SetWalkingState  (const DIRECTION::DIR & _direction  ) { walkingState.direction  = _direction; }
     void SetMiningState   (const MININGSTATE  & _miningState  ) { miningState   = _miningState  ; }
     void SetShootingState (const SHOOTINGSTATE& _shootingState) { shootingState = _shootingState; }
-    void SetPickingState  (const PICKINGSTATE & _pickingState ) { pickingState  = _pickingState ; }
     void SetRepairingState(const REPAIRSTATE  & _repairState  ) { repairState   = _repairState  ; }
     void SetOrientation   (const ORIENTATION  & _orientation  ) { orientation   = _orientation  ; }
     void SetControllable  (const BOOL         & _controllable ) { controllable  = _controllable ; }

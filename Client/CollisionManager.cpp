@@ -1,6 +1,7 @@
 #include "Obj.h"
 #include "Item.h"
 #include "Player.h"
+#include "Mouse.h"
 #include "CollisionManager.h"
 #include "TransportBelt.h"
 
@@ -26,26 +27,25 @@ void CCollisionManager::CollisionPoint(CObj* pointObj, list<CObj*>& rDstList) {
 }
 
 void CCollisionManager::CollisionPoint(CObj* pointObj, vector<CObj*>& rDstVec) {
-
-	INT thisIndex = ((INT)pointObj->GetPosition().y / GRIDCY * GRIDX) + ((INT)pointObj->GetPosition().x / GRIDCX);
-	if (rDstVec[thisIndex] == nullptr) {
-		//if ((rDstVec[thisIndex + 1] != nullptr && rDstVec[thisIndex + 1]->GetInfo()->iCX / GRIDCX > 1) ||
-		//	(rDstVec[thisIndex + GRIDX] != nullptr && rDstVec[thisIndex + GRIDX]->GetInfo()->iCY / GRIDCY > 1) ||
-		//	(rDstVec[thisIndex + GRIDX + 1] != nullptr && rDstVec[thisIndex + 1]->GetInfo()->iCX / GRIDCX > 1) && rDstVec[thisIndex + GRIDX + 1]->GetInfo()->iCY / GRIDCY > 1) {
-		//	pointObj->OnCollision(rDstVec[thisIndex]);
-		//}
-
-		if (rDstVec[thisIndex + 1] != nullptr && rDstVec[thisIndex + 1]->GetInfo()->iCX / GRIDCX > 1)
-			pointObj->OnCollision(rDstVec[thisIndex + 1]);
-		else if (rDstVec[thisIndex + GRIDX] != nullptr && rDstVec[thisIndex + GRIDX]->GetInfo()->iCY / GRIDCY > 1)
-			pointObj->OnCollision(rDstVec[thisIndex + GRIDX]);
-		else if ((rDstVec[thisIndex + GRIDX + 1] != nullptr && rDstVec[thisIndex + GRIDX + 1]->GetInfo()->iCX / GRIDCX > 1) && rDstVec[thisIndex + GRIDX + 1]->GetInfo()->iCY / GRIDCY > 1)
-			pointObj->OnCollision(rDstVec[thisIndex + GRIDX + 1]);
-		else
-			return;
-	}
-	else {
-		pointObj->OnCollision(rDstVec[thisIndex]);
+	// 범위 수정할것
+	INT thisIndex = PosToIndex(pointObj->GetPosition());
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer());
+	if (pPlayer != nullptr && pPlayer->GetPickedActor())
+		thisIndex = PosToIndex(pPlayer->GetPickedActor()->GetPosition());
+	{
+		if (rDstVec[thisIndex] == nullptr) {
+			if (rDstVec[thisIndex + 1] != nullptr && rDstVec[thisIndex + 1]->GetInfo()->iCX / GRIDCX > 1)
+				pointObj->OnCollision(rDstVec[thisIndex + 1]);
+			else if (rDstVec[thisIndex + GRIDX] != nullptr && rDstVec[thisIndex + GRIDX]->GetInfo()->iCY / GRIDCY > 1)
+				pointObj->OnCollision(rDstVec[thisIndex + GRIDX]);
+			else if ((rDstVec[thisIndex + GRIDX + 1] != nullptr && rDstVec[thisIndex + GRIDX + 1]->GetInfo()->iCX / GRIDCX > 1) && rDstVec[thisIndex + GRIDX + 1]->GetInfo()->iCY / GRIDCY > 1)
+				pointObj->OnCollision(rDstVec[thisIndex + GRIDX + 1]);
+			else
+				return;
+		}
+		else {
+			pointObj->OnCollision(rDstVec[thisIndex]);
+		}
 	}
 }
 

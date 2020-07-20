@@ -11,6 +11,9 @@ void Safe_Delete(T& rObj) {
 
 inline FLOAT ToRadian(FLOAT _deg) { return _deg * pi / 180.f; }
 inline FLOAT ToDegree(FLOAT _rad) { return _rad / pi * 180.f; }
+inline INT PosToIndex(const POSITION & _position) {
+	return ((INT)_position.y / GRIDCY * GRIDX) + ((INT)_position.x / GRIDCX);
+}
 inline POSITION ToGridPos(const POSITION& _position, const INT& _tileSize) {
 
 	INT gridPosX = (INT)_position.x / GRIDCX;
