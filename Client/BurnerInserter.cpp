@@ -114,8 +114,8 @@ void CBurnerInserter::TransportItem() {
             list<CObj*>* itemList = CObjManager::GetInstance()->GetList(OBJ::ITEM);
             POINT pt = {};
             for (auto iter = itemList->begin(); iter != itemList->end();) {
-                pt.x = (*iter)->GetPosition().x;
-                pt.y = (*iter)->GetPosition().y;
+                pt.x = (INT)(*iter)->GetPosition().x;
+                pt.y = (INT)(*iter)->GetPosition().y;
                 if (PtInRect(&inputRect, pt)) {
                     pickedItem = *iter;
                     itemList->erase(iter);
