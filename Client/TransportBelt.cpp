@@ -442,13 +442,152 @@ void CTransportBelt::TransportItem() {
 	FLOAT dist;
 	FLOAT rad;
 	for (auto item : listItemOnBelt) {
+		BOOL  movable = true;
 		for (auto item2 : listItemOnBelt) {
 			if (item == item2)
 				continue;
 			switch (beltDir) {
 			case DIRECTION::DIR::NORTH:
-				if (item->GetPosition().y < item2->GetPosition().y + 16.f && item->GetPosition().y > item2->GetPosition().y)
+				switch (tailDir) {
+				case DIRECTION::DIR::EAST:
+					if (item->GetPosition().y > item2->GetPosition().y && item->GetPosition().y < item2->GetPosition().y + 16.f &&
+						((item->GetPosition().x  - info.position.x < 0) && (item->GetPosition().y  - info.position.y < 0)) ==
+						((item2->GetPosition().x - info.position.x < 0) && (item2->GetPosition().y - info.position.y < 0)))
+						movable = false;
 					break;
+				case DIRECTION::DIR::WEST:
+					if (item->GetPosition().y > item2->GetPosition().y && item->GetPosition().y < item2->GetPosition().y + 16.f &&
+						((item->GetPosition().x  - info.position.x > 0) && (item->GetPosition().y  - info.position.y < 0)) ==
+						((item2->GetPosition().x - info.position.x > 0) && (item2->GetPosition().y - info.position.y < 0)))
+						movable = false;
+					break;
+				default:
+					if (item->GetPosition().y > item2->GetPosition().y && item->GetPosition().y < item2->GetPosition().y + 16.f &&
+						(item->GetPosition().x - info.position.x > 0) == (item2->GetPosition().x - info.position.x > 0))
+						movable = false;
+					break;
+				}
+				break;
+			case DIRECTION::DIR::EAST:
+				switch (tailDir) {
+				case DIRECTION::DIR::SOUTH:
+					if (item->GetPosition().x < item2->GetPosition().x && item->GetPosition().x > item2->GetPosition().x - 16.f &&
+						((item->GetPosition().x - info.position.x > 0) && (item->GetPosition().y - info.position.y < 0)) ==
+						((item2->GetPosition().x - info.position.x > 0) && (item2->GetPosition().y - info.position.y < 0)))
+						movable = false;
+					break;
+				case DIRECTION::DIR::NORTH:
+					if (item->GetPosition().x < item2->GetPosition().x && item->GetPosition().x > item2->GetPosition().x - 16.f &&
+						((item->GetPosition().x - info.position.x > 0) && (item->GetPosition().y - info.position.y > 0)) ==
+						((item2->GetPosition().x - info.position.x > 0) && (item2->GetPosition().y - info.position.y > 0)))
+						movable = false;
+					break;
+				default:
+					if (item->GetPosition().x < item2->GetPosition().x && item->GetPosition().x > item2->GetPosition().x - 16.f &&
+						(item->GetPosition().y - info.position.y > 0) == (item2->GetPosition().y - info.position.y > 0))
+						movable = false;
+					break;
+				}
+				break;
+			case DIRECTION::DIR::SOUTH:
+				switch (tailDir) {
+				case DIRECTION::DIR::WEST:
+					if (item->GetPosition().y < item2->GetPosition().y && item->GetPosition().y > item2->GetPosition().y - 16.f &&
+						((item->GetPosition().x - info.position.x > 0) && (item->GetPosition().y - info.position.y > 0)) ==
+						((item2->GetPosition().x - info.position.x > 0) && (item2->GetPosition().y - info.position.y > 0)))
+						movable = false;
+					break;
+				case DIRECTION::DIR::EAST:
+					if (item->GetPosition().y < item2->GetPosition().y && item->GetPosition().y > item2->GetPosition().y - 16.f &&
+						((item->GetPosition().x - info.position.x < 0) && (item->GetPosition().y - info.position.y > 0)) ==
+						((item2->GetPosition().x - info.position.x < 0) && (item2->GetPosition().y - info.position.y > 0)))
+						movable = false;
+					break;
+				default:
+					if (item->GetPosition().y < item2->GetPosition().y && item->GetPosition().y > item2->GetPosition().y - 16.f &&
+						(item->GetPosition().x - info.position.x > 0) == (item2->GetPosition().x - info.position.x > 0))
+						movable = false;
+					break;
+				}
+				break;
+			case DIRECTION::DIR::WEST:
+				switch (tailDir) {
+				case DIRECTION::DIR::NORTH:
+					if (item->GetPosition().x > item2->GetPosition().x && item->GetPosition().x < item2->GetPosition().x + 16.f &&
+						((item->GetPosition().x - info.position.x < 0) && (item->GetPosition().y - info.position.y > 0)) ==
+						((item2->GetPosition().x - info.position.x < 0) && (item2->GetPosition().y - info.position.y > 0)))
+						movable = false;
+					break;
+				case DIRECTION::DIR::SOUTH:
+					if (item->GetPosition().x > item2->GetPosition().x && item->GetPosition().x < item2->GetPosition().x + 16.f &&
+						((item->GetPosition().x - info.position.x < 0) && (item->GetPosition().y - info.position.y < 0)) ==
+						((item2->GetPosition().x - info.position.x < 0) && (item2->GetPosition().y - info.position.y < 0)))
+						movable = false;
+					break;
+				default:
+					if (item->GetPosition().x > item2->GetPosition().x && item->GetPosition().x < item2->GetPosition().x + 16.f &&
+						(item->GetPosition().y - info.position.y > 0) == (item2->GetPosition().y - info.position.y > 0))
+						movable = false;
+					break;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		if (headBelt) {
+			for (auto item2 : headBelt->listItemOnBelt) {
+				switch (beltDir) {
+				case DIRECTION::DIR::NORTH:
+					if (item->GetPosition().y > item2->GetPosition().y && item->GetPosition().y < item2->GetPosition().y + 16.f &&
+						(item->GetPosition().x - headBelt->GetPosition().x > 0) == (item2->GetPosition().x - headBelt->GetPosition().x > 0))
+						movable = false;
+					break;
+				case DIRECTION::DIR::EAST:
+					if (item->GetPosition().x < item2->GetPosition().x && item->GetPosition().x > item2->GetPosition().x - 16.f &&
+						(item->GetPosition().y - headBelt->GetPosition().y > 0) == (item2->GetPosition().y - headBelt->GetPosition().y > 0))
+						movable = false;
+					break;
+				case DIRECTION::DIR::SOUTH:
+					if (item->GetPosition().y < item2->GetPosition().y && item->GetPosition().y > item2->GetPosition().y - 16.f &&
+						(item->GetPosition().x - headBelt->GetPosition().x > 0) == (item2->GetPosition().x - headBelt->GetPosition().x > 0))
+						movable = false;
+					break;
+				case DIRECTION::DIR::WEST:
+					if (item->GetPosition().x > item2->GetPosition().x && item->GetPosition().x < item2->GetPosition().x + 16.f &&
+						(item->GetPosition().y - headBelt->GetPosition().y > 0) == (item2->GetPosition().y - headBelt->GetPosition().y > 0))
+						movable = false;
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		else {
+			switch (beltDir) {
+			case DIRECTION::DIR::NORTH:
+				if (item->GetPosition().y < info.position.y - 28.f)
+					movable = false;
+				break;
+			case DIRECTION::DIR::EAST:
+				if (item->GetPosition().x > info.position.x + 28.f)
+					movable = false;
+				break;
+			case DIRECTION::DIR::SOUTH:
+				if (item->GetPosition().y > info.position.y + 28.f)
+					movable = false;
+				break;
+			case DIRECTION::DIR::WEST:
+				if (item->GetPosition().x < info.position.x - 28.f)
+					movable = false;
+				break;
+			default:
+				break;
+			}
+		}
+		if(movable)
+			switch (beltDir) {
+			case DIRECTION::DIR::NORTH:
 				switch (tailDir) {
 				case DIRECTION::DIR::EAST:
 					dX = item->GetPosition().x - (FLOAT)rect.left + 16;
@@ -474,8 +613,6 @@ void CTransportBelt::TransportItem() {
 				}
 				break;
 			case DIRECTION::DIR::EAST:
-				if (item->GetPosition().x > item2->GetPosition().x - 16.f && item->GetPosition().x < item2->GetPosition().x)
-					break;
 				switch (tailDir) {
 				case DIRECTION::DIR::SOUTH:
 					dX = item->GetPosition().x - (FLOAT)rect.right - 16;
@@ -501,8 +638,6 @@ void CTransportBelt::TransportItem() {
 				}
 				break;
 			case DIRECTION::DIR::SOUTH:
-				if (item->GetPosition().y > item2->GetPosition().y - 16.f && item->GetPosition().y < item2->GetPosition().y)
-					break;
 				switch (tailDir) {
 				case DIRECTION::DIR::WEST:
 					dX = item->GetPosition().x - (FLOAT)rect.right - 16;
@@ -528,8 +663,6 @@ void CTransportBelt::TransportItem() {
 				}
 				break;
 			case DIRECTION::DIR::WEST:
-				if (item->GetPosition().x < item2->GetPosition().x + 16.f && item->GetPosition().x > item2->GetPosition().x)
-					break;
 				switch (tailDir) {
 				case DIRECTION::DIR::SOUTH:
 					dX = item->GetPosition().x - (FLOAT)rect.left + 16;
@@ -557,9 +690,7 @@ void CTransportBelt::TransportItem() {
 			default:
 				break;
 			}
-		}
 	}
-	listItemOnBelt.clear();
 }
 
 CObj* CTransportBelt::GetNewActor() {

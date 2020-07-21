@@ -30,7 +30,7 @@ void CCoalOre::Render_Object(HDC hDC) {
 			return;
 		INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
 		INT iScrollY = (INT)CScrollManager::GetInstance()->GetScrollY();
-
+		
 		GdiTransparentBlt(hDC,
 			cRect.left + iScrollX,
 			cRect.top + iScrollY,

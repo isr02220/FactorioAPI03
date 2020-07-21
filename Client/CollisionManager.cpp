@@ -83,6 +83,8 @@ void CCollisionManager::CollisionRect(list<CObj*>& rDstList, list<CObj*>& rSrcLi
 void CCollisionManager::CollisionBelt(list<CObj*>& rSrcList) {
 	INT thisIndex = 0;
 	vector<CObj*>* beltVec = CObjManager::GetInstance()->GetVector(OBJ::BELT);
+	for (auto belt : *beltVec)
+		if (dynamic_cast<CTransportBelt*>(belt)) dynamic_cast<CTransportBelt*>(belt)->listItemOnBelt.clear();
 	for (auto SrcObj : rSrcList) {
 		INT thisIndex = ((INT)SrcObj->GetPosition().y / GRIDCY * GRIDX + 1) + ((INT)SrcObj->GetPosition().x / GRIDCX - 1);
 		if ((*beltVec)[thisIndex] == nullptr)

@@ -19,7 +19,13 @@ void CItem::Ready_Object() {
 
 INT CItem::Update_Object() {
 	CObj::Update_Rect_Object();
-
+	if (info.position.x > -CScrollManager::GetInstance()->GetScrollX() &&
+		info.position.x < -CScrollManager::GetInstance()->GetScrollX() + WINCX &&
+		info.position.y > -CScrollManager::GetInstance()->GetScrollY() &&
+		info.position.y < -CScrollManager::GetInstance()->GetScrollY() + WINCY)
+		isVisible = true;
+	else
+		isVisible = false;
 	return STATE_NO_EVENT;
 }
 
