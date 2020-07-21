@@ -81,113 +81,13 @@ void CCollisionManager::CollisionRect(list<CObj*>& rDstList, list<CObj*>& rSrcLi
 }
 
 void CCollisionManager::CollisionBelt(list<CObj*>& rSrcList) {
-	RECT rc = {};
 	INT thisIndex = 0;
-	DIRECTION::DIR beltDir;
-	DIRECTION::DIR tailDir;
 	vector<CObj*>* beltVec = CObjManager::GetInstance()->GetVector(OBJ::BELT);
 	for (auto SrcObj : rSrcList) {
 		INT thisIndex = ((INT)SrcObj->GetPosition().y / GRIDCY * GRIDX + 1) + ((INT)SrcObj->GetPosition().x / GRIDCX - 1);
 		if ((*beltVec)[thisIndex] == nullptr)
 			continue;
-		beltDir = dynamic_cast<CTransportBelt*>((*beltVec)[thisIndex])->GetWalkingState().direction;
-		if(dynamic_cast<CTransportBelt*>((*beltVec)[thisIndex])->tailBelt)
-			tailDir = dynamic_cast<CTransportBelt*>((*beltVec)[thisIndex])->tailBelt->GetWalkingState().direction;
-		else 
-			tailDir = beltDir;
-
-		FLOAT dX;
-		FLOAT dY;
-		FLOAT dist;
-		FLOAT rad;
-		switch (beltDir) {
-		case DIRECTION::DIR::NORTH:
-			switch (tailDir) {
-			case DIRECTION::DIR::EAST:
-				dX = SrcObj->GetPosition().x - (FLOAT)(*beltVec)[thisIndex]->GetRect()->left + 16;
-				dY = SrcObj->GetPosition().y - (FLOAT)(*beltVec)[thisIndex]->GetRect()->top + 16;
-				dist = sqrtf(dX * dX + dY * dY);
-				rad = atan2f(dY, dX) - 0.05f;
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION((dist* cosf(rad) - dX), (dist * sinf(rad) - dY)));
-				break;
-			case DIRECTION::DIR::WEST:
-				dX = SrcObj->GetPosition().x - (FLOAT)(*beltVec)[thisIndex]->GetRect()->right - 16;
-				dY = SrcObj->GetPosition().y - (FLOAT)(*beltVec)[thisIndex]->GetRect()->top + 16;
-				dist = sqrtf(dX * dX + dY * dY);
-				rad = atan2f(dY, dX) + 0.05f;
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
-				break;
-			default:
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION(0.f, -2.f));
-				break;
-			}
-			break;
-		case DIRECTION::DIR::EAST:
-			switch (tailDir) {
-			case DIRECTION::DIR::SOUTH:
-				dX = SrcObj->GetPosition().x - (FLOAT)(*beltVec)[thisIndex]->GetRect()->right - 16;
-				dY = SrcObj->GetPosition().y - (FLOAT)(*beltVec)[thisIndex]->GetRect()->top + 16;
-				dist = sqrtf(dX * dX + dY * dY);
-				rad = atan2f(dY, dX) - 0.05f;
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
-				break;
-			case DIRECTION::DIR::NORTH:
-				dX = SrcObj->GetPosition().x - (FLOAT)(*beltVec)[thisIndex]->GetRect()->right - 16;
-				dY = SrcObj->GetPosition().y - (FLOAT)(*beltVec)[thisIndex]->GetRect()->bottom - 16;
-				dist = sqrtf(dX * dX + dY * dY);
-				rad = atan2f(dY, dX) + 0.05f;
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
-				break;
-			default:
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION(2.f, 0.f));
-				break;
-			}
-			break;
-		case DIRECTION::DIR::SOUTH:
-			switch (tailDir) {
-			case DIRECTION::DIR::WEST:
-				dX = SrcObj->GetPosition().x - (FLOAT)(*beltVec)[thisIndex]->GetRect()->right - 16;
-				dY = SrcObj->GetPosition().y - (FLOAT)(*beltVec)[thisIndex]->GetRect()->bottom - 16;
-				dist = sqrtf(dX * dX + dY * dY);
-				rad = atan2f(dY, dX) - 0.05f;
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
-				break;
-			case DIRECTION::DIR::EAST:
-				dX = SrcObj->GetPosition().x - (FLOAT)(*beltVec)[thisIndex]->GetRect()->left + 16;
-				dY = SrcObj->GetPosition().y - (FLOAT)(*beltVec)[thisIndex]->GetRect()->bottom - 16;
-				dist = sqrtf(dX * dX + dY * dY);
-				rad = atan2f(dY, dX) + 0.05f;
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
-				break;
-			default:
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION(0.f, 2.f));
-				break;
-			}
-			break;
-		case DIRECTION::DIR::WEST:
-			switch (tailDir) {
-			case DIRECTION::DIR::SOUTH:
-				dX = SrcObj->GetPosition().x - (FLOAT)(*beltVec)[thisIndex]->GetRect()->left + 16;
-				dY = SrcObj->GetPosition().y - (FLOAT)(*beltVec)[thisIndex]->GetRect()->top + 16;
-				dist = sqrtf(dX * dX + dY * dY);
-				rad = atan2f(dY, dX) + 0.05f;
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
-				break;
-			case DIRECTION::DIR::NORTH:
-				dX = SrcObj->GetPosition().x - (FLOAT)(*beltVec)[thisIndex]->GetRect()->left + 16;
-				dY = SrcObj->GetPosition().y - (FLOAT)(*beltVec)[thisIndex]->GetRect()->bottom - 16;
-				dist = sqrtf(dX * dX + dY * dY);
-				rad = atan2f(dY, dX) - 0.05f;
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
-				break;
-			default:
-				SrcObj->SetPosition(SrcObj->GetPosition() + POSITION(-2.f, 0.f));
-				break;
-			}
-			break;
-		default:
-			break;
-		}
+		dynamic_cast<CTransportBelt*>((*beltVec)[thisIndex])->listItemOnBelt.emplace_back(SrcObj);
 	}
 }
 

@@ -140,6 +140,8 @@ void CBurnerDrill::GatherResourceOre(FLOAT speed) {
 			CObjManager::GetInstance()->AddObject(tempObj, OBJ::UI);
 			miningState.mining = true;
 			tempObj = dynamic_cast<CResourceOre*>(miningState.target)->Gather();
+			if (tempObj == nullptr)
+				return;
 			tempObj->SetPosition(outputPos);
 			CObjManager::GetInstance()->AddObject(tempObj, OBJ::ITEM);
 			Timer = GetTickCount();

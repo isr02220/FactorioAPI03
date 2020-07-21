@@ -20,6 +20,7 @@ public:
 
     void SetIndexY();
     void GetBeltConnect();
+    void TransportItem();
 
 public:
     CTransportBelt* headBelt = nullptr;
@@ -30,6 +31,7 @@ public:
     INT HeadTailDistY = 0;
     INT headSpriteIndex = 0;
     INT tailSpriteIndex = 0;
+    list<CObj*> listItemOnBelt;
 protected:
 };
 

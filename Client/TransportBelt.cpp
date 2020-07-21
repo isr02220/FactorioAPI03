@@ -1,14 +1,11 @@
 #include "TransportBelt.h"
 #include "Entity.h"
-
 INT CTransportBelt::beltSpriteIndexX = 0;
 INT CTransportBelt::beltSpriteFrameDelay = 1;
 
 CTransportBelt::CTransportBelt() : CEntity() {
     objectType = OBJ::BELT;
-	lstrcpy(info.name, L"TransportBelt");
-    strokeColor = RGB(128, 128, 255);
-    fillColor = RGB(0, 255, 255);
+	SetName(L"TransportBelt");
 }
 
 CTransportBelt::~CTransportBelt() {
@@ -32,7 +29,8 @@ INT CTransportBelt::Update_Object() {
     if (dead) {
         return STATE_DEAD;
     }
-
+	GetBeltConnect();
+	TransportItem();
     return STATE_NO_EVENT;
 }
 
@@ -46,7 +44,6 @@ void CTransportBelt::Render_Object(HDC hDC) {
         HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-transport-belt");
         if (nullptr == hMemDC)
             return;
-        GetBeltConnect();
         INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
         INT iScrollY = (INT)CScrollManager::GetInstance()->GetScrollY();
 
@@ -431,6 +428,140 @@ void CTransportBelt::GetBeltConnect() {
 		break;
 	}
 }
+void CTransportBelt::TransportItem() {
+	DIRECTION::DIR beltDir;
+	DIRECTION::DIR tailDir;
+	beltDir = walkingState.direction;
+	if (tailBelt)
+		tailDir = tailBelt->GetWalkingState().direction;
+	else
+		tailDir = beltDir;
+
+	FLOAT dX;
+	FLOAT dY;
+	FLOAT dist;
+	FLOAT rad;
+	for (auto item : listItemOnBelt) {
+		for (auto item2 : listItemOnBelt) {
+			if (item == item2)
+				continue;
+			switch (beltDir) {
+			case DIRECTION::DIR::NORTH:
+				if (item->GetPosition().y < item2->GetPosition().y + 16.f && item->GetPosition().y > item2->GetPosition().y)
+					break;
+				switch (tailDir) {
+				case DIRECTION::DIR::EAST:
+					dX = item->GetPosition().x - (FLOAT)rect.left + 16;
+					dY = item->GetPosition().y - (FLOAT)rect.top + 16;
+					dist = sqrtf(dX * dX + dY * dY);
+					rad = atan2f(dY, dX) - 0.05f;
+					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
+					break;
+				case DIRECTION::DIR::WEST:
+					dX = item->GetPosition().x - (FLOAT)rect.right - 16;
+					dY = item->GetPosition().y - (FLOAT)rect.top + 16;
+					dist = sqrtf(dX * dX + dY * dY);
+					rad = atan2f(dY, dX) + 0.05f;
+					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
+					break;
+				default:
+					item->SetPosition(item->GetPosition() + POSITION(0.f, -2.f));
+					if (item->GetPosition().x > info.position.x)
+						item->SetPosition(info.position.x + 16, item->GetPosition().y);
+					else
+						item->SetPosition(info.position.x - 16, item->GetPosition().y);
+					break;
+				}
+				break;
+			case DIRECTION::DIR::EAST:
+				if (item->GetPosition().x > item2->GetPosition().x - 16.f && item->GetPosition().x < item2->GetPosition().x)
+					break;
+				switch (tailDir) {
+				case DIRECTION::DIR::SOUTH:
+					dX = item->GetPosition().x - (FLOAT)rect.right - 16;
+					dY = item->GetPosition().y - (FLOAT)rect.top + 16;
+					dist = sqrtf(dX * dX + dY * dY);
+					rad = atan2f(dY, dX) - 0.05f;
+					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
+					break;
+				case DIRECTION::DIR::NORTH:
+					dX = item->GetPosition().x - (FLOAT)rect.right - 16;
+					dY = item->GetPosition().y - (FLOAT)rect.bottom - 16;
+					dist = sqrtf(dX * dX + dY * dY);
+					rad = atan2f(dY, dX) + 0.05f;
+					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
+					break;
+				default:
+					item->SetPosition(item->GetPosition() + POSITION(2.f, 0.f));
+					if (item->GetPosition().y > info.position.y)
+						item->SetPosition(item->GetPosition().x, info.position.y + 16);
+					else
+						item->SetPosition(item->GetPosition().x, info.position.y - 16);
+					break;
+				}
+				break;
+			case DIRECTION::DIR::SOUTH:
+				if (item->GetPosition().y > item2->GetPosition().y - 16.f && item->GetPosition().y < item2->GetPosition().y)
+					break;
+				switch (tailDir) {
+				case DIRECTION::DIR::WEST:
+					dX = item->GetPosition().x - (FLOAT)rect.right - 16;
+					dY = item->GetPosition().y - (FLOAT)rect.bottom - 16;
+					dist = sqrtf(dX * dX + dY * dY);
+					rad = atan2f(dY, dX) - 0.05f;
+					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
+					break;
+				case DIRECTION::DIR::EAST:
+					dX = item->GetPosition().x - (FLOAT)rect.left + 16;
+					dY = item->GetPosition().y - (FLOAT)rect.bottom - 16;
+					dist = sqrtf(dX * dX + dY * dY);
+					rad = atan2f(dY, dX) + 0.05f;
+					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
+					break;
+				default:
+					item->SetPosition(item->GetPosition() + POSITION(0.f, 2.f));
+					if (item->GetPosition().x > info.position.x)
+						item->SetPosition(info.position.x + 16, item->GetPosition().y);
+					else
+						item->SetPosition(info.position.x - 16, item->GetPosition().y);
+					break;
+				}
+				break;
+			case DIRECTION::DIR::WEST:
+				if (item->GetPosition().x < item2->GetPosition().x + 16.f && item->GetPosition().x > item2->GetPosition().x)
+					break;
+				switch (tailDir) {
+				case DIRECTION::DIR::SOUTH:
+					dX = item->GetPosition().x - (FLOAT)rect.left + 16;
+					dY = item->GetPosition().y - (FLOAT)rect.top + 16;
+					dist = sqrtf(dX * dX + dY * dY);
+					rad = atan2f(dY, dX) + 0.05f;
+					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
+					break;
+				case DIRECTION::DIR::NORTH:
+					dX = item->GetPosition().x - (FLOAT)rect.left + 16;
+					dY = item->GetPosition().y - (FLOAT)rect.bottom - 16;
+					dist = sqrtf(dX * dX + dY * dY);
+					rad = atan2f(dY, dX) - 0.05f;
+					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
+					break;
+				default:
+					item->SetPosition(item->GetPosition() + POSITION(-2.f, 0.f));
+					if (item->GetPosition().y > info.position.y)
+						item->SetPosition(item->GetPosition().x, info.position.y + 16);
+					else
+						item->SetPosition(item->GetPosition().x, info.position.y - 16);
+					break;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	listItemOnBelt.clear();
+}
+
 CObj* CTransportBelt::GetNewActor() {
 	CObj* tempObj = new CTransportBelt();
 	tempObj->Ready_Object();
