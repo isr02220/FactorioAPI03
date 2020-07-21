@@ -24,6 +24,7 @@ namespace KEY {
 	const DWORD Num2            = 0x00200000;
 	const DWORD Num3            = 0x00400000;
 	const DWORD Num4            = 0x00800000;
+	const DWORD Num5            = 0x01000000;
 	
 
 	const DWORD SHIFT           = 0x10000000;
@@ -55,6 +56,7 @@ namespace KEY {
 		Num2           ,
 		Num3           ,
 		Num4           ,
+		Num5           ,
 		SHIFT          ,
 		CONTROL        ,
 		ALT

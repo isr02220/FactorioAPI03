@@ -8,6 +8,7 @@ public:
 
     virtual void LateUpdate_Object() override;
     virtual void Render_Object(HDC hDC) override;
+    virtual CItem* GetNewItem();
 
 };
 

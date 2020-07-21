@@ -38,10 +38,18 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"gui/GUI_ProgressBarPanel.bmp", L"GUI_ProgressBarPanel");
 	INSERT_TEXTURE(L"gui/GUI_ProgressBarProgress.bmp", L"GUI_ProgressBarProgress");
 
+	
+	INSERT_TEXTURE(L"entity/iron-chest/hr-iron-chest.bmp",            L"hr-iron-chest");
+	INSERT_TEXTURE(L"entity/iron-chest/hr-iron-chest-placable.bmp",   L"hr-iron-chest-placable");
+	INSERT_TEXTURE(L"entity/iron-chest/hr-iron-chest-unplacable.bmp", L"hr-iron-chest-unplacable");
+
 	INSERT_TEXTURE(L"entity/transport-belt/hr-transport-belt.bmp", L"hr-transport-belt");
 	INSERT_TEXTURE(L"entity/transport-belt/hr-transport-belt-placable.bmp", L"hr-transport-belt-placable");
 	INSERT_TEXTURE(L"entity/transport-belt/hr-transport-belt-unplacable.bmp", L"hr-transport-belt-unplacable");
-
+	
+	INSERT_TEXTURE(L"entity/inserter/hr-inserter.bmp",            L"hr-inserter");
+	INSERT_TEXTURE(L"entity/inserter/hr-inserter-placable.bmp",   L"hr-inserter-placable");
+	INSERT_TEXTURE(L"entity/inserter/hr-inserter-unplacable.bmp", L"hr-inserter-unplacable");
 	INSERT_TEXTURE(L"entity/burner-mining-drill/hr-burner-mining-drill.bmp", L"hr-burner-mining-drill");
 	INSERT_TEXTURE(L"entity/burner-mining-drill/hr-burner-mining-drill-placable.bmp", L"hr-burner-mining-drill-placable");
 	INSERT_TEXTURE(L"entity/burner-mining-drill/hr-burner-mining-drill-unplacable.bmp", L"hr-burner-mining-drill-unplacable");
@@ -49,6 +57,7 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"entity/resource-ore/hr-coal.bmp", L"hr-coal");
 	INSERT_TEXTURE(L"entity/resource-ore/hr-copper-ore.bmp", L"hr-copper-ore");
 	INSERT_TEXTURE(L"entity/resource-ore/hr-iron-ore.bmp", L"hr-iron-ore");
+
 	INSERT_TEXTURE(L"entity/resource-ore/hr-stone.bmp", L"hr-stone");
 	INSERT_TEXTURE(L"icon/ICON_coal.bmp", L"ICON_coal");
 	INSERT_TEXTURE(L"icon/ICON_copper-ore.bmp", L"ICON_copper-ore");

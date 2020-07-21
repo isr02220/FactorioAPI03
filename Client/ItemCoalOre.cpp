@@ -38,3 +38,7 @@ void CItemCoalOre::Render_Object(HDC hDC) {
 
 }
 
+
+CItem* CItemCoalOre::GetNewItem() {
+	return new CItemCoalOre();
+}

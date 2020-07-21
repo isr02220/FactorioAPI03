@@ -1,24 +1,21 @@
 #pragma once
-#include "framework.h"
-#include "Obj.h"
-class CItem :
-    public CObj {
+#include "Entity.h"
+class CInventory;
+class CIronChest :
+    public CEntity {
 public:
-	CItem();
-	virtual ~CItem();
-
+    CIronChest();
+    virtual ~CIronChest();
     virtual void Ready_Object() override;
     virtual INT  Update_Object() override;
     virtual void LateUpdate_Object() override;
     virtual void Render_Object(HDC hDC) override;
+    virtual void Render_Placable(HDC hDC, BOOL placable) override;
     virtual void Release_Object() override;
     virtual void OnCollision(CObj* _TargetObj) override;
-    virtual CItem* GetNewItem();
-public:
+    virtual CObj* GetNewActor() override;
 
-	ITEM::GROUP group;
-	ITEM::SUBGROUP subGroup;
-    UINT stackSize = 50;
-protected:
-	DWORD timer = GetTickCount();
+public:
+    CInventory* inventory;
 };
+

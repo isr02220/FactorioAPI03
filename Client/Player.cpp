@@ -5,6 +5,8 @@
 #include "ResourceOre.h"
 #include "TransportBelt.h"
 #include "BurnerDrill.h"
+#include "BurnerInserter.h"
+#include "IronChest.h"
 #include "UI.h"
 #include "InventoryUI.h"
 #include "QuickSlotUI.h"
@@ -75,6 +77,14 @@ int CPlayer::Update_Object() {
             Safe_Delete<CActor*>(pickedActor);
             pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CBurnerDrill>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
         }
+        if (CKeyManager::GetInstance()->OnPress(KEY::Num3)) {
+            Safe_Delete<CActor*>(pickedActor);
+            pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CBurnerInserter>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
+        }
+        if (CKeyManager::GetInstance()->OnPress(KEY::Num4)) {
+            Safe_Delete<CActor*>(pickedActor);
+            pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CIronChest>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
+        }
         if (CKeyManager::GetInstance()->OnPress(KEY::ClearCursor)) {
             Safe_Delete<CActor*>(pickedActor);
         }
@@ -128,7 +138,7 @@ void CPlayer::Render_Object(HDC hDC) {
         INT iScrollY = (INT)CScrollManager::GetInstance()->GetScrollY();
         GdiTransparentBlt(hDC,
             cRect.left + iScrollX,
-            cRect.top  + iScrollY,
+            cRect.top  + iScrollY - 32,
             info.CCX,
             info.CCY,
             hMemDC,
@@ -139,7 +149,7 @@ void CPlayer::Render_Object(HDC hDC) {
             RGB(255, 0, 255));
 
         if (pickedActor) {
-            pickedActor->Render_Placable(hDC, (selectedActor == nullptr ||
+            pickedActor->Render_Placable(hDC, (selectedActor == nullptr || selectedActor->GetObjectType() == OBJ::RESOURCEORE ||
                 !lstrcmp(pickedActor->GetName(), selectedActor->GetName()) &&
                 pickedActor->GetPosition() == selectedActor->GetPosition() &&
                 selectedActor->GetWalkingState().direction != playerMouse->cursorDir));
@@ -235,7 +245,7 @@ void CPlayer::SecondaryAction() {
 }
 
 void CPlayer::PlaceEntity() { 
-    if (selectedActor == nullptr || 
+    if (selectedActor == nullptr || selectedActor->GetObjectType() == OBJ::RESOURCEORE ||
         !lstrcmp(pickedActor->GetName(), selectedActor->GetName()) &&
         pickedActor->GetPosition() == selectedActor->GetPosition() &&
         selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {

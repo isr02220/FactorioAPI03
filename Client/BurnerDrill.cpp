@@ -1,6 +1,8 @@
 #include "BurnerDrill.h"
 #include "ResourceOre.h"
 #include "Entity.h"
+#include "IronChest.h"
+#include "Inventory.h"
 #include "Item.h"
 
 #include "FloatingText.h"
@@ -142,8 +144,18 @@ void CBurnerDrill::GatherResourceOre(FLOAT speed) {
 			tempObj = dynamic_cast<CResourceOre*>(miningState.target)->Gather();
 			if (tempObj == nullptr)
 				return;
-			tempObj->SetPosition(outputPos);
-			CObjManager::GetInstance()->AddObject(tempObj, OBJ::ITEM);
+
+			if ((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)] && 
+				!lstrcmp((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]->GetName(), L"IronChest")) {
+				CIronChest* chest = dynamic_cast<CIronChest*>((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]);
+				if (chest) {
+					chest->inventory->PushItem(dynamic_cast<CItem*>(tempObj));
+				}
+			}
+			else {
+				tempObj->SetPosition(outputPos);
+				CObjManager::GetInstance()->AddObject(tempObj, OBJ::ITEM);
+			}
 			Timer = GetTickCount();
 		}
 	}

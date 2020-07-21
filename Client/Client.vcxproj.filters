@@ -39,9 +39,6 @@
     <Filter Include="02.Obj\Actor\Player">
       <UniqueIdentifier>{9d2c844a-e167-42d3-bb45-6b27de2fb8a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.Item">
-      <UniqueIdentifier>{7174281b-168a-40df-8f15-a0b8de276548}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.Obj\Actor\Entity">
       <UniqueIdentifier>{51a95870-2523-4949-baf7-ccf5375efb04}</UniqueIdentifier>
     </Filter>
@@ -62,6 +59,12 @@
     </Filter>
     <Filter Include="02.Obj\Item">
       <UniqueIdentifier>{c9a83aaf-33fa-4bb8-af21-6b9588a738a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Actor\Entity\BurnerInserter">
+      <UniqueIdentifier>{79877f4f-0bd0-4a49-8ad6-d45b9e792579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Data">
+      <UniqueIdentifier>{7174281b-168a-40df-8f15-a0b8de276548}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +203,18 @@
     <ClInclude Include="Stone.h">
       <Filter>02.Obj\Actor\ResourceOre</Filter>
     </ClInclude>
+    <ClInclude Include="BurnerInserter.h">
+      <Filter>02.Obj\Actor\Entity\BurnerInserter</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemStack.h">
+      <Filter>03.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>03.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="IronChest.h">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -332,6 +347,18 @@
     </ClCompile>
     <ClCompile Include="Stone.cpp">
       <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClCompile>
+    <ClCompile Include="BurnerInserter.cpp">
+      <Filter>02.Obj\Actor\Entity\BurnerInserter</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemStack.cpp">
+      <Filter>03.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>03.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="IronChest.cpp">
+      <Filter>02.Obj\Actor\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

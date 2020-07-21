@@ -64,3 +64,7 @@ void CItem::Release_Object() {
 void CItem::OnCollision(CObj* _TargetObj) {
 
 }
+
+CItem* CItem::GetNewItem() {
+	return new CItem();
+}

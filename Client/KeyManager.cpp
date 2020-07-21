@@ -40,6 +40,9 @@ CKeyManager::CKeyManager() {
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ZoomOut, VK_NUMPAD9));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Num1, '1'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Num2, '2'));
+	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Num3, '3'));
+	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Num4, '4'));
+	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Num5, '5'));
 		  
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::SHIFT, VK_SHIFT));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::CONTROL, VK_CONTROL));
@@ -78,6 +81,7 @@ void CKeyManager::UpdateKeyManager() {
 	KEY_CHECK(Num2);
 	KEY_CHECK(Num3);
 	KEY_CHECK(Num4);
+	KEY_CHECK(Num5);
 	KEY_CHECK(SHIFT);
 	KEY_CHECK(CONTROL);
 	KEY_CHECK(ALT);

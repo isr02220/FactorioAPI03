@@ -38,3 +38,7 @@ void CItemCopperOre::Render_Object(HDC hDC) {
 	}
 
 }
+
+CItem* CItemCopperOre::GetNewItem() {
+	return new CItemCopperOre();
+}

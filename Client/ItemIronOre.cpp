@@ -38,3 +38,7 @@ void CItemIronOre::Render_Object(HDC hDC) {
 	}
 
 }
+
+CItem* CItemIronOre::GetNewItem() {
+	return new CItemIronOre();
+}

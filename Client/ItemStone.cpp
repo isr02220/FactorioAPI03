@@ -38,3 +38,8 @@ void CItemStone::Render_Object(HDC hDC) {
 	}
 
 }
+
+
+CItem* CItemStone::GetNewItem() {
+	return new CItemStone();
+}
