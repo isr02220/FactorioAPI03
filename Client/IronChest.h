@@ -16,6 +16,5 @@ public:
     virtual CObj* GetNewActor() override;
 
 public:
-    CInventory* inventory;
 };
 

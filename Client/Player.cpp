@@ -1,12 +1,14 @@
 #include "framework.h"
 #include "Mouse.h"
 #include "Player.h"
+#include "Item.h"
 #include "Entity.h"
 #include "ResourceOre.h"
 #include "TransportBelt.h"
 #include "BurnerDrill.h"
 #include "BurnerInserter.h"
 #include "IronChest.h"
+#include "Inventory.h"
 #include "UI.h"
 #include "InventoryUI.h"
 #include "QuickSlotUI.h"
@@ -14,10 +16,12 @@
 #include "FloatingText.h"
 CPlayer::CPlayer() : CActor() {
     objectType = OBJ::PLAYER;
+    inventory = new CInventory(48);
 }
 
 CPlayer::CPlayer(FLOAT _positionX, FLOAT _positionY) : CActor(_positionX, _positionY) {
     objectType = OBJ::PLAYER;
+    inventory = new CInventory(48);
 }
 
 CPlayer::~CPlayer() {
@@ -159,7 +163,7 @@ void CPlayer::Render_Object(HDC hDC) {
 }
 
 void CPlayer::Release_Object() {
-
+    Safe_Delete(inventory);
 }
 
 void CPlayer::OnCollision(CObj* _TargetObj) {
@@ -300,7 +304,10 @@ void CPlayer::GatherResource() {
         tempObj->SetName(selectedActor->GetName());
         CObjManager::GetInstance()->AddObject(tempObj, OBJ::UI);
         miningState.mining = false;
-        dynamic_cast<CResourceOre*>(selectedActor)->Gather();
+        CItem* tempItem = dynamic_cast<CItem*>(dynamic_cast<CResourceOre*>(selectedActor)->Gather());
+        if (tempItem) {
+            inventory->PushItem(tempItem);
+        }
         spriteIndexX = 0;
     }
 }

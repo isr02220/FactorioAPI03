@@ -41,20 +41,22 @@ void CPlayScene::ReadyScene() {
 		ObjManager->GetPlayer()->SetName(L"사막여우");
 		POSITION playerPos = ToGridPos(ObjManager->GetPlayer()->GetPosition(), GRIDCX);
 		
-		for (INT i = 0; i < 4; i++) 
-			for (INT j = 0; j < 4; j++)
+		const INT oreSizeX = 2;
+		const INT oreSizeY = 2;
+		for (INT i = 0; i < oreSizeY; i++)
+			for (INT j = 0; j < oreSizeX; j++)
 				ObjManager->InsertObject(CAbstractFactory<CCoalOre>::Create(playerPos.x + GRIDCX * j, playerPos.y + GRIDCX * i), OBJ::RESOURCEORE);
 		
-		for (INT i = -8; i < -4; i++) 
-			for (INT j = -8; j < -4; j++)
+		for (INT i = -oreSizeY * 2; i < -oreSizeY; i++)
+			for (INT j = -oreSizeX * 2; j < -oreSizeX; j++)
 				ObjManager->InsertObject(CAbstractFactory<CCopperOre>::Create(playerPos.x + GRIDCX * j, playerPos.y + GRIDCX * i), OBJ::RESOURCEORE);
 		
-		for (INT i = -8; i < -4; i++) 
-			for (INT j = 0; j < 4; j++)
+		for (INT i = -oreSizeY * 2; i < -oreSizeY; i++)
+			for (INT j = 0; j < oreSizeX; j++)
 				ObjManager->InsertObject(CAbstractFactory<CIronOre>::Create(playerPos.x + GRIDCX * j, playerPos.y + GRIDCX * i), OBJ::RESOURCEORE);
 		
-		for (INT i = 0; i < 4; i++) 
-			for (INT j = -8; j < -4; j++)
+		for (INT i = 0; i < oreSizeY; i++)
+			for (INT j = -oreSizeX * 2; j < -oreSizeX; j++)
 				ObjManager->InsertObject(CAbstractFactory<CStone>::Create(playerPos.x + GRIDCX * j, playerPos.y + GRIDCX * i), OBJ::RESOURCEORE);
 
 

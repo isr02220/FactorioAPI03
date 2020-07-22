@@ -128,26 +128,40 @@ void CBurnerInserter::TransportItem() {
             }
         }
     }
-    else {
+    else if (pickedItem) {
         if (Timer + 600 < GetTickCount()) {
 
             if ((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)] && 
                 !lstrcmp((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]->GetName(), L"IronChest")) {
-                CIronChest* chest = dynamic_cast<CIronChest*>((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]);
-                if (chest) {
-                    chest->inventory->PushItem(dynamic_cast<CItem*>(pickedItem));
+                CActor* outputActor = dynamic_cast<CActor*>((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]);
+                if (outputActor->inventory) {
+                    outputActor->inventory->PushItem(dynamic_cast<CItem*>(pickedItem));
+                    pickingState = false;
+                    pickedItem = nullptr;
+                    Timer = GetTickCount();
                 }
             }
             else {
-                pickedItem->SetPosition(outputPos);
-                CObjManager::GetInstance()->AddObject(pickedItem, OBJ::ITEM);
+                list<CObj*>* itemList = CObjManager::GetInstance()->GetList(OBJ::ITEM);
+                POINT pt = {};
+                pt.x = (INT)outputPos.x;
+                pt.y = (INT)outputPos.y;
+                BOOL dropable = true;
+                for (auto iter = itemList->begin(); iter != itemList->end();) {
+                    if (PtInRect((*iter)->GetRect(), pt)) {
+                        dropable = false;
+                        break;
+                    }
+                    iter++;
+                }
+                if (dropable) {
+                    pickedItem->SetPosition(outputPos);
+                    CObjManager::GetInstance()->AddObject(pickedItem, OBJ::ITEM);
+                    pickingState = false;
+                    pickedItem = nullptr;
+                    Timer = GetTickCount();
+                }
             }
-            pickingState = false;
-            pickedItem = nullptr;
-            Timer = GetTickCount();
-        }
-        else {
-           // pickedActor->SetPosition(outputPos);
         }
     }
 

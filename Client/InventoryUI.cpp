@@ -1,5 +1,8 @@
 #include "InventoryUI.h"
+#include "Inventory.h"
+#include "ItemStack.h"
 #include "Obj.h"
+#include "Actor.h"
 CInventoryUI::CInventoryUI() {
 	objectType = OBJ::UI;
 	strokeColor = RGB(128, 128, 255);
@@ -18,7 +21,14 @@ void CInventoryUI::Ready_Object() {
 }
 
 INT CInventoryUI::Update_Object() {
-	return 0;
+	if (targetActor && targetActor->inventory) {
+		listItemStack = &(targetActor->inventory->listItemStack);
+	}
+	else {
+		listItemStack = nullptr;
+	}
+
+	return STATE_NO_EVENT;
 }
 
 void CInventoryUI::LateUpdate_Object() {
@@ -40,6 +50,10 @@ void CInventoryUI::Render_Object(HDC hDC) {
 			hMemDC,
 			0,0,
 			SRCCOPY);
+
+		for (auto itemStack : *listItemStack) {
+
+		}
 	}
 }
 

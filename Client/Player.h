@@ -2,6 +2,7 @@
 #include "Actor.h"
 class CUI;
 class CMouse;
+class CInventory;
 class CPlayer : public CActor {
 public:
 	CPlayer();
@@ -25,7 +26,7 @@ public:
 	void RotateCursor();
 	void UpdateSelectedUI(CUI* _targetUI);
 private:
-	CMouse* playerMouse;
+	CMouse* playerMouse = nullptr;
 	CUI* selectedUI;
 	CUI* inventoryUI;
 	CUI* QuickSlotUI;

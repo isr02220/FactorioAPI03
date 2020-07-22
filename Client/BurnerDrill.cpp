@@ -137,26 +137,40 @@ void CBurnerDrill::GatherResourceOre(FLOAT speed) {
 	else {
 		if (miningState.mining && ++spriteIndexX >= 8) spriteIndexX = 0;
 		if (Timer + 1500 < GetTickCount()) {
-			CObj* tempObj = CAbstractFactory<CFloatingText>::Create(miningState.target->GetPosition().x, miningState.target->GetPosition().y);
-			tempObj->SetName(miningState.target->GetName());
-			CObjManager::GetInstance()->AddObject(tempObj, OBJ::UI);
-			miningState.mining = true;
-			tempObj = dynamic_cast<CResourceOre*>(miningState.target)->Gather();
-			if (tempObj == nullptr)
-				return;
-
-			if ((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)] && 
-				!lstrcmp((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]->GetName(), L"IronChest")) {
-				CIronChest* chest = dynamic_cast<CIronChest*>((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]);
-				if (chest) {
-					chest->inventory->PushItem(dynamic_cast<CItem*>(tempObj));
+			list<CObj*>* itemList = CObjManager::GetInstance()->GetList(OBJ::ITEM);
+			POINT pt = {};
+			pt.x = (INT)outputPos.x;
+			pt.y = (INT)outputPos.y;
+			BOOL dropable = true;
+			for (auto iter = itemList->begin(); iter != itemList->end();) {
+				if (PtInRect((*iter)->GetRect(), pt)) {
+					dropable = false;
+					break;
 				}
+				iter++;
 			}
-			else {
-				tempObj->SetPosition(outputPos);
-				CObjManager::GetInstance()->AddObject(tempObj, OBJ::ITEM);
+			if (dropable) {
+				CObj* tempObj = CAbstractFactory<CFloatingText>::Create(miningState.target->GetPosition().x, miningState.target->GetPosition().y);
+				tempObj->SetName(miningState.target->GetName());
+				CObjManager::GetInstance()->AddObject(tempObj, OBJ::UI);
+				miningState.mining = true;
+				tempObj = dynamic_cast<CResourceOre*>(miningState.target)->Gather();
+				if (tempObj == nullptr)
+					return;
+
+				if ((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)] &&
+					!lstrcmp((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]->GetName(), L"IronChest")) {
+					CActor* outputActor = dynamic_cast<CActor*>((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]);
+					if (outputActor->inventory) {
+						outputActor->inventory->PushItem(dynamic_cast<CItem*>(tempObj));
+					}
+				}
+				else {
+					tempObj->SetPosition(outputPos);
+					CObjManager::GetInstance()->AddObject(tempObj, OBJ::ITEM);
+				}
+				Timer = GetTickCount();
 			}
-			Timer = GetTickCount();
 		}
 	}
 
@@ -165,19 +179,19 @@ void CBurnerDrill::GatherResourceOre(FLOAT speed) {
 void CBurnerDrill::SetOutputPos() {
 	switch (walkingState.direction) {
 	case DIRECTION::DIR::NORTH:
-		outputPos = info.position + POSITION(-32.f, -80.f);
+		outputPos = info.position + POSITION(-16.f, -80.f);
 		break;
 	case DIRECTION::DIR::EAST:
-		outputPos = info.position + POSITION(80.f, -32.f);
+		outputPos = info.position + POSITION(80.f, -16.f);
 		break;
 	case DIRECTION::DIR::SOUTH:
-		outputPos = info.position + POSITION(32.f, 80.f);
+		outputPos = info.position + POSITION(16.f, 80.f);
 		break;
 	case DIRECTION::DIR::WEST:
-		outputPos = info.position + POSITION(-80.f, 32.f);
+		outputPos = info.position + POSITION(-80.f, 16.f);
 		break;
 	default:
-		outputPos = info.position + POSITION(-32.f, -80.f);
+		outputPos = info.position + POSITION(-16.f, -80.f);
 		break;
 	}
 }
