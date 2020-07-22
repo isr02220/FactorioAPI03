@@ -1,25 +1,25 @@
-#include "ItemStone.h"
+#include "ItemHand.h"
 #include "Item.h"
-CItemStone::CItemStone() : CItem() {
+CItemHand::CItemHand() : CItem() {
 	objectType = OBJ::ITEM;
 	group = ITEM::GROUP::INTERMEDIATE;
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
-	lstrcpy(IconName, L"ICON_stone");
-	SetName(L"µ¹");
+	lstrcpy(IconName, L"ICON_hand");
+	SetName(L"¼±ÅÃ");
 }
 
-CItemStone::~CItemStone() {
+CItemHand::~CItemHand() {
 	Release_Object();
 }
 
-void CItemStone::LateUpdate_Object() {
+void CItemHand::LateUpdate_Object() {
 
 }
 
-void CItemStone::Render_Object(HDC hDC) {
+void CItemHand::Render_Object(HDC hDC) {
 	CObj::Update_Rect_Object();
 	if (isVisible) {
-		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"ICON_stone");
+		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"ICON_hand");
 		if (nullptr == hMemDC)
 			return;
 		INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
@@ -41,6 +41,6 @@ void CItemStone::Render_Object(HDC hDC) {
 }
 
 
-CItem* CItemStone::GetNewItem() {
-	return new CItemStone();
+CItem* CItemHand::GetNewItem() {
+	return new CItemHand();
 }

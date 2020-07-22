@@ -161,6 +161,7 @@
     <ClInclude Include="IronOre.h" />
     <ClInclude Include="ItemCoalOre.h" />
     <ClInclude Include="ItemCopperOre.h" />
+    <ClInclude Include="ItemHand.h" />
     <ClInclude Include="ItemIronOre.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Item.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="IronOre.cpp" />
     <ClCompile Include="ItemCoalOre.cpp" />
     <ClCompile Include="ItemCopperOre.cpp" />
+    <ClCompile Include="ItemHand.cpp" />
     <ClCompile Include="ItemIronOre.cpp" />
     <ClCompile Include="ItemStack.cpp" />
     <ClCompile Include="ItemStone.cpp" />

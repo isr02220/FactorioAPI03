@@ -8,6 +8,7 @@ public:
 	~CInventory();
 
 	void   PushItem(CItem* _item);
+	void   PushItemStack(CItemStack* _itemStack);
 	CItem* PopItem(CItem* _item);
 	CItem* PopItem();
 

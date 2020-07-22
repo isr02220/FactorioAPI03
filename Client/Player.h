@@ -28,7 +28,7 @@ public:
 private:
 	CMouse* playerMouse = nullptr;
 	CUI* selectedUI;
-	CUI* inventoryUI;
+	CUI* focusedUI;
 	CUI* QuickSlotUI;
 	CUI* ProgressBarUI;
 	

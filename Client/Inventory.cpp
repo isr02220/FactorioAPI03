@@ -15,6 +15,7 @@ void CInventory::PushItem(CItem* _item) {
 		if (!lstrcmp(itemStack->item->GetName(), _item->GetName())) {
 			if (itemStack->size < itemStack->capacity) {
 				itemStack->size++;
+				Safe_Delete(_item);
 				return;
 			}
 		}
@@ -23,6 +24,12 @@ void CInventory::PushItem(CItem* _item) {
 	tempItemStack->size++;
 	listItemStack.emplace_back(tempItemStack);
 	Safe_Delete(_item);
+}
+
+void CInventory::PushItemStack(CItemStack* _itemStack) {
+	for (size_t i = 0; i < _itemStack->size; i++) {
+		PushItem(_itemStack->item->GetNewItem());
+	}
 }
 
 CItem* CInventory::PopItem(CItem* _item) {

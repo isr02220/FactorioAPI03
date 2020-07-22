@@ -23,7 +23,9 @@ CBitmapManager::~CBitmapManager() {
 }
 
 HDC CBitmapManager::FindImage(const TCHAR* imageKey) {
-	auto iter_find = mapBmp.find(imageKey);
+	auto iter_find = find_if(mapBmp.begin(), mapBmp.end(), [&](auto& rPair) {
+		return !lstrcmp(imageKey, rPair.first);
+		});
 	if (iter_find == mapBmp.end())
 		return nullptr;
 	return iter_find->second->GetMemDC();

@@ -2,6 +2,7 @@
 #include "Mouse.h"
 #include "Player.h"
 #include "UI.h"
+#include "ItemStack.h"
 CMouse::CMouse() {
 	objectType = OBJ::MOUSE;
 }
@@ -55,6 +56,9 @@ void CMouse::Render_Object(HDC hDC) {
 		//LineTo(hDC, (rect.left + rect.right) / 2, rect.bottom);
 		//Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	}
+	INT ScrollX = CScrollManager::GetInstance()->GetScrollX();
+	INT ScrollY = CScrollManager::GetInstance()->GetScrollY();
+
 	HPEN   hPen = CreatePen(PS_SOLID, 5, RGB(255, 255, 0));
 	HPEN   oldPen = (HPEN)SelectObject(hDC, hPen);
 
@@ -62,14 +66,44 @@ void CMouse::Render_Object(HDC hDC) {
 	HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
 
 	if (selectedActor) {
-		INT ScrollX = CScrollManager::GetInstance()->GetScrollX();
-		INT ScrollY = CScrollManager::GetInstance()->GetScrollY();
 		RECT* tRect = selectedActor->GetRect();
 		Rectangle(hDC, tRect->left + ScrollX, tRect->top + ScrollY, tRect->right + ScrollX, tRect->bottom + ScrollY);
 	}
 	else if (selectedUI) {
 		RECT * tRect = selectedUI->GetRect();
 		Rectangle(hDC, tRect->left, tRect->top, tRect->right, tRect->bottom);
+	}
+
+	if (cursorStack) {
+
+		LOGFONT* logCountFont = CFontManager::GetInstance()->FindFont(L"±¼¸²Ã¼");
+		HFONT countFont = CreateFontIndirect(logCountFont);
+		HFONT oldFont = (HFONT)SelectObject(hDC, countFont);
+		GdiTransparentBlt(hDC,
+			rect.left + ScrollX + 32,
+			rect.top + ScrollY + 32,
+			32,
+			32,
+			cursorStack->hMemDC,
+			0,
+			0,
+			32,
+			32,
+			RGB(255, 0, 255));
+		RECT rc = {};
+		TCHAR szBuffer[32];
+		SetRect(&rc, rect.left + ScrollX + 32, rect.top + ScrollY + 54, rect.left + ScrollX + 64, rect.top + ScrollY + 64);
+		//OffsetRect(&rc, 14 + (index % 10 * 38), 47 + (index / 10 * 38));
+		SetTextColor(hDC, RGB(0, 0, 0));
+		wsprintf(szBuffer, L"%d", cursorStack->size);
+		DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
+		SetTextColor(hDC, RGB(255, 255, 255));
+		OffsetRect(&rc, -1, -1);
+		DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
+		SetTextColor(hDC, RGB(0, 0, 0));
+
+		SelectObject(hDC, oldFont);
+		DeleteObject(countFont);
 	}
 
 	SelectObject(hDC, oldPen);

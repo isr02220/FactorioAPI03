@@ -4,6 +4,7 @@ CItemIronOre::CItemIronOre() : CItem() {
 	objectType = OBJ::ITEM;
 	group = ITEM::GROUP::INTERMEDIATE;
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
+	lstrcpy(IconName, L"ICON_iron-ore");
 	SetName(L"Ã¶±¤¼®");
 }
 

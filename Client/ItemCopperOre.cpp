@@ -4,6 +4,7 @@ CItemCopperOre::CItemCopperOre() : CItem() {
 	objectType = OBJ::ITEM;
 	group = ITEM::GROUP::INTERMEDIATE;
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
+	lstrcpy(IconName, L"ICON_copper-ore");
 	SetName(L"±¸¸®±¤¼®");
 }
 

@@ -1,16 +1,22 @@
 #include "Inventory.h"
 #include "IronChest.h"
-
+#include "InventoryUI.h"
 CIronChest::CIronChest() {
     SetName(L"IronChest");
     objectType = OBJ::ENTITY;
 	inventory = new CInventory(24);
+	GUI = new CInventoryUI();
 }
 
 CIronChest::~CIronChest() {
 	Safe_Delete(inventory);
+	dynamic_cast<CInventoryUI*>(GUI)->targetActor = nullptr;
 }
 void CIronChest::Ready_Object() {
+	CObj* tempUi = CAbstractFactory<CInventoryUI>::Create(WINCX >> 2, WINCY >> 1);
+	CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
+	GUI = dynamic_cast<CUI*>(tempUi);
+	dynamic_cast<CInventoryUI*>(GUI)->targetActor = this;
     info.iCX = 64;
     info.iCY = 64;
     info.CCX = 66;
@@ -42,7 +48,7 @@ void CIronChest::Render_Object(HDC hDC) {
 			return;
 		INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
 		INT iScrollY = (INT)CScrollManager::GetInstance()->GetScrollY();
-
+		//GUI->SetVisible(true);
 		GdiTransparentBlt(hDC,
 			cRect.left + iScrollX,
 			cRect.top + iScrollY,

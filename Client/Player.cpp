@@ -33,7 +33,8 @@ void CPlayer::Ready_Object() {
     info.position.y = FLOAT(GRIDCY * (GRIDY >> 1));
     CObj* tempUi = CAbstractFactory<CInventoryUI>::Create(WINCX >> 2, WINCY >> 1);
     CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
-    inventoryUI = dynamic_cast<CUI*>(tempUi);
+    GUI = dynamic_cast<CUI*>(tempUi);
+    dynamic_cast<CInventoryUI*>(GUI)->targetActor = this;
 
     tempUi = CAbstractFactory<CQuickSlotUI>::Create(WINCX >> 1, WINCY - 48);
     tempUi->SetVisible(true);
@@ -92,10 +93,25 @@ int CPlayer::Update_Object() {
         if (CKeyManager::GetInstance()->OnPress(KEY::ClearCursor)) {
             Safe_Delete<CActor*>(pickedActor);
         }
-        if (CKeyManager::GetInstance()->OnPress(KEY::Inventory))
-            inventoryUI->SetVisible(!inventoryUI->GetVisible());
-                
-        if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction) && selectedUI == nullptr && pickedActor != nullptr) PlaceEntity();
+        if (CKeyManager::GetInstance()->OnPress(KEY::Inventory)) {
+            if (focusedUI) {
+                focusedUI->SetVisible(false);
+                focusedUI = nullptr;
+            }
+            else
+                GUI->SetVisible(!GUI->GetVisible());
+        }
+        if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction) && selectedUI == nullptr) {
+            if (pickedActor != nullptr)
+                PlaceEntity();
+            else if (selectedActor && selectedActor->inventory) {
+                if (focusedUI)
+                    focusedUI->SetVisible(false);
+                selectedActor->GUI->SetVisible(true);
+                focusedUI = selectedActor->GUI;
+            }
+            
+        }
 
         if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction) && selectedUI == nullptr) SecondaryAction();
         else if (ProgressBarUI != nullptr) dynamic_cast<CProgressBar*>(ProgressBarUI)->ResetProgress();

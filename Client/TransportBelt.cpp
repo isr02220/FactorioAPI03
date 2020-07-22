@@ -590,15 +590,15 @@ void CTransportBelt::TransportItem() {
 			case DIRECTION::DIR::NORTH:
 				switch (tailDir) {
 				case DIRECTION::DIR::EAST:
-					dX = item->GetPosition().x - (FLOAT)rect.left + 16;
-					dY = item->GetPosition().y - (FLOAT)rect.top + 16;
+					dX = item->GetPosition().x - (FLOAT)rect.left + 20;
+					dY = item->GetPosition().y - (FLOAT)rect.top + 20;
 					dist = sqrtf(dX * dX + dY * dY);
 					rad = atan2f(dY, dX) - 0.05f;
 					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
 					break;
 				case DIRECTION::DIR::WEST:
-					dX = item->GetPosition().x - (FLOAT)rect.right - 16;
-					dY = item->GetPosition().y - (FLOAT)rect.top + 16;
+					dX = item->GetPosition().x - (FLOAT)rect.right - 20;
+					dY = item->GetPosition().y - (FLOAT)rect.top + 20;
 					dist = sqrtf(dX * dX + dY * dY);
 					rad = atan2f(dY, dX) + 0.05f;
 					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
@@ -615,15 +615,15 @@ void CTransportBelt::TransportItem() {
 			case DIRECTION::DIR::EAST:
 				switch (tailDir) {
 				case DIRECTION::DIR::SOUTH:
-					dX = item->GetPosition().x - (FLOAT)rect.right - 16;
-					dY = item->GetPosition().y - (FLOAT)rect.top + 16;
+					dX = item->GetPosition().x - (FLOAT)rect.right - 20;
+					dY = item->GetPosition().y - (FLOAT)rect.top + 20;
 					dist = sqrtf(dX * dX + dY * dY);
 					rad = atan2f(dY, dX) - 0.05f;
 					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
 					break;
 				case DIRECTION::DIR::NORTH:
-					dX = item->GetPosition().x - (FLOAT)rect.right - 16;
-					dY = item->GetPosition().y - (FLOAT)rect.bottom - 16;
+					dX = item->GetPosition().x - (FLOAT)rect.right - 20;
+					dY = item->GetPosition().y - (FLOAT)rect.bottom - 20;
 					dist = sqrtf(dX * dX + dY * dY);
 					rad = atan2f(dY, dX) + 0.05f;
 					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
@@ -640,15 +640,15 @@ void CTransportBelt::TransportItem() {
 			case DIRECTION::DIR::SOUTH:
 				switch (tailDir) {
 				case DIRECTION::DIR::WEST:
-					dX = item->GetPosition().x - (FLOAT)rect.right - 16;
-					dY = item->GetPosition().y - (FLOAT)rect.bottom - 16;
+					dX = item->GetPosition().x - (FLOAT)rect.right - 20;
+					dY = item->GetPosition().y - (FLOAT)rect.bottom - 20;
 					dist = sqrtf(dX * dX + dY * dY);
 					rad = atan2f(dY, dX) - 0.05f;
 					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
 					break;
 				case DIRECTION::DIR::EAST:
-					dX = item->GetPosition().x - (FLOAT)rect.left + 16;
-					dY = item->GetPosition().y - (FLOAT)rect.bottom - 16;
+					dX = item->GetPosition().x - (FLOAT)rect.left + 20;
+					dY = item->GetPosition().y - (FLOAT)rect.bottom - 20;
 					dist = sqrtf(dX * dX + dY * dY);
 					rad = atan2f(dY, dX) + 0.05f;
 					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
@@ -665,15 +665,15 @@ void CTransportBelt::TransportItem() {
 			case DIRECTION::DIR::WEST:
 				switch (tailDir) {
 				case DIRECTION::DIR::SOUTH:
-					dX = item->GetPosition().x - (FLOAT)rect.left + 16;
-					dY = item->GetPosition().y - (FLOAT)rect.top + 16;
+					dX = item->GetPosition().x - (FLOAT)rect.left + 20;
+					dY = item->GetPosition().y - (FLOAT)rect.top + 20;
 					dist = sqrtf(dX * dX + dY * dY);
 					rad = atan2f(dY, dX) + 0.05f;
 					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));
 					break;
 				case DIRECTION::DIR::NORTH:
-					dX = item->GetPosition().x - (FLOAT)rect.left + 16;
-					dY = item->GetPosition().y - (FLOAT)rect.bottom - 16;
+					dX = item->GetPosition().x - (FLOAT)rect.left + 20;
+					dY = item->GetPosition().y - (FLOAT)rect.bottom - 20;
 					dist = sqrtf(dX * dX + dY * dY);
 					rad = atan2f(dY, dX) - 0.05f;
 					item->SetPosition(item->GetPosition() + POSITION((dist * cosf(rad) - dX), (dist * sinf(rad) - dY)));

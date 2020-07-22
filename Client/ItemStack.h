@@ -10,5 +10,6 @@ public:
 	UINT size = 0;
 	UINT capacity = 50;
 	CItem* item;
+	HDC hMemDC;
 };
 

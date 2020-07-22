@@ -4,6 +4,7 @@ CItemCoalOre::CItemCoalOre() : CItem(){
 	objectType = OBJ::ITEM;
 	group = ITEM::GROUP::INTERMEDIATE;
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
+	lstrcpy(IconName, L"ICON_coal");
 	SetName(L"¼®Åº");
 }
 

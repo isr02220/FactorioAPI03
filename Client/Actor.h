@@ -1,6 +1,7 @@
 #pragma once
 #include "Obj.h"
 class CInventory;
+class CUI;
 class CActor :
     public CObj {
 public:
@@ -79,4 +80,5 @@ protected:
     INT spriteIndexY = 0;
 public:
     CInventory* inventory = nullptr;
+    CUI* GUI = nullptr;
 };

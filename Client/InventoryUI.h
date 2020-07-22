@@ -15,6 +15,7 @@ public:
 	virtual void OnCollision(CObj* _TargetObj) override;
 
 	CActor* targetActor = nullptr;
-	list<CItemStack*>* listItemStack;
+	list<CItemStack*>* listItemStack = nullptr;
+	INT selectedIndex = 0;
 };
 

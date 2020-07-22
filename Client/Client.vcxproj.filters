@@ -215,6 +215,9 @@
     <ClInclude Include="IronChest.h">
       <Filter>02.Obj\Actor\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="ItemHand.h">
+      <Filter>02.Obj\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -359,6 +362,9 @@
     </ClCompile>
     <ClCompile Include="IronChest.cpp">
       <Filter>02.Obj\Actor\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemHand.cpp">
+      <Filter>02.Obj\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

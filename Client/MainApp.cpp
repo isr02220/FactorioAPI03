@@ -34,6 +34,7 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"gui/GUI_Panel.bmp", L"GUI_Panel");
 	INSERT_TEXTURE(L"gui/GUI_Inventory.bmp", L"GUI_Inventory");
 	INSERT_TEXTURE(L"gui/GUI_InventoryMerged.bmp", L"GUI_InventoryMerged");
+	INSERT_TEXTURE(L"gui/GUI_SelectedSlot.bmp", L"GUI_SelectedSlot");
 	INSERT_TEXTURE(L"gui/GUI_QuickSlot.bmp", L"GUI_QuickSlot");
 	INSERT_TEXTURE(L"gui/GUI_ProgressBarPanel.bmp", L"GUI_ProgressBarPanel");
 	INSERT_TEXTURE(L"gui/GUI_ProgressBarProgress.bmp", L"GUI_ProgressBarProgress");
@@ -57,8 +58,9 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"entity/resource-ore/hr-coal.bmp", L"hr-coal");
 	INSERT_TEXTURE(L"entity/resource-ore/hr-copper-ore.bmp", L"hr-copper-ore");
 	INSERT_TEXTURE(L"entity/resource-ore/hr-iron-ore.bmp", L"hr-iron-ore");
-
 	INSERT_TEXTURE(L"entity/resource-ore/hr-stone.bmp", L"hr-stone");
+
+	INSERT_TEXTURE(L"icon/ICON_hand.bmp", L"ICON_hand");
 	INSERT_TEXTURE(L"icon/ICON_coal.bmp", L"ICON_coal");
 	INSERT_TEXTURE(L"icon/ICON_copper-ore.bmp", L"ICON_copper-ore");
 	INSERT_TEXTURE(L"icon/ICON_iron-ore.bmp", L"ICON_iron-ore");
@@ -83,6 +85,40 @@ void CMainApp::Ready_MainApp() {
 	lstrcpy(pLogFont->lfFaceName, L"±Ã¼­Ã¼");
 
 	CFontManager::GetInstance()->InsertFont(pLogFont, L"±Ã¼­Ã¼");
+
+	pLogFont->lfHeight = 20;
+	pLogFont->lfWidth = 0;
+	pLogFont->lfEscapement = 0;
+	pLogFont->lfOrientation = 0;
+	pLogFont->lfWeight = 0;
+	pLogFont->lfItalic = 0;
+	pLogFont->lfUnderline = 0;
+	pLogFont->lfStrikeOut = 0;
+	pLogFont->lfCharSet = DEFAULT_CHARSET;
+	pLogFont->lfOutPrecision = 0;
+	pLogFont->lfClipPrecision = 0;
+	pLogFont->lfQuality = 0;
+	pLogFont->lfPitchAndFamily = 0;
+	lstrcpy(pLogFont->lfFaceName, L"HY°ß°íµñ");
+
+	CFontManager::GetInstance()->InsertFont(pLogFont, L"HY°ß°íµñ");
+
+	pLogFont->lfHeight = 12;
+	pLogFont->lfWidth = 0;
+	pLogFont->lfEscapement = 0;
+	pLogFont->lfOrientation = 0;
+	pLogFont->lfWeight = 600;
+	pLogFont->lfItalic = 0;
+	pLogFont->lfUnderline = 0;
+	pLogFont->lfStrikeOut = 0;
+	pLogFont->lfCharSet = DEFAULT_CHARSET;
+	pLogFont->lfOutPrecision = 0;
+	pLogFont->lfClipPrecision = 0;
+	pLogFont->lfQuality = 0;
+	pLogFont->lfPitchAndFamily = 0;
+	lstrcpy(pLogFont->lfFaceName, L"±¼¸²Ã¼");
+
+	CFontManager::GetInstance()->InsertFont(pLogFont, L"±¼¸²Ã¼");
 
 
 

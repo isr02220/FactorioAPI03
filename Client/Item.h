@@ -15,7 +15,7 @@ public:
     virtual void OnCollision(CObj* _TargetObj) override;
     virtual CItem* GetNewItem();
 public:
-
+    TCHAR IconName[32];
 	ITEM::GROUP group;
 	ITEM::SUBGROUP subGroup;
     UINT stackSize = 50;
