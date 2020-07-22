@@ -2,6 +2,7 @@
 #include "Mouse.h"
 #include "Player.h"
 #include "Item.h"
+#include "ItemStack.h"
 #include "Entity.h"
 #include "ResourceOre.h"
 #include "TransportBelt.h"
@@ -92,6 +93,24 @@ int CPlayer::Update_Object() {
         }
         if (CKeyManager::GetInstance()->OnPress(KEY::ClearCursor)) {
             Safe_Delete<CActor*>(pickedActor);
+            if (playerMouse->cursorStack) {
+                inventory->PushItemStack(playerMouse->cursorStack);
+                Safe_Delete(playerMouse->cursorStack);
+                for (auto iter = inventory->listItemStack.begin(); iter != inventory->listItemStack.end(); iter++) {
+                    if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
+                        inventory->listItemStack.erase(iter);
+                        inventory->listItemStack.sort([](CItemStack* stack1, CItemStack* stack2) {
+                            if (!lstrcmp(stack1->item->GetName(), stack2->item->GetName())) {
+                                return stack1->size > stack2->size;
+                            }
+                            else {
+                                return lstrcmp(stack1->item->GetName(), stack2->item->GetName()) > 0;
+                            }
+                            });
+                        break;
+                    }
+                }
+            }
         }
         if (CKeyManager::GetInstance()->OnPress(KEY::Inventory)) {
             if (focusedUI) {

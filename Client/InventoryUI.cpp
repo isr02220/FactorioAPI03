@@ -32,7 +32,44 @@ INT CInventoryUI::Update_Object() {
 		listItemStack = nullptr;
 	}
 
-
+	if (!isVisible) {
+		if (listItemStack) {
+			for (auto iter = listItemStack->begin(); iter != listItemStack->end(); iter++) {
+				if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
+					listItemStack->erase(iter);
+					listItemStack->sort([](CItemStack* stack1, CItemStack* stack2) {
+						if (!lstrcmp(stack1->item->GetName(), stack2->item->GetName())) {
+							return stack1->size > stack2->size;
+						}
+						else {
+							return lstrcmp(stack1->item->GetName(), stack2->item->GetName()) > 0;
+						}
+						});
+					break;
+				}
+			}
+				
+		}
+		return STATE_NO_EVENT;
+	}
+	if (CKeyManager::GetInstance()->OnPress(KEY::ClearCursor)) {
+		if (listItemStack) {
+			for (auto iter = listItemStack->begin(); iter != listItemStack->end(); iter++) {
+				if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
+					listItemStack->erase(iter);
+					listItemStack->sort([](CItemStack* stack1, CItemStack* stack2) {
+						if (!lstrcmp(stack1->item->GetName(), stack2->item->GetName())) {
+							return stack1->size > stack2->size;
+						}
+						else {
+							return lstrcmp(stack1->item->GetName(), stack2->item->GetName()) > 0;
+						}
+						});
+					break;
+				}
+			}
+		}
+	}
 	POINT pt = {};
 	GetCursorPos(&pt);
 	ScreenToClient(g_hWnd, &pt);
@@ -40,6 +77,7 @@ INT CInventoryUI::Update_Object() {
 		INT index = 0;
 		RECT rc = {};
 		SetRect(&rc, rect.left, rect.top, rect.left + 38, rect.top + 38);
+		CItemStack* cursorStack = dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack;
 		OffsetRect(&rc, 14, 47);
 		selectedIndex = 0;
 		for (auto itemStack : *listItemStack) {
@@ -48,7 +86,6 @@ INT CInventoryUI::Update_Object() {
 			SetRect(&rc, cx, cy, cx + 38, cy + 38);
 			if (PtInRect(&rc, pt)) {
 				if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction)) {
-					CItemStack* cursorStack = dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack;
 					if (cursorStack) {
 						if (!lstrcmp(itemStack->item->IconName, L"ICON_hand")) {
 							targetActor->inventory->PushItemStack(cursorStack);
@@ -91,9 +128,20 @@ INT CInventoryUI::Update_Object() {
 			}
 			index++;
 		}
+		if (selectedIndex == 0 && PtInRect(&rect, pt) && cursorStack &&
+			CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction)) {
+
+			for (auto iter = listItemStack->begin(); iter != listItemStack->end(); iter++)
+				if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
+					listItemStack->erase(iter);
+					break;
+				}
+			targetActor->inventory->PushItemStack(cursorStack);
+			Safe_Delete(cursorStack);
+			dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+			
+		}
 	}
-					//cRect.left + 14 + (index % 10 * 38),
-					//cRect.top + 47 + (index / 10 * 38),
 
 	return STATE_NO_EVENT;
 }

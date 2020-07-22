@@ -24,6 +24,14 @@ void CInventory::PushItem(CItem* _item) {
 	tempItemStack->size++;
 	listItemStack.emplace_back(tempItemStack);
 	Safe_Delete(_item);
+	listItemStack.sort([](CItemStack* stack1, CItemStack* stack2) {
+		if (!lstrcmp(stack1->item->GetName(), stack2->item->GetName())) {
+			return stack1->size > stack2->size;
+		}
+		else {
+			return lstrcmp(stack1->item->GetName(), stack2->item->GetName()) > 0;
+		}
+		});
 }
 
 void CInventory::PushItemStack(CItemStack* _itemStack) {
