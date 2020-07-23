@@ -150,11 +150,8 @@ void CBurnerDrill::GatherResourceOre(FLOAT speed) {
 				iter++;
 			}
 			if (dropable) {
-				CObj* tempObj = CAbstractFactory<CFloatingText>::Create(miningState.target->GetPosition().x, miningState.target->GetPosition().y);
-				tempObj->SetName(miningState.target->GetName());
-				CObjManager::GetInstance()->AddObject(tempObj, OBJ::UI);
 				miningState.mining = true;
-				tempObj = dynamic_cast<CResourceOre*>(miningState.target)->Gather();
+				CObj* tempObj = dynamic_cast<CResourceOre*>(miningState.target)->Gather();
 				if (tempObj == nullptr)
 					return;
 

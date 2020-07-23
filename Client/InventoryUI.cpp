@@ -31,9 +31,14 @@ INT CInventoryUI::Update_Object() {
 	else {
 		listItemStack = nullptr;
 	}
-
+	
 	if (!isVisible) {
 		ClearIconHand();
+		active = false;
+		return STATE_NO_EVENT;
+	}
+	if (!active) {
+		active = true;
 		return STATE_NO_EVENT;
 	}
 	if (CKeyManager::GetInstance()->OnPress(KEY::ClearCursor)) {

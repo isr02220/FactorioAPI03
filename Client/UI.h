@@ -12,5 +12,6 @@ public:
 	virtual void OnCollision(CObj* _TargetObj) override;
 	BOOL GetVisible() { return isVisible; }
 
+	BOOL active = false;
 };
 

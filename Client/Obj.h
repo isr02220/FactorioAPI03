@@ -33,6 +33,7 @@ public:
 	RECT* GetRect() { return &rect; }
 	RECT* GetCRect() { return &cRect; }
 	INFO* GetInfo() { return &info; }
+	BOOL  GetActive() { return active; };
 	POSITION GetPosition() { return POSITION(info.position); }
 	OBJ::TYPE GetObjectType() { return objectType; }
 	TYPEORDER GetOrder() { return order; }
@@ -40,6 +41,7 @@ public:
 
 	void Update_Rect_Object();
 	void SetDead() { dead = true; }
+	void SetActive(BOOL _val) { active = _val; };
 	void SetVisible(BOOL _val) { isVisible = _val; };
 	void SetFillColor(const COLORREF& _FillColor) { fillColor = _FillColor; }
 	void SetStrokeColor(const COLORREF& _StrokeColor) { strokeColor = _StrokeColor; }
@@ -52,7 +54,7 @@ protected:
 	COLORREF fillColor = RGB(255, 255, 255);
 	COLORREF strokeColor = RGB(0, 0, 0);
 	BOOL dead = false;
+	BOOL active = false;
 	BOOL isVisible = true;
-	
 };
 

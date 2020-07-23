@@ -15,7 +15,10 @@ void CInventory::PushItem(CItem* _item) {
 		if (!lstrcmp(itemStack->item->GetName(), _item->GetName())) {
 			if (itemStack->size < itemStack->capacity) {
 				itemStack->size++;
-				Safe_Delete(_item);
+				list<CObj*>* listItem = CObjManager::GetInstance()->GetList(OBJ::ITEM);
+				auto iter = find_if(listItem->begin(), listItem->end(), [&](CObj* tObj) { return _item == tObj;	});
+				if (iter != listItem->end())
+					(*iter)->SetDead();
 				return;
 			}
 		}
@@ -23,7 +26,10 @@ void CInventory::PushItem(CItem* _item) {
 	CItemStack* tempItemStack = new CItemStack(_item->GetNewItem());
 	tempItemStack->size++;
 	listItemStack.emplace_back(tempItemStack);
-	Safe_Delete(_item);
+	list<CObj*>* listItem = CObjManager::GetInstance()->GetList(OBJ::ITEM);
+	auto iter = find_if(listItem->begin(), listItem->end(), [&](CObj* tObj) { return _item == tObj;	});
+	if(iter != listItem->end())
+		(*iter)->SetDead();
 	listItemStack.sort([](CItemStack* stack1, CItemStack* stack2) {
 		if (!lstrcmp(stack1->item->GetName(), stack2->item->GetName())) {
 			return stack1->size > stack2->size;
@@ -32,6 +38,12 @@ void CInventory::PushItem(CItem* _item) {
 			return lstrcmp(stack1->item->GetName(), stack2->item->GetName()) > 0;
 		}
 		});
+}
+
+void CInventory::PushItem(CObj* _item) {
+	CItem* tempItem = dynamic_cast<CItem*>(_item);
+	if (tempItem)
+		PushItem(tempItem);
 }
 
 void CInventory::PushItemStack(CItemStack* _itemStack) {

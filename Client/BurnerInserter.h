@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+class CItem;
 class CBurnerInserter :
     public CEntity {
 public:
@@ -20,6 +21,7 @@ public:
 
 public:
     CObj* pickedItem = nullptr;
+    vector<CItem*> vecFilter;
     RECT inputRect;
     POSITION outputPos = { 0.f,0.f };
 protected:

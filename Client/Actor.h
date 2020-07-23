@@ -30,7 +30,6 @@ public:
     ORIENTATION   GetOrientation()    { return orientation  ; }
     BOOL          GetControllable()   { return controllable ; }
     BOOL          GetInvincible()     { return invincible   ; }
-    BOOL          GetActive()         { return active       ; }
     FLOAT         GetSpeed()          { return speed        ; }
     INT           GetScore()          { return score        ; }
     INT           GetHP()             { return HP           ; }
@@ -44,7 +43,6 @@ public:
     void SetOrientation   (const ORIENTATION  & _orientation  ) { orientation   = _orientation  ; }
     void SetControllable  (const BOOL         & _controllable ) { controllable  = _controllable ; }
     void SetInvincible    (const BOOL         & _invincible   ) { invincible    = _invincible   ; }
-    void SetActive        (const BOOL         & _active       ) { active        = _active       ; }
     void SetSpeed         (const FLOAT        & _speed        ) { speed         = _speed        ; }
     void SetScore         (const INT          & _score        ) { score         = _score        ; }
     void SetHP            (const INT          & _HP           ) { HP            = _HP           ; }
@@ -65,7 +63,6 @@ protected:
 
     BOOL controllable = false;
     BOOL invincible = false;
-    BOOL active = false;
     FLOAT speed = 1.f;
     INT  score = 0;
     INT  HP = 1;

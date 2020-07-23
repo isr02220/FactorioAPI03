@@ -18,6 +18,8 @@ void CItem::Ready_Object() {
 }
 
 INT CItem::Update_Object() {
+	if (dead)
+		return STATE_DEAD;
 	CObj::Update_Rect_Object();
 	if (info.position.x > -CScrollManager::GetInstance()->GetScrollX() &&
 		info.position.x < -CScrollManager::GetInstance()->GetScrollX() + WINCX &&

@@ -115,10 +115,14 @@ int CPlayer::Update_Object() {
         if (CKeyManager::GetInstance()->OnPress(KEY::Inventory)) {
             if (focusedUI) {
                 focusedUI->SetVisible(false);
+                GUI->SetVisible(false);
                 focusedUI = nullptr;
             }
-            else
-                GUI->SetVisible(!GUI->GetVisible());
+            else {
+                focusedUI = GUI;
+                GUI->SetVisible(true);
+                //CraftGUI->SetVisible(true);
+            }
         }
         if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction) && selectedUI == nullptr) {
             if (pickedActor != nullptr)
@@ -127,8 +131,11 @@ int CPlayer::Update_Object() {
         }
         if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction) && selectedUI == nullptr) {
             if (selectedActor && selectedActor->inventory) {
-                if (focusedUI)
+                if (focusedUI) {
                     focusedUI->SetVisible(false);
+                    GUI->SetVisible(false);
+                }
+                GUI->SetVisible(true);
                 selectedActor->GUI->SetVisible(true);
                 focusedUI = selectedActor->GUI;
             }
@@ -294,7 +301,11 @@ void CPlayer::PlaceEntity() {
         CObj* tempObj = pickedActor->GetNewActor();
         tempObj->SetPosition(ToGridPos(playerMouse->GetPosition(), tempObj->GetInfo()->iCX));
         dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
-
+        tempObj->Update_Rect_Object();
+        RECT rc = {};
+        for(auto item : *(CObjManager::GetInstance()->GetList(OBJ::ITEM)))
+            if (IntersectRect(&rc, item->GetRect(), tempObj->GetRect()))
+                inventory->PushItem(item);
         if(!lstrcmp(tempObj->GetName(), L"TransportBelt"))
             CObjManager::GetInstance()->InsertObject(tempObj, OBJ::BELT);
         else
@@ -308,7 +319,10 @@ void CPlayer::UnPlaceEntity() {
         if (selectedActor->inventory) 
             for (auto itemStack : selectedActor->inventory->listItemStack) 
                 inventory->PushItemStack(itemStack);
-            
+        RECT rc = {};
+        for (auto item : *(CObjManager::GetInstance()->GetList(OBJ::ITEM)))
+            if (IntersectRect(&rc, item->GetRect(), selectedActor->GetRect()))
+                inventory->PushItem(item);
         selectedActor->SetDead();
     }
     
@@ -342,9 +356,6 @@ void CPlayer::GatherResource() {
         walkingState.direction = DIRECTION::DIR::EAST;
 
     if (dynamic_cast<CProgressBar*>(ProgressBarUI)->IncreaseProgress(1.f / 110.f )) {
-        CObj* tempObj = CAbstractFactory<CFloatingText>::Create(selectedActor->GetPosition().x, selectedActor->GetPosition().y);
-        tempObj->SetName(selectedActor->GetName());
-        CObjManager::GetInstance()->AddObject(tempObj, OBJ::UI);
         miningState.mining = false;
         CItem* tempItem = dynamic_cast<CItem*>(dynamic_cast<CResourceOre*>(selectedActor)->Gather());
         if (tempItem) {

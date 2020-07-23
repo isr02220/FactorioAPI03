@@ -102,9 +102,9 @@ void CBurnerInserter::OnCollision(CObj* _TargetObj) {
 
 void CBurnerInserter::TransportItem() {
     if (pickedItem == nullptr && spriteIndexX == 0) {
-        if ((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex((info.position * 2.f) - outputPos)] &&
-            !lstrcmp((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex((info.position * 2.f) - outputPos)]->GetName(), L"IronChest")) {
-            pickedItem = dynamic_cast<CIronChest*>((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex((info.position * 2.f) - outputPos)])->inventory->PopItem();
+        CActor* tActor = dynamic_cast<CActor*>((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex((info.position * 2.f) - outputPos)]);
+        if (tActor && tActor->inventory) {
+            pickedItem = tActor->inventory->PopItem();
             if (pickedItem) {
                 pickingState = true;
                 Timer = GetTickCount();
