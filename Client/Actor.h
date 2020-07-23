@@ -52,7 +52,6 @@ public:
     void SetSpriteIndexX  (const INT          & _index        ) { spriteIndexX  = _index        ; }
     void SetSpriteIndexY  (const INT          & _index        ) { spriteIndexY  = _index        ; }
 
-    void SetDead() { dead = true; }
     void IncreaseScore(const INT& _score) { score += _score; }
 protected:
     CActor* selectedActor = nullptr;
@@ -67,7 +66,6 @@ protected:
     BOOL controllable = false;
     BOOL invincible = false;
     BOOL active = false;
-    BOOL dead = false;
     FLOAT speed = 1.f;
     INT  score = 0;
     INT  HP = 1;

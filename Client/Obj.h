@@ -26,6 +26,7 @@ public:
 		info.position = newPoint;
 	}
 
+
 	TCHAR* GetName() {
 		return info.name;
 	}
@@ -38,6 +39,7 @@ public:
 
 
 	void Update_Rect_Object();
+	void SetDead() { dead = true; }
 	void SetVisible(BOOL _val) { isVisible = _val; };
 	void SetFillColor(const COLORREF& _FillColor) { fillColor = _FillColor; }
 	void SetStrokeColor(const COLORREF& _StrokeColor) { strokeColor = _StrokeColor; }
@@ -49,6 +51,7 @@ protected:
 	TYPEORDER order;
 	COLORREF fillColor = RGB(255, 255, 255);
 	COLORREF strokeColor = RGB(0, 0, 0);
+	BOOL dead = false;
 	BOOL isVisible = true;
 	
 };

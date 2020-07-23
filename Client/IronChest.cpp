@@ -11,9 +11,10 @@ CIronChest::CIronChest() {
 CIronChest::~CIronChest() {
 	Safe_Delete(inventory);
 	dynamic_cast<CInventoryUI*>(GUI)->targetActor = nullptr;
+	GUI->SetDead();
 }
 void CIronChest::Ready_Object() {
-	CObj* tempUi = CAbstractFactory<CInventoryUI>::Create(WINCX >> 2, WINCY >> 1);
+	CObj* tempUi = CAbstractFactory<CInventoryUI>::Create(WINCX >> 1, WINCY >> 1);
 	CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
 	GUI = dynamic_cast<CUI*>(tempUi);
 	dynamic_cast<CInventoryUI*>(GUI)->targetActor = this;

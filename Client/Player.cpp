@@ -123,7 +123,10 @@ int CPlayer::Update_Object() {
         if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction) && selectedUI == nullptr) {
             if (pickedActor != nullptr)
                 PlaceEntity();
-            else if (selectedActor && selectedActor->inventory) {
+            
+        }
+        if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction) && selectedUI == nullptr) {
+            if (selectedActor && selectedActor->inventory) {
                 if (focusedUI)
                     focusedUI->SetVisible(false);
                 selectedActor->GUI->SetVisible(true);
@@ -302,6 +305,10 @@ void CPlayer::PlaceEntity() {
 void CPlayer::UnPlaceEntity() {
     ProgressBarUI->SetVisible(true);
     if (dynamic_cast<CProgressBar*>(ProgressBarUI)->IncreaseProgress(0.05f)) {
+        if (selectedActor->inventory) 
+            for (auto itemStack : selectedActor->inventory->listItemStack) 
+                inventory->PushItemStack(itemStack);
+            
         selectedActor->SetDead();
     }
     

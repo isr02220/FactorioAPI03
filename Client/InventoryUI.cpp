@@ -33,42 +33,12 @@ INT CInventoryUI::Update_Object() {
 	}
 
 	if (!isVisible) {
-		if (listItemStack) {
-			for (auto iter = listItemStack->begin(); iter != listItemStack->end(); iter++) {
-				if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
-					listItemStack->erase(iter);
-					listItemStack->sort([](CItemStack* stack1, CItemStack* stack2) {
-						if (!lstrcmp(stack1->item->GetName(), stack2->item->GetName())) {
-							return stack1->size > stack2->size;
-						}
-						else {
-							return lstrcmp(stack1->item->GetName(), stack2->item->GetName()) > 0;
-						}
-						});
-					break;
-				}
-			}
-				
-		}
+		ClearIconHand();
 		return STATE_NO_EVENT;
 	}
 	if (CKeyManager::GetInstance()->OnPress(KEY::ClearCursor)) {
-		if (listItemStack) {
-			for (auto iter = listItemStack->begin(); iter != listItemStack->end(); iter++) {
-				if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
-					listItemStack->erase(iter);
-					listItemStack->sort([](CItemStack* stack1, CItemStack* stack2) {
-						if (!lstrcmp(stack1->item->GetName(), stack2->item->GetName())) {
-							return stack1->size > stack2->size;
-						}
-						else {
-							return lstrcmp(stack1->item->GetName(), stack2->item->GetName()) > 0;
-						}
-						});
-					break;
-				}
-			}
-		}
+		ClearIconHand();
+		SortItemStack();
 	}
 	POINT pt = {};
 	GetCursorPos(&pt);
@@ -90,13 +60,9 @@ INT CInventoryUI::Update_Object() {
 						if (!lstrcmp(itemStack->item->IconName, L"ICON_hand")) {
 							targetActor->inventory->PushItemStack(cursorStack);
 							Safe_Delete(cursorStack);
+							ClearIconHand();
+							SortItemStack();
 							dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
-							for (auto iter = listItemStack->begin(); iter != listItemStack->end(); iter++) {
-								if (*iter == itemStack) {
-									listItemStack->erase(iter);
-									break;
-								}
-							}
 						}
 						else {
 							targetActor->inventory->PushItemStack(cursorStack);
@@ -130,16 +96,10 @@ INT CInventoryUI::Update_Object() {
 		}
 		if (selectedIndex == 0 && PtInRect(&rect, pt) && cursorStack &&
 			CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction)) {
-
-			for (auto iter = listItemStack->begin(); iter != listItemStack->end(); iter++)
-				if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
-					listItemStack->erase(iter);
-					break;
-				}
+			ClearAllIconHand();
 			targetActor->inventory->PushItemStack(cursorStack);
 			Safe_Delete(cursorStack);
 			dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
-			
 		}
 	}
 
@@ -151,7 +111,7 @@ void CInventoryUI::LateUpdate_Object() {
 
 void CInventoryUI::Render_Object(HDC hDC) {
 	CObj::Update_Rect_Object();
-	if (isVisible) {
+	if (isVisible && targetActor) {
 		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"GUI_InventoryMerged");
 		HDC hMemSelectedSlotDC = CBitmapManager::GetInstance()->FindImage(L"GUI_SelectedSlot");
 
@@ -229,4 +189,41 @@ void CInventoryUI::Release_Object() {
 }
 
 void CInventoryUI::OnCollision(CObj* _TargetObj) {
+}
+
+void CInventoryUI::ClearIconHand() {
+	if(listItemStack)
+	for (auto iter = listItemStack->begin(); iter != listItemStack->end(); iter++)
+		if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
+			listItemStack->erase(iter);
+			break;
+		}
+	
+}
+
+void CInventoryUI::ClearAllIconHand() {
+	CInventoryUI* inventoryUI = nullptr;
+	for (auto UI : *(CObjManager::GetInstance()->GetList(OBJ::UI))) {
+		inventoryUI = dynamic_cast<CInventoryUI*>(UI);
+		if(inventoryUI && inventoryUI->listItemStack)
+		for (auto iter = inventoryUI->listItemStack->begin(); iter != inventoryUI->listItemStack->end(); iter++)
+			if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
+				inventoryUI->listItemStack->erase(iter);
+				break;
+			}
+	}
+}
+
+void CInventoryUI::SortItemStack() {
+	if (listItemStack) {
+		listItemStack->sort([](CItemStack* stack1, CItemStack* stack2) {
+			if (!lstrcmp(stack1->item->GetName(), stack2->item->GetName())) {
+				return stack1->size > stack2->size;
+			}
+			else {
+				return lstrcmp(stack1->item->GetName(), stack2->item->GetName()) > 0;
+			}
+			});
+	}
+	
 }
