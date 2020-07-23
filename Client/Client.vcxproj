@@ -145,16 +145,20 @@
   <ItemGroup>
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="AssemblingMachineUI.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BeltManager.h" />
     <ClInclude Include="BitmapManager.h" />
     <ClInclude Include="BurnerDrill.h" />
     <ClInclude Include="BurnerInserter.h" />
+    <ClInclude Include="BurnerUI.h" />
     <ClInclude Include="CoalOre.h" />
     <ClInclude Include="CopperOre.h" />
+    <ClInclude Include="CraftUI.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FloatingText.h" />
     <ClInclude Include="FontManager.h" />
+    <ClInclude Include="FurnaceUI.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventoryUI.h" />
     <ClInclude Include="IronChest.h" />
@@ -196,15 +200,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="AssemblingMachineUI.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BeltManager.cpp" />
     <ClCompile Include="BitmapManager.cpp" />
     <ClCompile Include="BurnerDrill.cpp" />
     <ClCompile Include="BurnerInserter.cpp" />
+    <ClCompile Include="BurnerUI.cpp" />
     <ClCompile Include="CoalOre.cpp" />
     <ClCompile Include="CopperOre.cpp" />
+    <ClCompile Include="CraftUI.cpp" />
     <ClCompile Include="FloatingText.cpp" />
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="FurnaceUI.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="InventoryUI.cpp" />
     <ClCompile Include="IronChest.cpp" />

@@ -5,7 +5,6 @@ CIronChest::CIronChest() {
     SetName(L"IronChest");
     objectType = OBJ::ENTITY;
 	inventory = new CInventory(24);
-	GUI = new CInventoryUI();
 }
 
 CIronChest::~CIronChest() {

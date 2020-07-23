@@ -4,7 +4,7 @@
 #include "IronChest.h"
 #include "Inventory.h"
 #include "Item.h"
-
+#include "BurnerUI.h"
 #include "FloatingText.h"
 
 CBurnerDrill::CBurnerDrill() : CEntity() {
@@ -19,7 +19,10 @@ CBurnerDrill::~CBurnerDrill() {
 }
 
 void CBurnerDrill::Ready_Object() {
-	//miningState.mining = true;
+	CObj* tempUi = CAbstractFactory<CBurnerUI>::Create(WINCX >> 1, WINCY >> 2);
+	CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
+	GUI = dynamic_cast<CUI*>(tempUi);
+	dynamic_cast<CBurnerUI*>(GUI)->targetActor = this;
 	info.iCX = 128;
 	info.iCY = 128;
 	info.CCX = 200;

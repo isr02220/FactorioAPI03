@@ -218,6 +218,18 @@
     <ClInclude Include="ItemHand.h">
       <Filter>02.Obj\Item</Filter>
     </ClInclude>
+    <ClInclude Include="AssemblingMachineUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BurnerUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CraftUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FurnaceUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -365,6 +377,18 @@
     </ClCompile>
     <ClCompile Include="ItemHand.cpp">
       <Filter>02.Obj\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="AssemblingMachineUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BurnerUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CraftUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FurnaceUI.cpp">
+      <Filter>02.Obj\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

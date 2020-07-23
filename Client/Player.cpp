@@ -121,7 +121,6 @@ int CPlayer::Update_Object() {
             else {
                 focusedUI = GUI;
                 GUI->SetVisible(true);
-                GUI->SetVisible(true);
                 //CraftGUI->SetVisible(true);
             }
         }
@@ -131,7 +130,7 @@ int CPlayer::Update_Object() {
             
         }
         if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction) && selectedUI == nullptr) {
-            if (selectedActor && selectedActor->inventory) {
+            if (selectedActor && selectedActor->GUI) {
                 if (focusedUI) {
                     focusedUI->SetVisible(false);
                     GUI->SetVisible(false);
