@@ -121,6 +121,7 @@ int CPlayer::Update_Object() {
             else {
                 focusedUI = GUI;
                 GUI->SetVisible(true);
+                GUI->SetVisible(true);
                 //CraftGUI->SetVisible(true);
             }
         }
