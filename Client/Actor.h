@@ -74,6 +74,7 @@ protected:
     INT spriteIndexX = 0;
     INT spriteIndexY = 0;
 public:
+    BOOL rotatAble = true;
     CInventory* inventory = nullptr;
     CUI* GUI = nullptr;
 };

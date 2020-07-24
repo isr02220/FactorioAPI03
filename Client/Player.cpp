@@ -32,7 +32,7 @@ CPlayer::~CPlayer() {
 void CPlayer::Ready_Object() {
     info.position.x = FLOAT(GRIDCX * (GRIDX >> 1));
     info.position.y = FLOAT(GRIDCY * (GRIDY >> 1));
-    CObj* tempUi = CAbstractFactory<CInventoryUI>::Create(WINCX >> 2, WINCY >> 1);
+    CObj* tempUi = CAbstractFactory<CInventoryUI>::Create(WINCX >> 1, WINCY >> 1);
     CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
     GUI = dynamic_cast<CUI*>(tempUi);
     dynamic_cast<CInventoryUI*>(GUI)->targetActor = this;
@@ -69,7 +69,10 @@ int CPlayer::Update_Object() {
 
         if (pickedActor) {
             pickedActor->SetPosition(ToGridPos(playerMouse->GetPosition(), pickedActor->GetInfo()->iCX));
-            pickedActor->SetWalkingState(playerMouse->cursorDir);
+            if(pickedActor->rotatAble)
+                pickedActor->SetWalkingState(playerMouse->cursorDir);
+            else
+                pickedActor->SetWalkingState(DIRECTION::DIR::NORTH);
         }
 
         if(ProgressBarUI != nullptr) ProgressBarUI->SetVisible(false);
@@ -114,6 +117,7 @@ int CPlayer::Update_Object() {
         }
         if (CKeyManager::GetInstance()->OnPress(KEY::Inventory)) {
             if (focusedUI) {
+                GUI->SetPosition(POSITION(WINCX >> 1, WINCY >> 1));
                 focusedUI->SetVisible(false);
                 GUI->SetVisible(false);
                 focusedUI = nullptr;
@@ -130,12 +134,19 @@ int CPlayer::Update_Object() {
             
         }
         if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction) && selectedUI == nullptr) {
-            if (selectedActor && selectedActor->GUI) {
+            
+            if (selectedActor && selectedActor->GUI && (selectedActor == nullptr ||
+                !(selectedActor->GetWalkingState().direction != pickedActor->GetWalkingState().direction &&
+                !lstrcmp(pickedActor->GetName(), selectedActor->GetName())))) {
                 if (focusedUI) {
                     focusedUI->SetVisible(false);
                     GUI->SetVisible(false);
                 }
                 GUI->SetVisible(true);
+                if (!lstrcmp(selectedActor->GUI->GetName(), L"InventoryUI"))
+                    GUI->SetPosition(POSITION((WINCX >> 1) - (WINCX >> 3), WINCY >> 1));
+                else
+                    GUI->SetPosition(POSITION(WINCX >> 1, WINCY >> 1));
                 selectedActor->GUI->SetVisible(true);
                 focusedUI = selectedActor->GUI;
             }
@@ -201,7 +212,7 @@ void CPlayer::Render_Object(HDC hDC) {
             pickedActor->Render_Placable(hDC, (selectedActor == nullptr || selectedActor->GetObjectType() == OBJ::RESOURCEORE ||
                 !lstrcmp(pickedActor->GetName(), selectedActor->GetName()) &&
                 pickedActor->GetPosition() == selectedActor->GetPosition() &&
-                selectedActor->GetWalkingState().direction != playerMouse->cursorDir));
+                selectedActor->GetWalkingState().direction != pickedActor->GetWalkingState().direction));
         }
     }
 
@@ -297,7 +308,7 @@ void CPlayer::PlaceEntity() {
     if (selectedActor == nullptr || selectedActor->GetObjectType() == OBJ::RESOURCEORE ||
         !lstrcmp(pickedActor->GetName(), selectedActor->GetName()) &&
         pickedActor->GetPosition() == selectedActor->GetPosition() &&
-        selectedActor->GetWalkingState().direction != playerMouse->cursorDir) {
+        selectedActor->GetWalkingState().direction != pickedActor->GetWalkingState().direction) {
         CObj* tempObj = pickedActor->GetNewActor();
         tempObj->SetPosition(ToGridPos(playerMouse->GetPosition(), tempObj->GetInfo()->iCX));
         dynamic_cast<CEntity*>(tempObj)->SetWalkingState(playerMouse->cursorDir);
@@ -319,6 +330,11 @@ void CPlayer::UnPlaceEntity() {
         if (selectedActor->inventory) 
             for (auto itemStack : selectedActor->inventory->listItemStack) 
                 inventory->PushItemStack(itemStack);
+        if (selectedActor->GUI && selectedActor->GUI == focusedUI) {
+            focusedUI->SetVisible(false);
+            GUI->SetVisible(false);
+            focusedUI = nullptr;
+        }
         RECT rc = {};
         for (auto item : *(CObjManager::GetInstance()->GetList(OBJ::ITEM)))
             if (IntersectRect(&rc, item->GetRect(), selectedActor->GetRect()))
@@ -384,7 +400,8 @@ void CPlayer::RotateEntity() {
         tWalkingStat.direction = DIRECTION::DIR::NORTH;
         break;
     }
-    selectedActor->SetWalkingState(tWalkingStat);
+    if(rotatAble)
+        selectedActor->SetWalkingState(tWalkingStat);
 }
 
 void CPlayer::RotateCursor() {

@@ -35,7 +35,12 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"gui/GUI_Inventory.bmp", L"GUI_Inventory");
 	INSERT_TEXTURE(L"gui/GUI_InventoryMerged.bmp", L"GUI_InventoryMerged");
 	INSERT_TEXTURE(L"gui/GUI_SelectedSlot.bmp", L"GUI_SelectedSlot");
+	INSERT_TEXTURE(L"gui/GUI_furnace.bmp", L"GUI_furnace");
+	INSERT_TEXTURE(L"gui/GUI_Assembling-machine.bmp", L"GUI_Assembling-machine");
 	INSERT_TEXTURE(L"gui/GUI_QuickSlot.bmp", L"GUI_QuickSlot");
+	INSERT_TEXTURE(L"gui/GUI_BurnerEnergy.bmp", L"GUI_BurnerEnergy");
+	INSERT_TEXTURE(L"gui/GUI_FurnaceProgress.bmp", L"GUI_FurnaceProgress");
+	INSERT_TEXTURE(L"gui/GUI_CraftingProgress.bmp", L"GUI_CraftingProgress");
 	INSERT_TEXTURE(L"gui/GUI_ProgressBarPanel.bmp", L"GUI_ProgressBarPanel");
 	INSERT_TEXTURE(L"gui/GUI_ProgressBarProgress.bmp", L"GUI_ProgressBarProgress");
 

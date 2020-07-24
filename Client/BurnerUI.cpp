@@ -19,9 +19,9 @@ CBurnerUI::~CBurnerUI() {
 void CBurnerUI::Ready_Object() {
 	isVisible = false;
 	info.iCX = 402;
-	info.iCY = 200;
+	info.iCY = 150;
 	info.CCX = 402;
-	info.CCY = 200;
+	info.CCY = 150;
 }
 
 INT CBurnerUI::Update_Object() {
@@ -37,12 +37,13 @@ INT CBurnerUI::Update_Object() {
 		active = false;
 		return STATE_NO_EVENT;
 	}
+	info.position.x = dynamic_cast<CActor*>(CObjManager::GetInstance()->GetPlayer())->GUI->GetPosition().x;
+	info.position.y = dynamic_cast<CActor*>(CObjManager::GetInstance()->GetPlayer())->GUI->GetRect()->top - FLOAT(info.iCY >> 1);
+
 	if (!active) {
 		active = true;
 		return STATE_NO_EVENT;
 	}
-	info.position.x = dynamic_cast<CActor*>(CObjManager::GetInstance()->GetPlayer())->GUI->GetPosition().x;
-	info.position.y = dynamic_cast<CActor*>(CObjManager::GetInstance()->GetPlayer())->GUI->GetRect()->top - (info.iCY >> 1);
 	if (CKeyManager::GetInstance()->OnPress(KEY::ClearCursor)) {
 		//ClearIconHand();
 		SortItemStack();
@@ -119,7 +120,7 @@ void CBurnerUI::LateUpdate_Object() {
 void CBurnerUI::Render_Object(HDC hDC) {
 	CObj::Update_Rect_Object();
 	if (isVisible && targetActor) {
-		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"GUI_InventoryMerged");
+		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"GUI_furnace");
 		HDC hMemSelectedSlotDC = CBitmapManager::GetInstance()->FindImage(L"GUI_SelectedSlot");
 
 		if (nullptr == hMemDC)

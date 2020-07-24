@@ -5,6 +5,7 @@ CIronChest::CIronChest() {
     SetName(L"IronChest");
     objectType = OBJ::ENTITY;
 	inventory = new CInventory(24);
+	rotatAble = false;
 }
 
 CIronChest::~CIronChest() {
@@ -32,7 +33,6 @@ INT CIronChest::Update_Object() {
     if (dead) {
         return STATE_DEAD;
     }
-
     return STATE_NO_EVENT;
 }
 
@@ -43,6 +43,7 @@ void CIronChest::LateUpdate_Object() {
 void CIronChest::Render_Object(HDC hDC) {
 	CObj::Update_Rect_Object();
 	if (isVisible) {
+
 		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"hr-iron-chest");
 		if (nullptr == hMemDC)
 			return;

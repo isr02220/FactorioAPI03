@@ -8,6 +8,7 @@
 #include "ItemHand.h"
 
 CInventoryUI::CInventoryUI() {
+	SetName(L"InventoryUI");
 	objectType = OBJ::UI;
 	strokeColor = RGB(128, 128, 255);
 	fillColor = RGB(0, 255, 255);
@@ -117,6 +118,14 @@ void CInventoryUI::LateUpdate_Object() {
 void CInventoryUI::Render_Object(HDC hDC) {
 	CObj::Update_Rect_Object();
 	if (isVisible && targetActor) {
+
+		if (targetActor != CObjManager::GetInstance()->GetPlayer()) {
+			POSITION pos = {};
+			pos.x = (FLOAT)dynamic_cast<CActor*>(CObjManager::GetInstance()->GetPlayer())->GUI->GetRect()->right + (info.iCX >> 1);
+			pos.y = (FLOAT)dynamic_cast<CActor*>(CObjManager::GetInstance()->GetPlayer())->GUI->GetPosition().y;
+			SetPosition(pos);
+		}
+
 		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"GUI_InventoryMerged");
 		HDC hMemSelectedSlotDC = CBitmapManager::GetInstance()->FindImage(L"GUI_SelectedSlot");
 

@@ -119,7 +119,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    RECT rc = { 0,0, WINCX, WINCY };
    AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, false);
-   HWND hWnd = CreateWindowW(szWindowClass, L"메탈슬러그 made by 길문호, 임호혁, 김성구", WS_OVERLAPPEDWINDOW,
+   HWND hWnd = CreateWindowW(szWindowClass, L"Factorio made by 김성구", WS_OVERLAPPEDWINDOW,
       rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
