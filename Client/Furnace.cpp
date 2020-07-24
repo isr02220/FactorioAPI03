@@ -121,7 +121,7 @@ CObj* CFurnace::GetNewActor() {
 }
 
 void CFurnace::BurnItem(FLOAT _speed) {
-	BOOL burning = (fuelTank->SpendEnergy(0.05f) > 0.f && inventory->listItemStack.size() != 0);
+	BOOL burning = (fuelTank->SpendEnergy(0.05f) && inventory->listItemStack.size() != 0);
 	if (burning) {
 		spriteIndexX = 1;
 		progress++;

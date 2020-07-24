@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Item.h"
 #include "IronChest.h"
+#include "FuelTank.h"
 #include "Inventory.h"
 CBurnerInserter::CBurnerInserter() : CEntity() {
     objectType = OBJ::ENTITY;
@@ -127,14 +128,45 @@ void CBurnerInserter::TransportItem() {
                 iter++;
             }
         }
+        tActor = nullptr;
+        INT startX = INT(outputPos.x - GRIDCX * 4) / GRIDCX;
+        INT startY = INT(outputPos.y - GRIDCY * 4) / GRIDCY;
+        INT endX   = INT(outputPos.x + GRIDCX * 4) / GRIDCX;
+        INT endY   = INT(outputPos.y + GRIDCY * 4) / GRIDCY;
+        POINT pt = {};
+        pt.x = (INT)outputPos.x;
+        pt.y = (INT)outputPos.y;
+        vector<CObj*>* vecEntity = CObjManager::GetInstance()->GetVector(OBJ::ENTITY);
+        for (INT y = startY; y < endY; y++) {
+            for (INT x = startX; x < endX; x++) {
+                if ((*vecEntity)[(y * GRIDX) + x] == nullptr)
+                    continue;
+                RECT rc = {};
+                if (PtInRect((*vecEntity)[(y * GRIDX) + x]->GetRect(), pt)) {
+                    tActor = dynamic_cast<CActor*>((*vecEntity)[(y * GRIDX) + x]);
+                    break;
+                }
+
+            }
+        }
+        if (tActor && tActor->inventory) {
+            outputActor = tActor;
+        }
+        else {
+            outputActor = nullptr;
+        }
     }
     else if (pickedItem) {
         if (Timer + 600 < GetTickCount()) {
 
-            if ((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)] && 
-                !lstrcmp((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]->GetName(), L"IronChest")) {
-                CActor* outputActor = dynamic_cast<CActor*>((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]);
-                if (outputActor->inventory) {
+            if (outputActor) {
+                if (outputActor->fuelTank && dynamic_cast<CItem*>(pickedItem)->isFuel) {
+                    outputActor->fuelTank->PushItem(dynamic_cast<CItem*>(pickedItem));
+                        pickingState = false;
+                        pickedItem = nullptr;
+                        Timer = GetTickCount();
+                }
+                else if (outputActor->inventory) {
                     outputActor->inventory->PushItem(dynamic_cast<CItem*>(pickedItem));
                     pickingState = false;
                     pickedItem = nullptr;

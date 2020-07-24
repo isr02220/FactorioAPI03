@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+class CActor;
 class CBurnerDrill :
     public CEntity {
 public:
@@ -25,5 +26,6 @@ public:
     void SetOutputPos();
 protected:
     POSITION outputPos;
+    CActor* outputActor;
 };
 

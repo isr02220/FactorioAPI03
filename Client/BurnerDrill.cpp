@@ -139,45 +139,77 @@ void CBurnerDrill::GatherResourceOre(FLOAT speed) {
 		}
 	}
 	else {
+		CActor* tActor = nullptr;
+		startX = INT(outputPos.x - GRIDCX * 4) / GRIDCX;
+		startY = INT(outputPos.y - GRIDCY * 4) / GRIDCY;
+		endX = INT(outputPos.x + GRIDCX * 4) / GRIDCX;
+		endY = INT(outputPos.y + GRIDCY * 4) / GRIDCY;
+		POINT pt = {};
+		pt.x = (INT)outputPos.x;
+		pt.y = (INT)outputPos.y;
+		vector<CObj*>* vecEntity = CObjManager::GetInstance()->GetVector(OBJ::ENTITY);
+		for (INT y = startY; y < endY; y++) {
+			for (INT x = startX; x < endX; x++) {
+				if ((*vecEntity)[(y * GRIDX) + x] == nullptr)
+					continue;
+				RECT rc = {};
+				if (PtInRect((*vecEntity)[(y * GRIDX) + x]->GetRect(), pt)) {
+					tActor = dynamic_cast<CActor*>((*vecEntity)[(y * GRIDX) + x]);
+					break;
+				}
+
+			}
+		}
+		if (tActor && (tActor->inventory || tActor->fuelTank)) {
+			outputActor = tActor;
+		}
+		else {
+			outputActor = nullptr;
+		}
 		if (miningState.mining && fuelTank->SpendEnergy(0.1f)){
 			if(++spriteIndexX >= 8)
 				spriteIndexX = 0;
 			progress++;
 		}
 		if (progress >= 100.f) {
-			list<CObj*>* itemList = CObjManager::GetInstance()->GetList(OBJ::ITEM);
-			POINT pt = {};
-			pt.x = (INT)outputPos.x;
-			pt.y = (INT)outputPos.y;
-			BOOL dropable = true;
-			for (auto iter = itemList->begin(); iter != itemList->end();) {
-				if (PtInRect((*iter)->GetRect(), pt)) {
-					dropable = false;
-					break;
-				}
-				iter++;
-			}
-			if (dropable) {
-				miningState.mining = true;
+			if (outputActor) {
 				CObj* tempObj = dynamic_cast<CResourceOre*>(miningState.target)->Gather();
 				if (tempObj == nullptr)
 					return;
-
-				if ((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)] &&
-					!lstrcmp((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]->GetName(), L"IronChest")) {
-					CActor* outputActor = dynamic_cast<CActor*>((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex(outputPos)]);
-					if (outputActor->inventory) {
-						outputActor->inventory->PushItem(dynamic_cast<CItem*>(tempObj));
-					}
+				if (outputActor->fuelTank && dynamic_cast<CItem*>(tempObj)->isFuel) {
+					outputActor->fuelTank->PushItem(dynamic_cast<CItem*>(tempObj));
+					progress = 0.f;
 				}
-				else {
-					tempObj->SetPosition(outputPos);
-					CObjManager::GetInstance()->AddObject(tempObj, OBJ::ITEM);
+				else if (outputActor->inventory) {
+					outputActor->inventory->PushItem(dynamic_cast<CItem*>(tempObj));
+					progress = 0.f;
 				}
-				progress = 0.f;
 			}
 			else {
-				fuelTank->SpendEnergy(-0.1f);
+				list<CObj*>* itemList = CObjManager::GetInstance()->GetList(OBJ::ITEM);
+				POINT pt = {};
+				pt.x = (INT)outputPos.x;
+				pt.y = (INT)outputPos.y;
+				BOOL dropable = true;
+				for (auto iter = itemList->begin(); iter != itemList->end();) {
+					if (PtInRect((*iter)->GetRect(), pt)) {
+						dropable = false;
+						break;
+					}
+					iter++;
+				}
+				if (dropable) {
+					CObj* tempObj = dynamic_cast<CResourceOre*>(miningState.target)->Gather();
+					if (tempObj == nullptr)
+						return;
+					miningState.mining = true;
+					tempObj->SetPosition(outputPos);
+					CObjManager::GetInstance()->AddObject(tempObj, OBJ::ITEM);
+					progress = 0.f;
+				}
+				else {
+					fuelTank->SpendEnergy(-0.1f);
+				}
 			}
 		}
 	}
