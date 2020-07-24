@@ -31,9 +31,9 @@ INT CFurnaceUI::Update_Object() {
 	if (targetActor) {
 		if(targetActor->fuelTank)
 			fuelStack = targetActor->fuelTank->fuelStack;
-		if (targetActor->inventory)
+		if (targetActor->inventory && targetActor->inventory->listItemStack.size() != 0)
 			inputStack = targetActor->inventory->listItemStack.front();
-		if (targetActor->outputInventory)
+		if (targetActor->outputInventory && targetActor->outputInventory->listItemStack.size() != 0)
 			outputStack = targetActor->outputInventory->listItemStack.front();
 	}
 	else {
@@ -59,10 +59,38 @@ INT CFurnaceUI::Update_Object() {
 	if (targetActor && targetActor->fuelTank) {
 		SetRect(&rc, rect.left, rect.top, rect.left + 38, rect.top + 38);
 		CItemStack* cursorStack = dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack;
-		OffsetRect(&rc, 117, 86);
+		OffsetRect(&rc, 117, 40);
 		if (PtInRect(&rc, pt)) {
 			if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction)) {
-				if (cursorStack) {
+				if (cursorStack && cursorStack->item->isBurnable) {
+					if (inputStack) {
+						if (!lstrcmp(inputStack->item->IconName, cursorStack->item->IconName)) {
+							targetActor->inventory->PushItemStack(cursorStack);
+							Safe_Delete(cursorStack);
+							ClearAllIconHand();
+							dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+						}
+						else {
+							dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = targetActor->fuelTank->PopItemStack();
+							targetActor->inventory->PushItemStack(cursorStack);
+							Safe_Delete(cursorStack);
+							ClearAllIconHand();
+						}
+					}
+					else {
+						targetActor->inventory->PushItemStack(cursorStack);
+						Safe_Delete(cursorStack);
+						ClearAllIconHand();
+						dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+					}
+
+				}
+			}
+		}
+		OffsetRect(&rc, 0, 46);
+		if (PtInRect(&rc, pt)) {
+			if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction)) {
+				if (cursorStack && cursorStack->item->isFuel) {
 					if (fuelStack) {
 						if (!lstrcmp(fuelStack->item->IconName, cursorStack->item->IconName)) {
 							targetActor->fuelTank->PushItemStack(cursorStack);
@@ -157,6 +185,29 @@ void CFurnaceUI::Render_Object(HDC hDC) {
 			ScreenToClient(g_hWnd, &pt);
 			CItemStack* cursorStack = dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack;
 			SetRect(&rc, rect.left, rect.top, rect.left + 38, rect.top + 38);
+			OffsetRect(&rc, 117, 40);
+			if (targetActor && targetActor->inventory && inputStack) {
+				GdiTransparentBlt(hDC,
+					cRect.left + 119,
+					cRect.top + 42,
+					32,
+					32,
+					inputStack->hMemDC,
+					0,
+					0,
+					32,
+					32,
+					RGB(255, 0, 255));
+				SetTextColor(hDC, RGB(0, 0, 0));
+				OffsetRect(&rc, -4, 24);
+				wsprintf(szBuffer, L"%d", inputStack->size);
+				DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
+				SetTextColor(hDC, RGB(255, 255, 255));
+				OffsetRect(&rc, -1, -1);
+				DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
+				SetTextColor(hDC, RGB(0, 0, 0));
+			}
+			SetRect(&rc, rect.left, rect.top, rect.left + 38, rect.top + 38);
 			OffsetRect(&rc, 117, 86);
 			if (targetActor && targetActor->fuelTank && fuelStack) {
 				GdiTransparentBlt(hDC,
@@ -170,17 +221,6 @@ void CFurnaceUI::Render_Object(HDC hDC) {
 					32,
 					32,
 					RGB(255, 0, 255));
-				//GdiTransparentBlt(hDC,
-				//	cRect.left + 357,
-				//	cRect.top + 43,
-				//	32,
-				//	32,
-				//	targetActor->GetMiningState().target->,
-				//	0,
-				//	0,
-				//	32,
-				//	32,
-				//	RGB(255, 0, 255));
 				SetTextColor(hDC, RGB(0, 0, 0));
 				OffsetRect(&rc, -4, 24);
 				wsprintf(szBuffer, L"%d", fuelStack->size);

@@ -57,7 +57,7 @@ INT CBurnerUI::Update_Object() {
 		OffsetRect(&rc, 117, 86);
 		if (PtInRect(&rc, pt)) {
 			if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction)) {
-				if (cursorStack) {
+				if (cursorStack && cursorStack->item->isFuel) {
 					if (fuelStack) {
 						if (!lstrcmp(fuelStack->item->IconName, cursorStack->item->IconName)) {
 							targetActor->fuelTank->PushItemStack(cursorStack);

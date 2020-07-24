@@ -43,6 +43,7 @@ INT CFurnace::Update_Object() {
 	if (dead) {
 		return STATE_DEAD;
 	}
+	BurnItem(speed);
 	return STATE_NO_EVENT;
 }
 
@@ -115,4 +116,19 @@ CObj* CFurnace::GetNewActor() {
 	CObj* tempObj = new CFurnace();
 	tempObj->Ready_Object();
 	return tempObj;
+}
+
+void CFurnace::BurnItem(FLOAT _speed) {
+	BOOL burning = (fuelTank->SpendEnergy(0.05f) > 0.f && inventory->listItemStack.size() != 0);
+	if (burning) {
+		spriteIndexX = 1;
+		progress++;
+		if (progress >= 100.f) {
+			CItem* tempItem = inventory->PopItem();
+		}
+	}
+	else {
+		spriteIndexX = 0;
+		fuelTank->energy += 0.05f;
+	}
 }

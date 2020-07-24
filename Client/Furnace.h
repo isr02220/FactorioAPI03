@@ -16,5 +16,6 @@ public:
     virtual void OnCollision(CObj* _TargetObj) override;
     virtual CObj* GetNewActor() override;
 
+    void BurnItem(FLOAT _speed);
 };
 

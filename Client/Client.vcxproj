@@ -154,6 +154,7 @@
     <ClInclude Include="BurnerUI.h" />
     <ClInclude Include="CoalOre.h" />
     <ClInclude Include="CopperOre.h" />
+    <ClInclude Include="CraftRecipe.h" />
     <ClInclude Include="CraftUI.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FloatingText.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="BurnerUI.cpp" />
     <ClCompile Include="CoalOre.cpp" />
     <ClCompile Include="CopperOre.cpp" />
+    <ClCompile Include="CraftRecipe.cpp" />
     <ClCompile Include="CraftUI.cpp" />
     <ClCompile Include="FloatingText.cpp" />
     <ClCompile Include="FontManager.cpp" />

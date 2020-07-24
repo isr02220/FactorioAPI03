@@ -11,8 +11,6 @@ CBurnerDrill::CBurnerDrill() : CEntity() {
 	objectType = OBJ::ENTITY;
 	lstrcpy(info.name, L"BurnerDrill");
 	fuelTank = new CFuelTank();
-	strokeColor = RGB(128, 128, 255);
-	fillColor = RGB(0, 255, 255);
 }
 
 CBurnerDrill::~CBurnerDrill() {

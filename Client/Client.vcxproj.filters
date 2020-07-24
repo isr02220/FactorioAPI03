@@ -236,6 +236,9 @@
     <ClInclude Include="Furnace.h">
       <Filter>02.Obj\Actor\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="CraftRecipe.h">
+      <Filter>03.Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -401,6 +404,9 @@
     </ClCompile>
     <ClCompile Include="Furnace.cpp">
       <Filter>02.Obj\Actor\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="CraftRecipe.cpp">
+      <Filter>03.Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
