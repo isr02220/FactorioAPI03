@@ -6,6 +6,7 @@ CItemStone::CItemStone() : CItem() {
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
 	lstrcpy(IconName, L"ICON_stone");
 	SetName(L"µ¹");
+	isBurnable = true;
 }
 
 CItemStone::~CItemStone() {

@@ -19,6 +19,8 @@ public:
 	ITEM::GROUP group;
 	ITEM::SUBGROUP subGroup;
     UINT stackSize = 50;
+    BOOL isFuel = false;
+    BOOL isBurnable = false;
 protected:
 	DWORD timer = GetTickCount();
 };

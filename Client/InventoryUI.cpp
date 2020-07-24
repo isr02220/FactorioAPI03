@@ -124,6 +124,7 @@ void CInventoryUI::Render_Object(HDC hDC) {
 			pos.x = (FLOAT)dynamic_cast<CActor*>(CObjManager::GetInstance()->GetPlayer())->GUI->GetRect()->right + (info.iCX >> 1);
 			pos.y = (FLOAT)dynamic_cast<CActor*>(CObjManager::GetInstance()->GetPlayer())->GUI->GetPosition().y;
 			SetPosition(pos);
+			CObj::Update_Rect_Object();
 		}
 
 		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"GUI_InventoryMerged");
@@ -213,19 +214,6 @@ void CInventoryUI::ClearIconHand() {
 			break;
 		}
 	
-}
-
-void CInventoryUI::ClearAllIconHand() {
-	CInventoryUI* inventoryUI = nullptr;
-	for (auto UI : *(CObjManager::GetInstance()->GetList(OBJ::UI))) {
-		inventoryUI = dynamic_cast<CInventoryUI*>(UI);
-		if(inventoryUI && inventoryUI->listItemStack)
-		for (auto iter = inventoryUI->listItemStack->begin(); iter != inventoryUI->listItemStack->end(); iter++)
-			if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
-				inventoryUI->listItemStack->erase(iter);
-				break;
-			}
-	}
 }
 
 void CInventoryUI::SortItemStack() {

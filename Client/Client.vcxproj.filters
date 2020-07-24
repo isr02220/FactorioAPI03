@@ -230,6 +230,12 @@
     <ClInclude Include="FurnaceUI.h">
       <Filter>02.Obj\UI</Filter>
     </ClInclude>
+    <ClInclude Include="FuelTank.h">
+      <Filter>03.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Furnace.h">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -389,6 +395,12 @@
     </ClCompile>
     <ClCompile Include="FurnaceUI.cpp">
       <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FuelTank.cpp">
+      <Filter>03.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Furnace.cpp">
+      <Filter>02.Obj\Actor\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

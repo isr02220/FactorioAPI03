@@ -6,6 +6,7 @@ CItemCopperOre::CItemCopperOre() : CItem() {
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
 	lstrcpy(IconName, L"ICON_copper-ore");
 	SetName(L"±¸¸®±¤¼®");
+	isBurnable = true;
 }
 
 CItemCopperOre::~CItemCopperOre() {

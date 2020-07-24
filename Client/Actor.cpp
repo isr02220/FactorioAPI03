@@ -10,6 +10,9 @@ CActor::CActor(FLOAT _positionX, FLOAT _positionY) : CObj(_positionX, _positionY
 
 CActor::~CActor() {
 
+	//Safe_Delete(inventory);
+	//Safe_Delete(fuelTank);
+	//Safe_Delete(GUI);
 }
 
 void CActor::Ready_Object() {

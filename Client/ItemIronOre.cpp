@@ -6,6 +6,7 @@ CItemIronOre::CItemIronOre() : CItem() {
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
 	lstrcpy(IconName, L"ICON_iron-ore");
 	SetName(L"Ã¶±¤¼®");
+	isBurnable = true;
 }
 
 CItemIronOre::~CItemIronOre() {

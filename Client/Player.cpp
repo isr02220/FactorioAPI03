@@ -8,6 +8,7 @@
 #include "TransportBelt.h"
 #include "BurnerDrill.h"
 #include "BurnerInserter.h"
+#include "Furnace.h"
 #include "IronChest.h"
 #include "Inventory.h"
 #include "UI.h"
@@ -80,7 +81,7 @@ int CPlayer::Update_Object() {
 
         if (CKeyManager::GetInstance()->OnPress(KEY::Num1)) {
             Safe_Delete<CActor*>(pickedActor);
-            pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CTransportBelt>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
+            pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CFurnace>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
         }
         if (CKeyManager::GetInstance()->OnPress(KEY::Num2)) {
             Safe_Delete<CActor*>(pickedActor);
@@ -135,18 +136,18 @@ int CPlayer::Update_Object() {
         }
         if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction) && selectedUI == nullptr) {
             
-            if (selectedActor && selectedActor->GUI && (selectedActor == nullptr ||
+            if (selectedActor && selectedActor->GUI && (pickedActor == nullptr ||
                 !(selectedActor->GetWalkingState().direction != pickedActor->GetWalkingState().direction &&
                 !lstrcmp(pickedActor->GetName(), selectedActor->GetName())))) {
                 if (focusedUI) {
                     focusedUI->SetVisible(false);
                     GUI->SetVisible(false);
                 }
-                GUI->SetVisible(true);
                 if (!lstrcmp(selectedActor->GUI->GetName(), L"InventoryUI"))
                     GUI->SetPosition(POSITION((WINCX >> 1) - (WINCX >> 3), WINCY >> 1));
                 else
                     GUI->SetPosition(POSITION(WINCX >> 1, WINCY >> 1));
+                GUI->SetVisible(true);
                 selectedActor->GUI->SetVisible(true);
                 focusedUI = selectedActor->GUI;
             }

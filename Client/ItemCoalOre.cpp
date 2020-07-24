@@ -6,6 +6,7 @@ CItemCoalOre::CItemCoalOre() : CItem(){
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
 	lstrcpy(IconName, L"ICON_coal");
 	SetName(L"¼®Åº");
+	isFuel = true;
 }
 
 CItemCoalOre::~CItemCoalOre() {

@@ -1,6 +1,7 @@
 #pragma once
 #include "Obj.h"
 class CInventory;
+class CFuelTank;
 class CUI;
 class CActor :
     public CObj {
@@ -75,6 +76,9 @@ protected:
     INT spriteIndexY = 0;
 public:
     BOOL rotatAble = true;
+    FLOAT progress = 0.f;
     CInventory* inventory = nullptr;
+    CInventory* outputInventory = nullptr;
+    CFuelTank* fuelTank = nullptr;
     CUI* GUI = nullptr;
 };

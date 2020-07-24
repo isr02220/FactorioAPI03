@@ -1,5 +1,8 @@
 #include "UI.h"
 #include "Obj.h"
+#include "InventoryUI.h"
+#include "ItemStack.h"
+#include "Item.h"
 CUI::CUI() {
 	objectType = OBJ::UI;
 	strokeColor = RGB(128, 128, 255);
@@ -56,4 +59,17 @@ void CUI::Release_Object() {
 }
 
 void CUI::OnCollision(CObj* _TargetObj) {
+}
+
+void CUI::ClearAllIconHand() {
+	CInventoryUI* inventoryUI = nullptr;
+	for (auto UI : *(CObjManager::GetInstance()->GetList(OBJ::UI))) {
+		inventoryUI = dynamic_cast<CInventoryUI*>(UI);
+		if (inventoryUI && inventoryUI->listItemStack)
+			for (auto iter = inventoryUI->listItemStack->begin(); iter != inventoryUI->listItemStack->end(); iter++)
+				if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
+					inventoryUI->listItemStack->erase(iter);
+					break;
+				}
+	}
 }

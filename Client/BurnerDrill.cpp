@@ -1,7 +1,7 @@
 #include "BurnerDrill.h"
 #include "ResourceOre.h"
 #include "Entity.h"
-#include "IronChest.h"
+#include "FuelTank.h"
 #include "Inventory.h"
 #include "Item.h"
 #include "BurnerUI.h"
@@ -10,6 +10,7 @@
 CBurnerDrill::CBurnerDrill() : CEntity() {
 	objectType = OBJ::ENTITY;
 	lstrcpy(info.name, L"BurnerDrill");
+	fuelTank = new CFuelTank();
 	strokeColor = RGB(128, 128, 255);
 	fillColor = RGB(0, 255, 255);
 }
@@ -104,7 +105,9 @@ void CBurnerDrill::Render_Placable(HDC hDC, BOOL placable) {
 }
 
 void CBurnerDrill::Release_Object() {
-
+	Safe_Delete(fuelTank);
+	dynamic_cast<CBurnerUI*>(GUI)->targetActor = nullptr;
+	GUI->SetDead();
 }
 
 void CBurnerDrill::OnCollision(CObj* _TargetObj) {
@@ -138,8 +141,12 @@ void CBurnerDrill::GatherResourceOre(FLOAT speed) {
 		}
 	}
 	else {
-		if (miningState.mining && ++spriteIndexX >= 8) spriteIndexX = 0;
-		if (Timer + 1500 < GetTickCount()) {
+		if (miningState.mining && fuelTank->SpendEnergy(0.1f)){
+			if(++spriteIndexX >= 8)
+				spriteIndexX = 0;
+			progress++;
+		}
+		if (progress >= 100.f) {
 			list<CObj*>* itemList = CObjManager::GetInstance()->GetList(OBJ::ITEM);
 			POINT pt = {};
 			pt.x = (INT)outputPos.x;
@@ -169,7 +176,10 @@ void CBurnerDrill::GatherResourceOre(FLOAT speed) {
 					tempObj->SetPosition(outputPos);
 					CObjManager::GetInstance()->AddObject(tempObj, OBJ::ITEM);
 				}
-				Timer = GetTickCount();
+				progress = 0.f;
+			}
+			else {
+				fuelTank->SpendEnergy(-0.1f);
 			}
 		}
 	}

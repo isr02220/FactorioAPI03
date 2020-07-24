@@ -158,6 +158,8 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FloatingText.h" />
     <ClInclude Include="FontManager.h" />
+    <ClInclude Include="FuelTank.h" />
+    <ClInclude Include="Furnace.h" />
     <ClInclude Include="FurnaceUI.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventoryUI.h" />
@@ -212,6 +214,8 @@
     <ClCompile Include="CraftUI.cpp" />
     <ClCompile Include="FloatingText.cpp" />
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="FuelTank.cpp" />
+    <ClCompile Include="Furnace.cpp" />
     <ClCompile Include="FurnaceUI.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="InventoryUI.cpp" />
