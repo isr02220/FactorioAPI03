@@ -10,6 +10,7 @@
 #include "BurnerInserter.h"
 #include "Furnace.h"
 #include "IronChest.h"
+#include "FuelTank.h"
 #include "Inventory.h"
 #include "UI.h"
 #include "InventoryUI.h"
@@ -63,6 +64,7 @@ void CPlayer::Ready_Object() {
 int CPlayer::Update_Object() {
     //m_tInfo.position.y += m_fSpeed * forceY;
     info.position += (info.force * speed);
+    CKeyManager* keyMgr = CKeyManager::GetInstance();
     CObj::Update_Rect_Object();
     if (g_hWnd == GetForegroundWindow()) {
 
@@ -79,23 +81,23 @@ int CPlayer::Update_Object() {
         if(ProgressBarUI != nullptr) ProgressBarUI->SetVisible(false);
         miningState.mining = false;
 
-        if (CKeyManager::GetInstance()->OnPress(KEY::Num1)) {
+        if (keyMgr->OnPress(KEY::Num1)) {
             Safe_Delete<CActor*>(pickedActor);
             pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CFurnace>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
         }
-        if (CKeyManager::GetInstance()->OnPress(KEY::Num2)) {
+        if (keyMgr->OnPress(KEY::Num2)) {
             Safe_Delete<CActor*>(pickedActor);
             pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CBurnerDrill>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
         }
-        if (CKeyManager::GetInstance()->OnPress(KEY::Num3)) {
+        if (keyMgr->OnPress(KEY::Num3)) {
             Safe_Delete<CActor*>(pickedActor);
             pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CBurnerInserter>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
         }
-        if (CKeyManager::GetInstance()->OnPress(KEY::Num4)) {
+        if (keyMgr->OnPress(KEY::Num4)) {
             Safe_Delete<CActor*>(pickedActor);
             pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CIronChest>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
         }
-        if (CKeyManager::GetInstance()->OnPress(KEY::ClearCursor)) {
+        if (keyMgr->OnPress(KEY::ClearCursor)) {
             Safe_Delete<CActor*>(pickedActor);
             if (playerMouse->cursorStack) {
                 inventory->PushItemStack(playerMouse->cursorStack);
@@ -116,7 +118,7 @@ int CPlayer::Update_Object() {
                 }
             }
         }
-        if (CKeyManager::GetInstance()->OnPress(KEY::Inventory)) {
+        if (keyMgr->OnPress(KEY::Inventory)) {
             if (focusedUI) {
                 GUI->SetPosition(POSITION(WINCX >> 1, WINCY >> 1));
                 focusedUI->SetVisible(false);
@@ -129,35 +131,73 @@ int CPlayer::Update_Object() {
                 //CraftGUI->SetVisible(true);
             }
         }
-        if (CKeyManager::GetInstance()->Press(KEY::PrimaryAction) && selectedUI == nullptr) {
+        if (keyMgr->Press(KEY::PrimaryAction) && selectedUI == nullptr) {
             if (pickedActor != nullptr)
                 PlaceEntity();
             
         }
-        if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction) && selectedUI == nullptr) {
-            
-            if (selectedActor && selectedActor->GUI && (pickedActor == nullptr ||
-                !(selectedActor->GetWalkingState().direction != pickedActor->GetWalkingState().direction &&
-                !lstrcmp(pickedActor->GetName(), selectedActor->GetName())))) {
-                if (focusedUI) {
-                    focusedUI->SetVisible(false);
-                    GUI->SetVisible(false);
+        if (keyMgr->OnPress(KEY::PrimaryAction) && selectedUI == nullptr) {
+            if (keyMgr->Press(KEY::CONTROL)) {
+                if (playerMouse->cursorStack) {
+                    if (playerMouse->cursorStack->item->isFuel && selectedActor->fuelTank) {
+                        if (selectedActor->fuelTank->fuelStack) {
+                            if (!lstrcmp(selectedActor->fuelTank->fuelStack->item->IconName, playerMouse->cursorStack->item->IconName)) {
+                                selectedActor->fuelTank->PushItemStack(playerMouse->cursorStack);
+                                Safe_Delete(playerMouse->cursorStack);
+                                CUI::ClearAllIconHand();
+                                dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+                            }
+                        }
+                        else {
+                            selectedActor->fuelTank->PushItemStack(playerMouse->cursorStack);
+                            Safe_Delete(playerMouse->cursorStack);
+                            CUI::ClearAllIconHand();
+                            dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+                        }
+                    }
                 }
-                if (!lstrcmp(selectedActor->GUI->GetName(), L"InventoryUI"))
-                    GUI->SetPosition(POSITION((WINCX >> 1) - (WINCX >> 3), WINCY >> 1));
-                else
-                    GUI->SetPosition(POSITION(WINCX >> 1, WINCY >> 1));
-                GUI->SetVisible(true);
-                selectedActor->GUI->SetVisible(true);
-                focusedUI = selectedActor->GUI;
+                if (selectedActor) {
+                    if (selectedActor->inventory && !selectedActor->outputInventory) {
+                        if (!selectedActor->inventory->listItemStack.empty()) {
+                            inventory->PushItemStack(selectedActor->inventory->listItemStack.front());
+                            Safe_Delete(selectedActor->inventory->listItemStack.front());
+                            selectedActor->inventory->listItemStack.pop_front();
+                        }
+                    }
+                    else if (selectedActor->outputInventory) {
+                        if (!selectedActor->outputInventory->listItemStack.empty()) {
+                            inventory->PushItemStack(selectedActor->outputInventory->listItemStack.front());
+                            Safe_Delete(selectedActor->outputInventory->listItemStack.front());
+                            selectedActor->outputInventory->listItemStack.pop_front();
+                        }
+
+                    }
+                }
+            }
+            else {
+                if (selectedActor && selectedActor->GUI && (pickedActor == nullptr ||
+                    !(selectedActor->GetWalkingState().direction != pickedActor->GetWalkingState().direction &&
+                        !lstrcmp(pickedActor->GetName(), selectedActor->GetName())))) {
+                    if (focusedUI) {
+                        focusedUI->SetVisible(false);
+                        GUI->SetVisible(false);
+                    }
+                    if (!lstrcmp(selectedActor->GUI->GetName(), L"InventoryUI"))
+                        GUI->SetPosition(POSITION((WINCX >> 1) - (WINCX >> 3), WINCY >> 1));
+                    else
+                        GUI->SetPosition(POSITION(WINCX >> 1, WINCY >> 1));
+                    GUI->SetVisible(true);
+                    selectedActor->GUI->SetVisible(true);
+                    focusedUI = selectedActor->GUI;
+                }
             }
             
         }
 
-        if (CKeyManager::GetInstance()->Press(KEY::SecondaryAction) && selectedUI == nullptr) SecondaryAction();
+        if (keyMgr->Press(KEY::SecondaryAction) && selectedUI == nullptr) SecondaryAction();
         else if (ProgressBarUI != nullptr) dynamic_cast<CProgressBar*>(ProgressBarUI)->ResetProgress();
 
-        if (CKeyManager::GetInstance()->OnPress(KEY::Rotate) && selectedUI == nullptr) {
+        if (keyMgr->OnPress(KEY::Rotate) && selectedUI == nullptr) {
             if (selectedActor && pickedActor == nullptr) RotateEntity();
             else RotateCursor();
         }

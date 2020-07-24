@@ -1,6 +1,7 @@
 #include "Inventory.h"
 #include "Item.h"
 #include "ItemStack.h"
+#include "CraftRecipe.h"
 CInventory::CInventory(UINT _capacity) : capacity(_capacity) {
 
 }
@@ -38,6 +39,13 @@ void CInventory::PushItem(CItem* _item) {
 			return lstrcmp(stack1->item->GetName(), stack2->item->GetName()) > 0;
 		}
 		});
+}
+
+void CInventory::PushItem(Ingredient* _ingredient) {
+	if (_ingredient) {
+		for (size_t i = 0; i < _ingredient->amount; i++)
+			PushItem(_ingredient->item->GetNewItem());
+	}
 }
 
 void CInventory::PushItem(CObj* _item) {

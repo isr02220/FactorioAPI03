@@ -31,13 +31,23 @@ INT CFurnaceUI::Update_Object() {
 	if (targetActor) {
 		if(targetActor->fuelTank)
 			fuelStack = targetActor->fuelTank->fuelStack;
+		else
+			fuelStack = nullptr;
+
 		if (targetActor->inventory && targetActor->inventory->listItemStack.size() != 0)
 			inputStack = targetActor->inventory->listItemStack.front();
+		else
+			inputStack = nullptr;
+
 		if (targetActor->outputInventory && targetActor->outputInventory->listItemStack.size() != 0)
 			outputStack = targetActor->outputInventory->listItemStack.front();
+		else
+			outputStack = nullptr;
 	}
 	else {
 		fuelStack = nullptr;
+		inputStack = nullptr;
+		outputStack = nullptr;
 	}
 
 	if (!isVisible) {
@@ -112,6 +122,20 @@ INT CFurnaceUI::Update_Object() {
 						dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
 					}
 
+				}
+			}
+		}
+		OffsetRect(&rc, 237, -46);
+		if (PtInRect(&rc, pt)) {
+			if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction)) {
+				if (outputStack) {
+					if (cursorStack) {
+						dynamic_cast<CActor*>(CObjManager::GetInstance()->GetPlayer())->inventory->PushItemStack(cursorStack);
+						Safe_Delete(cursorStack);
+						ClearAllIconHand();
+					}
+					dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = outputStack;
+					targetActor->outputInventory->listItemStack.pop_front();
 				}
 			}
 		}
@@ -224,6 +248,29 @@ void CFurnaceUI::Render_Object(HDC hDC) {
 				SetTextColor(hDC, RGB(0, 0, 0));
 				OffsetRect(&rc, -4, 24);
 				wsprintf(szBuffer, L"%d", fuelStack->size);
+				DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
+				SetTextColor(hDC, RGB(255, 255, 255));
+				OffsetRect(&rc, -1, -1);
+				DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
+				SetTextColor(hDC, RGB(0, 0, 0));
+			}
+			SetRect(&rc, rect.left, rect.top, rect.left + 38, rect.top + 38);
+			OffsetRect(&rc, 354, 40);
+			if (targetActor && targetActor->outputInventory && outputStack) {
+				GdiTransparentBlt(hDC,
+					cRect.left + 356,
+					cRect.top + 42,
+					32,
+					32,
+					outputStack->hMemDC,
+					0,
+					0,
+					32,
+					32,
+					RGB(255, 0, 255));
+				SetTextColor(hDC, RGB(0, 0, 0));
+				OffsetRect(&rc, -4, 24);
+				wsprintf(szBuffer, L"%d", outputStack->size);
 				DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
 				SetTextColor(hDC, RGB(255, 255, 255));
 				OffsetRect(&rc, -1, -1);

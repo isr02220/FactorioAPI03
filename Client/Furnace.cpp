@@ -7,6 +7,8 @@
 #include "Item.h"
 #include "FurnaceUI.h"
 #include "FloatingText.h"
+#include "CraftRecipe.h"
+#include "RecipeManager.h"
 
 CFurnace::CFurnace() : CEntity() {
 	objectType = OBJ::ENTITY;
@@ -124,7 +126,9 @@ void CFurnace::BurnItem(FLOAT _speed) {
 		spriteIndexX = 1;
 		progress++;
 		if (progress >= 100.f) {
-			CItem* tempItem = inventory->PopItem();
+			CCraftRecipe* tempRecipe = CRecipeManager::GetInstance()->FindRecipe(L"ICON_copper-ore");
+			outputInventory->PushItem(tempRecipe->Craft(inventory));
+			progress = 0.f;
 		}
 	}
 	else {

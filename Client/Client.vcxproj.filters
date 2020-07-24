@@ -239,6 +239,9 @@
     <ClInclude Include="CraftRecipe.h">
       <Filter>03.Data</Filter>
     </ClInclude>
+    <ClInclude Include="RecipeManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -407,6 +410,9 @@
     </ClCompile>
     <ClCompile Include="CraftRecipe.cpp">
       <Filter>03.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="RecipeManager.cpp">
+      <Filter>01.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
