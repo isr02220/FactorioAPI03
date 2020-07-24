@@ -66,6 +66,18 @@
     <Filter Include="03.Data">
       <UniqueIdentifier>{7174281b-168a-40df-8f15-a0b8de276548}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Obj\Item\01.Logistics">
+      <UniqueIdentifier>{8b6562b6-8cd6-465b-a5eb-2a679f286ef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Item\02.Production">
+      <UniqueIdentifier>{8846e73f-6b90-4128-8979-a5ab4f2d6643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Item\03.Intermediate">
+      <UniqueIdentifier>{8ffba5cf-7c40-4e57-a52d-cb80f36bdb26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Item\04.Combat">
+      <UniqueIdentifier>{0c89aaeb-0094-435f-a9e8-4a84f8a5428c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -182,18 +194,6 @@
     <ClInclude Include="Item.h">
       <Filter>02.Obj\Item</Filter>
     </ClInclude>
-    <ClInclude Include="ItemCoalOre.h">
-      <Filter>02.Obj\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemCopperOre.h">
-      <Filter>02.Obj\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemIronOre.h">
-      <Filter>02.Obj\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemStone.h">
-      <Filter>02.Obj\Item</Filter>
-    </ClInclude>
     <ClInclude Include="CopperOre.h">
       <Filter>02.Obj\Actor\ResourceOre</Filter>
     </ClInclude>
@@ -241,6 +241,24 @@
     </ClInclude>
     <ClInclude Include="RecipeManager.h">
       <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemCoalOre.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemCopperOre.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemIronOre.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemStone.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemCopperPlate.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemIronPlate.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -354,18 +372,6 @@
     <ClCompile Include="Item.cpp">
       <Filter>02.Obj\Item</Filter>
     </ClCompile>
-    <ClCompile Include="ItemCoalOre.cpp">
-      <Filter>02.Obj\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemCopperOre.cpp">
-      <Filter>02.Obj\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemIronOre.cpp">
-      <Filter>02.Obj\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemStone.cpp">
-      <Filter>02.Obj\Item</Filter>
-    </ClCompile>
     <ClCompile Include="CopperOre.cpp">
       <Filter>02.Obj\Actor\ResourceOre</Filter>
     </ClCompile>
@@ -413,6 +419,24 @@
     </ClCompile>
     <ClCompile Include="RecipeManager.cpp">
       <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemCoalOre.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemCopperOre.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemIronOre.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemStone.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemCopperPlate.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemIronPlate.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

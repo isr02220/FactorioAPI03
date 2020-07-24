@@ -56,6 +56,8 @@ BOOL CFuelTank::SpendEnergy(FLOAT _energy) {
 	}
 	else {
 		BurnFuel();
+		if (energy <= 0.f)
+			energy = 0.f;
 		return false;
 	}
 }

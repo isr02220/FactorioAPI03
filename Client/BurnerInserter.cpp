@@ -104,8 +104,31 @@ void CBurnerInserter::OnCollision(CObj* _TargetObj) {
 void CBurnerInserter::TransportItem() {
     if (pickedItem == nullptr && spriteIndexX == 0) {
         CActor* tActor = dynamic_cast<CActor*>((*CObjManager::GetInstance()->GetVector(OBJ::ENTITY))[PosToIndex((info.position * 2.f) - outputPos)]);
-        if (tActor && tActor->inventory) {
-            pickedItem = tActor->inventory->PopItem();
+        INT startX = INT(((info.position * 2.f) - outputPos).x - GRIDCX * 4) / GRIDCX;
+        INT startY = INT(((info.position * 2.f) - outputPos).y - GRIDCY * 4) / GRIDCY;
+        INT endX   = INT(((info.position * 2.f) - outputPos).x + GRIDCX * 4) / GRIDCX;
+        INT endY   = INT(((info.position * 2.f) - outputPos).y + GRIDCY * 4) / GRIDCY;
+        POINT pt = {};
+        pt.x = (INT)((info.position * 2.f) - outputPos).x;
+        pt.y = (INT)((info.position * 2.f) - outputPos).y;
+        vector<CObj*>* vecEntity = CObjManager::GetInstance()->GetVector(OBJ::ENTITY);
+        for (INT y = startY; y < endY; y++) {
+            for (INT x = startX; x < endX; x++) {
+                if ((*vecEntity)[(y * GRIDX) + x] == nullptr)
+                    continue;
+                RECT rc = {};
+                if (PtInRect((*vecEntity)[(y * GRIDX) + x]->GetRect(), pt)) {
+                    tActor = dynamic_cast<CActor*>((*vecEntity)[(y * GRIDX) + x]);
+                    break;
+                }
+
+            }
+        }
+        if(tActor) {
+            if(tActor->outputInventory)
+                pickedItem = tActor->outputInventory->PopItem();
+            else if (tActor->inventory)
+                pickedItem = tActor->inventory->PopItem();
             if (pickedItem) {
                 pickingState = true;
                 Timer = GetTickCount();
@@ -129,14 +152,12 @@ void CBurnerInserter::TransportItem() {
             }
         }
         tActor = nullptr;
-        INT startX = INT(outputPos.x - GRIDCX * 4) / GRIDCX;
-        INT startY = INT(outputPos.y - GRIDCY * 4) / GRIDCY;
-        INT endX   = INT(outputPos.x + GRIDCX * 4) / GRIDCX;
-        INT endY   = INT(outputPos.y + GRIDCY * 4) / GRIDCY;
-        POINT pt = {};
+        startX = INT(outputPos.x - GRIDCX * 4) / GRIDCX;
+        startY = INT(outputPos.y - GRIDCY * 4) / GRIDCY;
+        endX   = INT(outputPos.x + GRIDCX * 4) / GRIDCX;
+        endY   = INT(outputPos.y + GRIDCY * 4) / GRIDCY;
         pt.x = (INT)outputPos.x;
         pt.y = (INT)outputPos.y;
-        vector<CObj*>* vecEntity = CObjManager::GetInstance()->GetVector(OBJ::ENTITY);
         for (INT y = startY; y < endY; y++) {
             for (INT x = startX; x < endX; x++) {
                 if ((*vecEntity)[(y * GRIDX) + x] == nullptr)
@@ -149,8 +170,8 @@ void CBurnerInserter::TransportItem() {
 
             }
         }
-        if (tActor && tActor->inventory) {
-            outputActor = tActor;
+        if (tActor && (tActor->inventory || tActor->fuelTank)) {
+                outputActor = tActor;
         }
         else {
             outputActor = nullptr;

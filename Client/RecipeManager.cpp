@@ -2,6 +2,8 @@
 #include "framework.h"
 #include "ItemIronOre.h"
 #include "ItemCopperOre.h"
+#include "ItemIronPlate.h"
+#include "ItemCopperPlate.h"
 #include "CraftRecipe.h"
 CRecipeManager* CRecipeManager::m_pInstance = nullptr;
 CRecipeManager* CRecipeManager::GetInstance() {
@@ -24,7 +26,13 @@ CRecipeManager::CRecipeManager() {
 	tempIngreds[0] = new Ingredient(new CItemIronOre(), 1);
 	tempIngreds[1] = nullptr;
 	tempIngreds[2] = nullptr;
-	tempProducts = new Ingredient(new CItemCopperOre(), 1);
+	tempProducts = new Ingredient(new CItemIronPlate(), 1);
+	InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+
+	tempIngreds[0] = new Ingredient(new CItemCopperOre(), 1);
+	tempIngreds[1] = nullptr;
+	tempIngreds[2] = nullptr;
+	tempProducts = new Ingredient(new CItemCopperPlate(), 1);
 	InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
 }
 

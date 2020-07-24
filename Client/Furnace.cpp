@@ -121,18 +121,24 @@ CObj* CFurnace::GetNewActor() {
 }
 
 void CFurnace::BurnItem(FLOAT _speed) {
-	BOOL burning = (fuelTank->SpendEnergy(0.05f) && inventory->listItemStack.size() != 0);
+	CCraftRecipe* tempRecipe = nullptr;
+	if (!inventory->listItemStack.empty()) {
+		if (!lstrcmp(inventory->listItemStack.front()->item->IconName, L"ICON_copper-ore"))
+			tempRecipe = CRecipeManager::GetInstance()->FindRecipe(L"ICON_copper-plate");
+		else if (!lstrcmp(inventory->listItemStack.front()->item->IconName, L"ICON_iron-ore"))
+			tempRecipe = CRecipeManager::GetInstance()->FindRecipe(L"ICON_iron-plate");
+	}
+	BOOL burning = (tempRecipe && (fuelTank->energy || fuelTank->fuelStack));
 	if (burning) {
+		fuelTank->SpendEnergy(0.05f);
 		spriteIndexX = 1;
 		progress++;
 		if (progress >= 100.f) {
-			CCraftRecipe* tempRecipe = CRecipeManager::GetInstance()->FindRecipe(L"ICON_copper-ore");
 			outputInventory->PushItem(tempRecipe->Craft(inventory));
 			progress = 0.f;
 		}
 	}
 	else {
 		spriteIndexX = 0;
-		fuelTank->energy += 0.05f;
 	}
 }

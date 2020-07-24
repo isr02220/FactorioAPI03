@@ -168,8 +168,10 @@
     <ClInclude Include="IronOre.h" />
     <ClInclude Include="ItemCoalOre.h" />
     <ClInclude Include="ItemCopperOre.h" />
+    <ClInclude Include="ItemCopperPlate.h" />
     <ClInclude Include="ItemHand.h" />
     <ClInclude Include="ItemIronOre.h" />
+    <ClInclude Include="ItemIronPlate.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Client.h" />
@@ -226,8 +228,10 @@
     <ClCompile Include="IronOre.cpp" />
     <ClCompile Include="ItemCoalOre.cpp" />
     <ClCompile Include="ItemCopperOre.cpp" />
+    <ClCompile Include="ItemCopperPlate.cpp" />
     <ClCompile Include="ItemHand.cpp" />
     <ClCompile Include="ItemIronOre.cpp" />
+    <ClCompile Include="ItemIronPlate.cpp" />
     <ClCompile Include="ItemStack.cpp" />
     <ClCompile Include="ItemStone.cpp" />
     <ClCompile Include="MyBitmap.cpp" />

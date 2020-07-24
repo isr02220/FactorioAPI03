@@ -374,7 +374,7 @@ void CPlayer::UnPlaceEntity() {
         if (selectedActor->outputInventory) 
             for (auto itemStack : selectedActor->outputInventory->listItemStack)
                 inventory->PushItemStack(itemStack);
-        if (selectedActor->fuelTank)
+        if (selectedActor->fuelTank && selectedActor->fuelTank->fuelStack)
              inventory->PushItemStack(selectedActor->fuelTank->fuelStack);
         if (selectedActor->GUI && selectedActor->GUI == focusedUI) {
             focusedUI->SetVisible(false);

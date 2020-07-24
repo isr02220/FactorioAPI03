@@ -68,11 +68,25 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"entity/resource-ore/hr-iron-ore.bmp", L"hr-iron-ore");
 	INSERT_TEXTURE(L"entity/resource-ore/hr-stone.bmp", L"hr-stone");
 
+	INSERT_TEXTURE(L"icon/ICON_back.bmp", L"ICON_back");
 	INSERT_TEXTURE(L"icon/ICON_hand.bmp", L"ICON_hand");
+	INSERT_TEXTURE(L"icon/ICON_assembling-machine.bmp", L"ICON_assembling-machine");
+	INSERT_TEXTURE(L"icon/ICON_burner-mining-drill.bmp", L"ICON_burner-mining-drill");
 	INSERT_TEXTURE(L"icon/ICON_coal.bmp", L"ICON_coal");
 	INSERT_TEXTURE(L"icon/ICON_copper-ore.bmp", L"ICON_copper-ore");
+	INSERT_TEXTURE(L"icon/ICON_copper-plate.bmp", L"ICON_copper-plate");
+	INSERT_TEXTURE(L"icon/ICON_firearm-magazine.bmp", L"ICON_firearm-magazine");
+	INSERT_TEXTURE(L"icon/ICON_inserter.bmp", L"ICON_inserter");
+	INSERT_TEXTURE(L"icon/ICON_iron-chest.bmp", L"ICON_iron-chest");
+	INSERT_TEXTURE(L"icon/ICON_iron-gear-wheel.bmp", L"ICON_iron-gear-wheel");
 	INSERT_TEXTURE(L"icon/ICON_iron-ore.bmp", L"ICON_iron-ore");
+	INSERT_TEXTURE(L"icon/ICON_iron-plate.bmp", L"ICON_iron-plate");
+	INSERT_TEXTURE(L"icon/ICON_light-armor.bmp", L"ICON_light-armor");
+	INSERT_TEXTURE(L"icon/ICON_solar-panel.bmp", L"ICON_solar-panel");
 	INSERT_TEXTURE(L"icon/ICON_stone.bmp", L"ICON_stone");
+	INSERT_TEXTURE(L"icon/ICON_stone-furnace.bmp", L"ICON_stone-furnace");
+	INSERT_TEXTURE(L"icon/ICON_submachine-gun.bmp", L"ICON_submachine-gun");
+	INSERT_TEXTURE(L"icon/ICON_transport-belt.bmp", L"ICON_transport-belt");
 
 	INSERT_TEXTURE(L"terrian/dirt.bmp", L"dirt");
 	//30, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET, 0, 0, 0, 0, L"±Ã¼­Ã¼"
