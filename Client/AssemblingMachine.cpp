@@ -101,7 +101,6 @@ void CAssemblingMachine::Render_Placable(HDC hDC, BOOL placable) {
 }
 
 void CAssemblingMachine::Release_Object() {
-	Safe_Delete(fuelTank);
 	dynamic_cast<CAssemblingMachineUI*>(GUI)->targetActor = nullptr;
 	GUI->SetDead();
 }

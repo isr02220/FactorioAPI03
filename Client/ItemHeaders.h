@@ -1,4 +1,5 @@
 #pragma once
+#include "ItemAssemblingMachine.h"
 #include "ItemCoalOre.h"
 #include "ItemCopperCable.h"
 #include "ItemCopperOre.h"

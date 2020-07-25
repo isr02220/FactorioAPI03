@@ -6,7 +6,7 @@
 #include "Inventory.h"
 CBurnerInserter::CBurnerInserter() : CEntity() {
     objectType = OBJ::ENTITY;
-	SetName(L"BurnerInserter");
+	SetName(L"≈ı¿‘±‚");
 }
 
 CBurnerInserter::~CBurnerInserter() {

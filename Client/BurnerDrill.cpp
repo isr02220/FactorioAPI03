@@ -9,7 +9,7 @@
 
 CBurnerDrill::CBurnerDrill() : CEntity() {
 	objectType = OBJ::ENTITY;
-	lstrcpy(info.name, L"BurnerDrill");
+	lstrcpy(info.name, L"화력 채광 드릴");
 	fuelTank = new CFuelTank();
 }
 

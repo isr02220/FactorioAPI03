@@ -68,6 +68,9 @@ void CPlayer::Ready_Object() {
     tempItemStack = new CItemStack(new CItemIronChest());
     tempItemStack->size = 10;
     inventory->PushItemStack(tempItemStack);
+    tempItemStack = new CItemStack(new CItemAssemblingMachine());
+    tempItemStack->size = 10;
+    inventory->PushItemStack(tempItemStack);
 }
 
 int CPlayer::Update_Object() {

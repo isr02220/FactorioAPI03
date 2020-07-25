@@ -62,6 +62,9 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"entity/stone-furnace/hr-stone-furnace.bmp",            L"hr-stone-furnace");
 	INSERT_TEXTURE(L"entity/stone-furnace/hr-stone-furnace-placable.bmp",   L"hr-stone-furnace-placable");
 	INSERT_TEXTURE(L"entity/stone-furnace/hr-stone-furnace-unplacable.bmp", L"hr-stone-furnace-unplacable");
+	INSERT_TEXTURE(L"entity/assembling-machine/hr-assembling-machine.bmp",            L"hr-assembling-machine");
+	INSERT_TEXTURE(L"entity/assembling-machine/hr-assembling-machine-placable.bmp",   L"hr-assembling-machine-placable");
+	INSERT_TEXTURE(L"entity/assembling-machine/hr-assembling-machine-unplacable.bmp", L"hr-assembling-machine-unplacable");
 
 	INSERT_TEXTURE(L"entity/resource-ore/hr-coal.bmp", L"hr-coal");
 	INSERT_TEXTURE(L"entity/resource-ore/hr-copper-ore.bmp", L"hr-copper-ore");

@@ -1,4 +1,5 @@
 #pragma once
+#include "AssemblingMachine.h"
 #include "BurnerDrill.h"
 #include "BurnerInserter.h"
 #include "CoalOre.h"

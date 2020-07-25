@@ -12,7 +12,7 @@
 
 CFurnace::CFurnace() : CEntity() {
 	objectType = OBJ::ENTITY;
-	lstrcpy(info.name, L"Furnace");
+	lstrcpy(info.name, L"µ¹ ¿ë±¤·Î");
 	fuelTank = new CFuelTank();
 	inventory = new CInventory(1);
 	outputInventory = new CInventory(1);

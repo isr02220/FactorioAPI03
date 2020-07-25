@@ -2,7 +2,7 @@
 #include "IronChest.h"
 #include "InventoryUI.h"
 CIronChest::CIronChest() {
-    SetName(L"IronChest");
+    SetName(L"รถ ป๓ภฺ");
     objectType = OBJ::ENTITY;
 	inventory = new CInventory(24);
 	rotatAble = false;
