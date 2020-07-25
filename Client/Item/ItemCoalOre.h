@@ -1,14 +1,15 @@
 #pragma once
 #include "Item.h"
-class CItemCopperOre :
+class CItemCoalOre :
     public CItem {
 public:
-    CItemCopperOre();
-    virtual ~CItemCopperOre();
+    CItemCoalOre();
+    virtual ~CItemCoalOre();
 
     virtual void LateUpdate_Object() override;
     virtual void Render_Object(HDC hDC) override;
     virtual CItem* GetNewItem();
+    virtual CActor* GetNewActor();
 
 };
 

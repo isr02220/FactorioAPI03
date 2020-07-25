@@ -9,6 +9,7 @@ public:
 	CCraftRecipe(Ingredient** _ingredients, Ingredient* _products, UINT _size);
 	~CCraftRecipe();
 	Ingredient* Craft(CInventory* inventory);
+	BOOL isCraftable(CInventory* inventory);
 
 public:
 	FLOAT time = 1.f;

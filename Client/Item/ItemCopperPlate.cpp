@@ -1,12 +1,12 @@
 #include "ItemCopperPlate.h"
+#include "Actor.h"
 #include "Item.h"
 CItemCopperPlate::CItemCopperPlate() : CItem() {
 	objectType = OBJ::ITEM;
 	group = ITEM::GROUP::INTERMEDIATE;
-	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
+	subGroup = ITEM::SUBGROUP::INTERMEDIATE_Material;
 	lstrcpy(IconName, L"ICON_copper-plate");
 	SetName(L"±¸¸®ÆÇ");
-	isBurnable = true;
 }
 
 CItemCopperPlate::~CItemCopperPlate() {
@@ -43,4 +43,8 @@ void CItemCopperPlate::Render_Object(HDC hDC) {
 
 CItem* CItemCopperPlate::GetNewItem() {
 	return new CItemCopperPlate();
+}
+
+CActor* CItemCopperPlate::GetNewActor() {
+	return nullptr;
 }

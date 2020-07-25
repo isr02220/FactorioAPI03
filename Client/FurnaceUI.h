@@ -15,7 +15,7 @@ public:
 	virtual void OnCollision(CObj* _TargetObj) override;
 	CActor* targetActor = nullptr;
 	CItemStack* fuelStack = nullptr;
-	CItemStack* inputStack = nullptr;
+	CItemStack* inputStacks[4] = { nullptr, nullptr, nullptr, nullptr };
 	CItemStack* outputStack = nullptr;
 };
 

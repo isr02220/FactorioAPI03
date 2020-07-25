@@ -25,7 +25,7 @@ public:
 	void RotateEntity();
 	void RotateCursor();
 	void UpdateSelectedUI(CUI* _targetUI);
-private:
+public:
 	CMouse* playerMouse = nullptr;
 	CUI* selectedUI;
 	CUI* focusedUI;

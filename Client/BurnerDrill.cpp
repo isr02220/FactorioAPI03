@@ -167,7 +167,7 @@ void CBurnerDrill::GatherResourceOre(FLOAT speed) {
 			outputActor = nullptr;
 		}
 		if (miningState.mining && fuelTank->SpendEnergy(0.1f)){
-			if(++spriteIndexX >= 8)
+			if(++spriteIndexX >= 8 * spriteFrameDelay)
 				spriteIndexX = 0;
 			progress++;
 		}

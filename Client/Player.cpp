@@ -5,11 +5,8 @@
 #include "ItemStack.h"
 #include "Entity.h"
 #include "ResourceOre.h"
-#include "TransportBelt.h"
-#include "BurnerDrill.h"
-#include "BurnerInserter.h"
-#include "Furnace.h"
-#include "IronChest.h"
+#include "EntityHeaders.h"
+#include "ItemHeaders.h"
 #include "FuelTank.h"
 #include "Inventory.h"
 #include "UI.h"
@@ -59,6 +56,18 @@ void CPlayer::Ready_Object() {
     info.force.y = 0.f;
 	MaxHP = 200;
     HP = MaxHP;
+    CItemStack* tempItemStack = new CItemStack(new CItemBurnerDrill());
+    tempItemStack->size = 10;
+    inventory->PushItemStack(tempItemStack);
+    tempItemStack = new CItemStack(new CItemBurnerInserter());
+    tempItemStack->size = 10;
+    inventory->PushItemStack(tempItemStack);
+    tempItemStack = new CItemStack(new CItemFurnace());
+    tempItemStack->size = 10;
+    inventory->PushItemStack(tempItemStack);
+    tempItemStack = new CItemStack(new CItemIronChest());
+    tempItemStack->size = 10;
+    inventory->PushItemStack(tempItemStack);
 }
 
 int CPlayer::Update_Object() {
@@ -70,7 +79,21 @@ int CPlayer::Update_Object() {
 
         Move();
 
+        if (playerMouse->cursorStack) {
+            if(pickedActor == nullptr)
+                pickedActor = playerMouse->cursorStack->item->GetNewActor();
+            else if (lstrcmp(pickedActor->GetName(), playerMouse->cursorStack->item->GetName())) {
+                Safe_Delete(pickedActor);
+                pickedActor = playerMouse->cursorStack->item->GetNewActor();
+            }
+        }
+
         if (pickedActor) {
+            if (selectedUI)
+                pickedActor->SetVisible(false);
+            else
+                pickedActor->SetVisible(true);
+
             pickedActor->SetPosition(ToGridPos(playerMouse->GetPosition(), pickedActor->GetInfo()->iCX));
             if(pickedActor->rotatAble)
                 pickedActor->SetWalkingState(playerMouse->cursorDir);
@@ -81,22 +104,22 @@ int CPlayer::Update_Object() {
         if(ProgressBarUI != nullptr) ProgressBarUI->SetVisible(false);
         miningState.mining = false;
 
-        if (keyMgr->OnPress(KEY::Num1)) {
-            Safe_Delete<CActor*>(pickedActor);
-            pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CFurnace>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
-        }
-        if (keyMgr->OnPress(KEY::Num2)) {
-            Safe_Delete<CActor*>(pickedActor);
-            pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CBurnerDrill>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
-        }
-        if (keyMgr->OnPress(KEY::Num3)) {
-            Safe_Delete<CActor*>(pickedActor);
-            pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CBurnerInserter>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
-        }
-        if (keyMgr->OnPress(KEY::Num4)) {
-            Safe_Delete<CActor*>(pickedActor);
-            pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CIronChest>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
-        }
+        //if (keyMgr->OnPress(KEY::Num1)) {
+        //    Safe_Delete<CActor*>(pickedActor);
+        //    pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CFurnace>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
+        //}
+        //if (keyMgr->OnPress(KEY::Num2)) {
+        //    Safe_Delete<CActor*>(pickedActor);
+        //    pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CBurnerDrill>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
+        //}
+        //if (keyMgr->OnPress(KEY::Num3)) {
+        //    Safe_Delete<CActor*>(pickedActor);
+        //    pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CBurnerInserter>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
+        //}
+        //if (keyMgr->OnPress(KEY::Num4)) {
+        //    Safe_Delete<CActor*>(pickedActor);
+        //    pickedActor = dynamic_cast<CActor*>(CAbstractFactory<CIronChest>::Create(ToGridPos(playerMouse->GetPosition(), GRIDCX)));
+        //}
         if (keyMgr->OnPress(KEY::ClearCursor)) {
             Safe_Delete<CActor*>(pickedActor);
             if (playerMouse->cursorStack) {
@@ -138,7 +161,7 @@ int CPlayer::Update_Object() {
         }
         if (keyMgr->OnPress(KEY::PrimaryAction) && selectedUI == nullptr) {
             if (keyMgr->Press(KEY::CONTROL)) {
-                if (playerMouse->cursorStack) {
+                if (playerMouse->cursorStack && selectedActor) {
                     if (playerMouse->cursorStack->item->isFuel && selectedActor->fuelTank) {
                         if (selectedActor->fuelTank->fuelStack) {
                             if (!lstrcmp(selectedActor->fuelTank->fuelStack->item->IconName, playerMouse->cursorStack->item->IconName)) {
@@ -155,8 +178,14 @@ int CPlayer::Update_Object() {
                             dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
                         }
                     }
+                    else if (selectedActor->inventory) {
+                        selectedActor->inventory->PushItemStack(playerMouse->cursorStack);
+                        Safe_Delete(playerMouse->cursorStack);
+                        CUI::ClearAllIconHand();
+                        dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+                    }
                 }
-                if (selectedActor) {
+                else if (selectedActor) {
                     if (selectedActor->inventory && !selectedActor->outputInventory) {
                         if (!selectedActor->inventory->listItemStack.empty()) {
                             inventory->PushItemStack(selectedActor->inventory->listItemStack.front());
@@ -362,6 +391,14 @@ void CPlayer::PlaceEntity() {
             CObjManager::GetInstance()->InsertObject(tempObj, OBJ::BELT);
         else
             CObjManager::GetInstance()->InsertObject(tempObj, OBJ::ENTITY);
+
+        playerMouse->cursorStack->size--;
+        if (playerMouse->cursorStack->size == 0) {
+            Safe_Delete(playerMouse->cursorStack);
+            CUI::ClearAllIconHand();
+            dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+            pickedActor = nullptr;
+        }
     }
 }
 

@@ -1,26 +1,27 @@
-#include "ItemStone.h"
+#include "ItemIronOre.h"
+#include "IronOre.h"
+#include "Actor.h"
 #include "Item.h"
-CItemStone::CItemStone() : CItem() {
+CItemIronOre::CItemIronOre() : CItem() {
 	objectType = OBJ::ITEM;
 	group = ITEM::GROUP::INTERMEDIATE;
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
-	lstrcpy(IconName, L"ICON_stone");
-	SetName(L"µ¹");
-	isBurnable = true;
+	lstrcpy(IconName, L"ICON_iron-ore");
+	SetName(L"Ã¶±¤¼®");
 }
 
-CItemStone::~CItemStone() {
+CItemIronOre::~CItemIronOre() {
 	Release_Object();
 }
 
-void CItemStone::LateUpdate_Object() {
+void CItemIronOre::LateUpdate_Object() {
 
 }
 
-void CItemStone::Render_Object(HDC hDC) {
+void CItemIronOre::Render_Object(HDC hDC) {
 	CObj::Update_Rect_Object();
 	if (isVisible) {
-		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"ICON_stone");
+		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"ICON_iron-ore");
 		if (nullptr == hMemDC)
 			return;
 		INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
@@ -41,7 +42,11 @@ void CItemStone::Render_Object(HDC hDC) {
 
 }
 
+CItem* CItemIronOre::GetNewItem() {
+	return new CItemIronOre();
+}
 
-CItem* CItemStone::GetNewItem() {
-	return new CItemStone();
+CActor* CItemIronOre::GetNewActor() {
+	//return dynamic_cast<CActor*>(CAbstractFactory<CIronOre>::Create());
+	return nullptr;
 }

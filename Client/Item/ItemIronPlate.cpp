@@ -1,12 +1,12 @@
 #include "ItemIronPlate.h"
+#include "Actor.h"
 #include "Item.h"
 CItemIronPlate::CItemIronPlate() : CItem() {
 	objectType = OBJ::ITEM;
 	group = ITEM::GROUP::INTERMEDIATE;
-	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
+	subGroup = ITEM::SUBGROUP::INTERMEDIATE_Material;
 	lstrcpy(IconName, L"ICON_iron-plate");
 	SetName(L"รถฦว");
-	isBurnable = true;
 }
 
 CItemIronPlate::~CItemIronPlate() {
@@ -43,4 +43,8 @@ void CItemIronPlate::Render_Object(HDC hDC) {
 
 CItem* CItemIronPlate::GetNewItem() {
 	return new CItemIronPlate();
+}
+
+CActor* CItemIronPlate::GetNewActor() {
+	return nullptr;
 }

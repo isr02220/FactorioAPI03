@@ -1,31 +1,32 @@
-#include "ItemIronOre.h"
+#include "ItemCoalOre.h"
+#include "CoalOre.h"
+#include "Actor.h"
 #include "Item.h"
-CItemIronOre::CItemIronOre() : CItem() {
+CItemCoalOre::CItemCoalOre() : CItem(){
 	objectType = OBJ::ITEM;
 	group = ITEM::GROUP::INTERMEDIATE;
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
-	lstrcpy(IconName, L"ICON_iron-ore");
-	SetName(L"Ã¶±¤¼®");
-	isBurnable = true;
+	lstrcpy(IconName, L"ICON_coal");
+	SetName(L"¼®Åº");
+	isFuel = true;
 }
 
-CItemIronOre::~CItemIronOre() {
+CItemCoalOre::~CItemCoalOre() {
 	Release_Object();
 }
 
-void CItemIronOre::LateUpdate_Object() {
+void CItemCoalOre::LateUpdate_Object() {
 
 }
 
-void CItemIronOre::Render_Object(HDC hDC) {
+void CItemCoalOre::Render_Object(HDC hDC) {
 	CObj::Update_Rect_Object();
 	if (isVisible) {
-		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"ICON_iron-ore");
+		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"ICON_coal");
 		if (nullptr == hMemDC)
 			return;
 		INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
 		INT iScrollY = (INT)CScrollManager::GetInstance()->GetScrollY();
-
 		GdiTransparentBlt(hDC,
 			cRect.left + iScrollX,
 			cRect.top + iScrollY,
@@ -41,6 +42,12 @@ void CItemIronOre::Render_Object(HDC hDC) {
 
 }
 
-CItem* CItemIronOre::GetNewItem() {
-	return new CItemIronOre();
+
+CItem* CItemCoalOre::GetNewItem() {
+	return new CItemCoalOre();
+}
+
+CActor* CItemCoalOre::GetNewActor() {
+	//return dynamic_cast<CActor*>(CAbstractFactory<CCoalOre>::Create());
+	return nullptr;
 }

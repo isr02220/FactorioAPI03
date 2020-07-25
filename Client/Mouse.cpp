@@ -79,17 +79,18 @@ void CMouse::Render_Object(HDC hDC) {
 		LOGFONT* logCountFont = CFontManager::GetInstance()->FindFont(L"±¼¸²Ã¼");
 		HFONT countFont = CreateFontIndirect(logCountFont);
 		HFONT oldFont = (HFONT)SelectObject(hDC, countFont);
-		GdiTransparentBlt(hDC,
-			rect.left + ScrollX + 32,
-			rect.top + ScrollY + 32,
-			32,
-			32,
-			cursorStack->hMemDC,
-			0,
-			0,
-			32,
-			32,
-			RGB(255, 0, 255));
+		if(dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->selectedUI || !dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->GetPickedActor())
+			GdiTransparentBlt(hDC,
+				rect.left + ScrollX + 32,
+				rect.top + ScrollY + 32,
+				32,
+				32,
+				cursorStack->hMemDC,
+				0,
+				0,
+				32,
+				32,
+				RGB(255, 0, 255));
 		RECT rc = {};
 		TCHAR szBuffer[32];
 		SetRect(&rc, rect.left + ScrollX + 32, rect.top + ScrollY + 54, rect.left + ScrollX + 64, rect.top + ScrollY + 64);

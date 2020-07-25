@@ -16,10 +16,33 @@ CCraftRecipe::~CCraftRecipe() {
 }
 
 Ingredient* CCraftRecipe::Craft(CInventory* inventory) {
+	if (isCraftable(inventory)) {
+		for (auto ingredient : vecIngredients) {
+			for (auto itemStack : inventory->listItemStack) {
+				if (!lstrcmp(ingredient->item->IconName, itemStack->item->IconName)) {
+					itemStack->size -= ingredient->amount;
+					if (itemStack->size == 0) {
+						auto iter = find_if(inventory->listItemStack.begin(), inventory->listItemStack.end(), [&](CItemStack* is) {
+							return (is == itemStack);
+							});
+						if(iter != inventory->listItemStack.end())
+							inventory->listItemStack.erase(iter);
+					}
+					break;
+				}
+			}
+		}
+		return products;
+	}
+	
+	return nullptr;
+}
+
+BOOL CCraftRecipe::isCraftable(CInventory* inventory) {
+	BOOL filled = false;
+	BOOL filleds[4] = {};
+	UINT index = 0;
 	if (!inventory->listItemStack.empty()) {
-		BOOL filled = false;
-		BOOL filleds[4] = {};
-		UINT index = 0;
 		for (auto ingredient : vecIngredients) {
 			for (auto itemStack : inventory->listItemStack) {
 				if (!lstrcmp(ingredient->item->IconName, itemStack->item->IconName) &&
@@ -37,26 +60,9 @@ Ingredient* CCraftRecipe::Craft(CInventory* inventory) {
 			}
 			index++;
 		}
-		if (filled) {
-			for (auto ingredient : vecIngredients) {
-				for (auto itemStack : inventory->listItemStack) {
-					if (!lstrcmp(ingredient->item->IconName, itemStack->item->IconName)) {
-						itemStack->size -= ingredient->amount;
-						if (itemStack->size == 0) {
-							auto iter = find_if(inventory->listItemStack.begin(), inventory->listItemStack.end(), [&](CItemStack* is) {
-								return (is == itemStack);
-								});
-							if(iter != inventory->listItemStack.end())
-								inventory->listItemStack.erase(iter);
-						}
-						break;
-					}
-				}
-			}
-			return products;
-		}
 	}
-	return nullptr;
+
+	return filled;
 }
 
 Ingredient::Ingredient(CItem* _item, const UINT& _amount) {

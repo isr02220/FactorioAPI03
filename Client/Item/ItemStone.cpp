@@ -1,30 +1,31 @@
-#include "ItemCoalOre.h"
+#include "ItemStone.h"
+#include "Actor.h"
 #include "Item.h"
-CItemCoalOre::CItemCoalOre() : CItem(){
+CItemStone::CItemStone() : CItem() {
 	objectType = OBJ::ITEM;
 	group = ITEM::GROUP::INTERMEDIATE;
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
-	lstrcpy(IconName, L"ICON_coal");
-	SetName(L"¼®Åº");
-	isFuel = true;
+	lstrcpy(IconName, L"ICON_stone");
+	SetName(L"µ¹");
 }
 
-CItemCoalOre::~CItemCoalOre() {
+CItemStone::~CItemStone() {
 	Release_Object();
 }
 
-void CItemCoalOre::LateUpdate_Object() {
+void CItemStone::LateUpdate_Object() {
 
 }
 
-void CItemCoalOre::Render_Object(HDC hDC) {
+void CItemStone::Render_Object(HDC hDC) {
 	CObj::Update_Rect_Object();
 	if (isVisible) {
-		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"ICON_coal");
+		HDC hMemDC = CBitmapManager::GetInstance()->FindImage(L"ICON_stone");
 		if (nullptr == hMemDC)
 			return;
 		INT iScrollX = (INT)CScrollManager::GetInstance()->GetScrollX();
 		INT iScrollY = (INT)CScrollManager::GetInstance()->GetScrollY();
+
 		GdiTransparentBlt(hDC,
 			cRect.left + iScrollX,
 			cRect.top + iScrollY,
@@ -37,10 +38,12 @@ void CItemCoalOre::Render_Object(HDC hDC) {
 			info.CCY,
 			RGB(255, 0, 255));
 	}
-
 }
 
+CItem* CItemStone::GetNewItem() {
+	return new CItemStone();
+}
 
-CItem* CItemCoalOre::GetNewItem() {
-	return new CItemCoalOre();
+CActor* CItemStone::GetNewActor() {
+	return nullptr;
 }

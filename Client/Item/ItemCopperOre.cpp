@@ -1,12 +1,14 @@
 #include "ItemCopperOre.h"
+#include "CopperOre.h"
+#include "Actor.h"
 #include "Item.h"
+
 CItemCopperOre::CItemCopperOre() : CItem() {
 	objectType = OBJ::ITEM;
 	group = ITEM::GROUP::INTERMEDIATE;
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_ResourceFluid;
 	lstrcpy(IconName, L"ICON_copper-ore");
 	SetName(L"±¸¸®±¤¼®");
-	isBurnable = true;
 }
 
 CItemCopperOre::~CItemCopperOre() {
@@ -43,4 +45,9 @@ void CItemCopperOre::Render_Object(HDC hDC) {
 
 CItem* CItemCopperOre::GetNewItem() {
 	return new CItemCopperOre();
+}
+
+CActor* CItemCopperOre::GetNewActor() {
+	//return dynamic_cast<CActor*>(CAbstractFactory<CCopperOre>::Create());
+	return nullptr;
 }

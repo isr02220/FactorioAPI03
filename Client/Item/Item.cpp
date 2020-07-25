@@ -70,3 +70,7 @@ void CItem::OnCollision(CObj* _TargetObj) {
 CItem* CItem::GetNewItem() {
 	return new CItem();
 }
+
+CActor* CItem::GetNewActor() {
+	return nullptr;
+}
