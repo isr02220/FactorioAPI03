@@ -134,7 +134,8 @@ void CFurnace::BurnItem(FLOAT _speed) {
 		else if (!lstrcmp(inventory->listItemStack.front()->item->IconName, L"ICON_iron-ore"))
 			tempRecipe = CRecipeManager::GetInstance()->FindRecipe(L"ICON_iron-plate");
 	}
-	BOOL burning = (tempRecipe && (fuelTank->energy || fuelTank->fuelStack));
+	BOOL burning = (tempRecipe && tempRecipe->isCraftable(inventory) && (fuelTank->energy || fuelTank->fuelStack));
+
 	if (burning) {
 		fuelTank->SpendEnergy(0.05f);
 		spriteIndexX = 1;
@@ -142,6 +143,10 @@ void CFurnace::BurnItem(FLOAT _speed) {
 		if (progress >= 100.f) {
 			outputInventory->PushItem(tempRecipe->Craft(inventory));
 			progress = 0.f;
+			if (inventory->listItemStack.front()->size == 0) {
+				Safe_Delete(inventory->listItemStack.front());
+				inventory->listItemStack.pop_front();
+			}
 		}
 	}
 	else {

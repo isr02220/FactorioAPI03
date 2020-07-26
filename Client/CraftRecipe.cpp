@@ -3,11 +3,12 @@
 #include "ItemStack.h"
 #include "Inventory.h"
 
-CCraftRecipe::CCraftRecipe(Ingredient** _ingredients, Ingredient* _products, UINT _size) {
+CCraftRecipe::CCraftRecipe(Ingredient** _ingredients, Ingredient* _products, UINT _size, FLOAT _timeToCraft) {
 	for (size_t i = 0; i < _size; i++)
 		vecIngredients.emplace_back(_ingredients[i]);
 	products = _products;
 	hMemDC = CBitmapManager::GetInstance()->FindImage(_products->item->IconName);
+	timeToCraft = _timeToCraft;
 }
 
 CCraftRecipe::~CCraftRecipe() {
@@ -22,13 +23,13 @@ Ingredient* CCraftRecipe::Craft(CInventory* inventory) {
 			for (auto itemStack : inventory->listItemStack) {
 				if (!lstrcmp(ingredient->item->IconName, itemStack->item->IconName)) {
 					itemStack->size -= ingredient->amount;
-					if (itemStack->size == 0) {
-						auto iter = find_if(inventory->listItemStack.begin(), inventory->listItemStack.end(), [&](CItemStack* is) {
-							return (is == itemStack);
-							});
-						if(iter != inventory->listItemStack.end())
-							inventory->listItemStack.erase(iter);
-					}
+					//if (itemStack->size == 0) {
+					//	auto iter = find_if(inventory->listItemStack.begin(), inventory->listItemStack.end(), [&](CItemStack* is) {
+					//		return (is == itemStack);
+					//		});
+					//	if(iter != inventory->listItemStack.end())
+					//		inventory->listItemStack.erase(iter);
+					//}
 					break;
 				}
 			}

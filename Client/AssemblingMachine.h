@@ -25,5 +25,6 @@ public:
     CUI* craftUI = nullptr;
     CUI* assemUI = nullptr;
     CCraftRecipe* recipe = nullptr;
+    static FLOAT craftSpeed;
 };
 

@@ -20,7 +20,7 @@ public:
 	static list<CCraftRecipe*>* listCombatRecipe;
 	CCraftRecipe* SelectedRecipe = nullptr;
 	CActor* targetActor = nullptr;
-	list<CCraftRecipe*>* listSelected = nullptr;
+	list<CCraftRecipe*>* listSelected = listLogisticsRecipe;
 	ITEM::GROUP selectedItemGroup = ITEM::GROUP::LOGISTICS;
 	INT selectedIndex = 0;
 };

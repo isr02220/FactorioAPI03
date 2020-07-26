@@ -78,10 +78,9 @@ INT CAssemblingMachineUI::Update_Object() {
 			if (PtInRect(&rc, pt)) {
 				if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction)) {
 					if (cursorStack && inputStacks[i] && !lstrcmp(cursorStack->item->IconName, inputStacks[i]->item->IconName)) {
-						targetActor->inventory->PushItemStack(cursorStack);
-						Safe_Delete(cursorStack);
+						cursorStack = targetActor->inventory->PushItemStack(cursorStack);
 						ClearAllIconHand();
-						dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+						dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = cursorStack;
 					}
 				}
 			}
@@ -181,10 +180,10 @@ void CAssemblingMachineUI::Render_Object(HDC hDC) {
 
 		if (targetActor && targetActor->outputInventory && outputStack) {
 			SetRect(&rc, rect.left, rect.top, rect.left + 38, rect.top + 38);
-			OffsetRect(&rc, 354, 40);
+			OffsetRect(&rc, 354, 81);
 			GdiTransparentBlt(hDC,
 				cRect.left + 356,
-				cRect.top + 42,
+				cRect.top + 83,
 				32,
 				32,
 				outputStack->hMemDC,

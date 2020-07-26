@@ -6,16 +6,16 @@ class Products;
 class CInventory;
 class CCraftRecipe {
 public:
-	CCraftRecipe(Ingredient** _ingredients, Ingredient* _products, UINT _size);
+	CCraftRecipe(Ingredient** _ingredients, Ingredient* _products, UINT _size, FLOAT _timeToCraft);
 	~CCraftRecipe();
 	Ingredient* Craft(CInventory* inventory);
 	BOOL isCraftable(CInventory* inventory);
 
 public:
-	FLOAT time = 1.f;
 	vector<Ingredient*> vecIngredients;
 	Ingredient* products = nullptr;
 	HDC hMemDC;
+	FLOAT timeToCraft = 100.f;
 };
 
 class Ingredient {

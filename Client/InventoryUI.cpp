@@ -64,15 +64,13 @@ INT CInventoryUI::Update_Object() {
 				if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction)) {
 					if (cursorStack) {
 						if (!lstrcmp(itemStack->item->IconName, L"ICON_hand")) {
-							targetActor->inventory->PushItemStack(cursorStack);
-							Safe_Delete(cursorStack);
+							cursorStack = targetActor->inventory->PushItemStack(cursorStack);
 							ClearIconHand();
 							SortItemStack();
-							dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+							dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = cursorStack;
 						}
 						else {
 							targetActor->inventory->PushItemStack(cursorStack);
-							Safe_Delete(cursorStack);
 							dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = itemStack;
 							for (auto iter = listItemStack->begin(); iter != listItemStack->end(); iter++) {
 								if (*iter == itemStack) {
@@ -103,9 +101,8 @@ INT CInventoryUI::Update_Object() {
 		if (selectedIndex == 0 && PtInRect(&rect, pt) && cursorStack &&
 			CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction)) {
 			ClearAllIconHand();
-			targetActor->inventory->PushItemStack(cursorStack);
-			Safe_Delete(cursorStack);
-			dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+			cursorStack = targetActor->inventory->PushItemStack(cursorStack);
+			dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = cursorStack;
 		}
 	}
 

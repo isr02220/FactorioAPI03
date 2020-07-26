@@ -9,11 +9,11 @@
 #include "CraftUI.h"
 #include "CraftRecipe.h"
 #include "RecipeManager.h"
-
+FLOAT CAssemblingMachine::craftSpeed = 0.8f;
 CAssemblingMachine::CAssemblingMachine() : CEntity() {
 	objectType = OBJ::ENTITY;
 	lstrcpy(info.name, L"조립 기계");
-	inventory = new CInventory(3);
+	inventory = new CInventory(0);
 	outputInventory = new CInventory(1);
 	rotatAble = false;
 }
@@ -35,8 +35,8 @@ void CAssemblingMachine::Ready_Object() {
 
 	GUI = craftUI;
 
-	info.iCX = 128;
-	info.iCY = 128;
+	info.iCX = 192;
+	info.iCY = 192;
 	info.CCX = 214;
 	info.CCY = 226;
 	speed = 3.f;
@@ -66,6 +66,7 @@ INT CAssemblingMachine::Update_Object() {
 					Safe_Delete(itemStack);
 				inventory->listItemStack.clear();
 			}
+			inventory->capacity = recipe->vecIngredients.size();
 			for (size_t i = 0; i < recipe->vecIngredients.size(); i++)
 				inventory->listItemStack.emplace_back(new CItemStack(recipe->vecIngredients[i]->item));
 		}
@@ -142,6 +143,8 @@ void CAssemblingMachine::Render_Placable(HDC hDC, BOOL placable) {
 }
 
 void CAssemblingMachine::Release_Object() {
+	Safe_Delete(inventory);
+	Safe_Delete(outputInventory);
 	dynamic_cast<CAssemblingMachineUI*>(assemUI)->targetActor = nullptr;
 	dynamic_cast<CCraftUI*>(craftUI)->targetActor = nullptr;
 	assemUI->SetDead();
@@ -171,7 +174,7 @@ void CAssemblingMachine::CraftItem(FLOAT _speed) {
 	if (Crafting) {
 		if (++spriteIndexX >= 16 * spriteFrameDelay)
 			spriteIndexX = 0;
-		progress++;
+		progress += craftSpeed / recipe->timeToCraft;
 		if (progress >= 100.f) {
 			outputInventory->PushItem(recipe->Craft(inventory));
 			progress = 0.f;

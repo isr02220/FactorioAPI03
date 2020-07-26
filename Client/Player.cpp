@@ -71,6 +71,12 @@ void CPlayer::Ready_Object() {
     tempItemStack = new CItemStack(new CItemAssemblingMachine());
     tempItemStack->size = 10;
     inventory->PushItemStack(tempItemStack);
+    tempItemStack = new CItemStack(new CItemIronPlate());
+    tempItemStack->size = 10;
+    inventory->PushItemStack(tempItemStack);
+    tempItemStack = new CItemStack(new CItemCopperPlate());
+    tempItemStack->size = 10;
+    inventory->PushItemStack(tempItemStack);
 }
 
 int CPlayer::Update_Object() {
@@ -89,6 +95,9 @@ int CPlayer::Update_Object() {
                 Safe_Delete(pickedActor);
                 pickedActor = playerMouse->cursorStack->item->GetNewActor();
             }
+        }
+        else {
+            pickedActor = nullptr;
         }
 
         if (pickedActor) {
@@ -126,8 +135,7 @@ int CPlayer::Update_Object() {
         if (keyMgr->OnPress(KEY::ClearCursor)) {
             Safe_Delete<CActor*>(pickedActor);
             if (playerMouse->cursorStack) {
-                inventory->PushItemStack(playerMouse->cursorStack);
-                Safe_Delete(playerMouse->cursorStack);
+                playerMouse->cursorStack = inventory->PushItemStack(playerMouse->cursorStack);
                 for (auto iter = inventory->listItemStack.begin(); iter != inventory->listItemStack.end(); iter++) {
                     if (!lstrcmp((*iter)->item->IconName, L"ICON_hand")) {
                         inventory->listItemStack.erase(iter);
@@ -178,28 +186,25 @@ int CPlayer::Update_Object() {
                             selectedActor->fuelTank->PushItemStack(playerMouse->cursorStack);
                             Safe_Delete(playerMouse->cursorStack);
                             CUI::ClearAllIconHand();
-                            dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+                            dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = playerMouse->cursorStack;
                         }
                     }
                     else if (selectedActor->inventory) {
-                        selectedActor->inventory->PushItemStack(playerMouse->cursorStack);
-                        Safe_Delete(playerMouse->cursorStack);
+                        playerMouse->cursorStack = selectedActor->inventory->PushItemStack(playerMouse->cursorStack);
                         CUI::ClearAllIconHand();
-                        dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+                        dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = playerMouse->cursorStack;
                     }
                 }
                 else if (selectedActor) {
                     if (selectedActor->inventory && !selectedActor->outputInventory) {
                         if (!selectedActor->inventory->listItemStack.empty()) {
                             inventory->PushItemStack(selectedActor->inventory->listItemStack.front());
-                            Safe_Delete(selectedActor->inventory->listItemStack.front());
                             selectedActor->inventory->listItemStack.pop_front();
                         }
                     }
                     else if (selectedActor->outputInventory) {
                         if (!selectedActor->outputInventory->listItemStack.empty()) {
                             inventory->PushItemStack(selectedActor->outputInventory->listItemStack.front());
-                            Safe_Delete(selectedActor->outputInventory->listItemStack.front());
                             selectedActor->outputInventory->listItemStack.pop_front();
                         }
 
@@ -408,14 +413,24 @@ void CPlayer::PlaceEntity() {
 void CPlayer::UnPlaceEntity() {
     ProgressBarUI->SetVisible(true);
     if (dynamic_cast<CProgressBar*>(ProgressBarUI)->IncreaseProgress(0.05f)) {
-        if (selectedActor->inventory) 
-            for (auto itemStack : selectedActor->inventory->listItemStack) 
+        if (selectedActor->inventory) {
+            for (auto itemStack : selectedActor->inventory->listItemStack) {
                 inventory->PushItemStack(itemStack);
-        if (selectedActor->outputInventory) 
-            for (auto itemStack : selectedActor->outputInventory->listItemStack)
+                itemStack = nullptr;
+            }
+            selectedActor->inventory->listItemStack.clear();
+        }
+        if (selectedActor->outputInventory) {
+            for (auto itemStack : selectedActor->outputInventory->listItemStack) {
                 inventory->PushItemStack(itemStack);
-        if (selectedActor->fuelTank && selectedActor->fuelTank->fuelStack)
-             inventory->PushItemStack(selectedActor->fuelTank->fuelStack);
+                itemStack = nullptr;
+            }
+            selectedActor->outputInventory->listItemStack.clear();
+        }
+        if (selectedActor->fuelTank && selectedActor->fuelTank->fuelStack) {
+            inventory->PushItemStack(selectedActor->fuelTank->fuelStack);
+            selectedActor->fuelTank->fuelStack = nullptr;
+        }
         if (selectedActor->GUI && selectedActor->GUI == focusedUI) {
             focusedUI->SetVisible(false);
             GUI->SetVisible(false);

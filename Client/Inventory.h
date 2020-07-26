@@ -8,10 +8,10 @@ public:
 	CInventory(UINT _capacity);
 	~CInventory();
 
-	void   PushItem(CItem* _item);
-	void   PushItem(Ingredient* _ingredient);
-	void   PushItem(CObj* _item);
-	void   PushItemStack(CItemStack* _itemStack);
+	BOOL   PushItem(CItem* _item);
+	BOOL   PushItem(Ingredient* _ingredient);
+	BOOL   PushItem(CObj* _item);
+	CItemStack*   PushItemStack(CItemStack* _itemStack);
 	CItem* PopItem(CItem* _item);
 	CItem* PopItem();
 

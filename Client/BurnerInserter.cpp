@@ -1,5 +1,7 @@
 #include "BurnerInserter.h"
 #include "ItemBurnerInserter.h"
+#include "AssemblingMachine.h"
+#include "CraftRecipe.h"
 #include "Entity.h"
 #include "Item.h"
 #include "IronChest.h"
@@ -125,11 +127,48 @@ void CBurnerInserter::TransportItem() {
 
             }
         }
+        CActor* tOutputActor = nullptr;
+        startX = INT(outputPos.x - GRIDCX * 4) / GRIDCX;
+        startY = INT(outputPos.y - GRIDCY * 4) / GRIDCY;
+        endX = INT(outputPos.x + GRIDCX * 4) / GRIDCX;
+        endY = INT(outputPos.y + GRIDCY * 4) / GRIDCY;
+        pt.x = (INT)outputPos.x;
+        pt.y = (INT)outputPos.y;
+        for (INT y = startY; y < endY; y++) {
+            for (INT x = startX; x < endX; x++) {
+                if ((*vecEntity)[(y * GRIDX) + x] == nullptr)
+                    continue;
+                RECT rc = {};
+                if (PtInRect((*vecEntity)[(y * GRIDX) + x]->GetRect(), pt)) {
+                    tOutputActor = dynamic_cast<CActor*>((*vecEntity)[(y * GRIDX) + x]);
+                    break;
+                }
+
+            }
+        }
+        if (tOutputActor && (tOutputActor->inventory || tOutputActor->fuelTank)) {
+            outputActor = tOutputActor;
+        }
+        else {
+            outputActor = nullptr;
+        }
+
         if(tActor) {
-            if(tActor->outputInventory)
-                pickedItem = tActor->outputInventory->PopItem();
-            else if (tActor->inventory)
-                pickedItem = tActor->inventory->PopItem();
+            if (outputActor && dynamic_cast<CAssemblingMachine*>(outputActor) && dynamic_cast<CAssemblingMachine*>(outputActor)->recipe) {
+                vector<Ingredient*>* vecIngredient = &dynamic_cast<CAssemblingMachine*>(outputActor)->recipe->vecIngredients;
+                for (auto ingredient : *vecIngredient) {
+                    if (tActor->outputInventory)
+                        pickedItem = tActor->outputInventory->PopItem(ingredient->item);
+                    else if (tActor->inventory)
+                        pickedItem = tActor->inventory->PopItem(ingredient->item);
+                }
+            }
+            else {
+                if (tActor->outputInventory)
+                    pickedItem = tActor->outputInventory->PopItem();
+                else if (tActor->inventory)
+                    pickedItem = tActor->inventory->PopItem();
+            }
             if (pickedItem) {
                 pickingState = true;
                 Timer = GetTickCount();
@@ -152,35 +191,37 @@ void CBurnerInserter::TransportItem() {
                 iter++;
             }
         }
-        tActor = nullptr;
-        startX = INT(outputPos.x - GRIDCX * 4) / GRIDCX;
-        startY = INT(outputPos.y - GRIDCY * 4) / GRIDCY;
-        endX   = INT(outputPos.x + GRIDCX * 4) / GRIDCX;
-        endY   = INT(outputPos.y + GRIDCY * 4) / GRIDCY;
-        pt.x = (INT)outputPos.x;
-        pt.y = (INT)outputPos.y;
-        for (INT y = startY; y < endY; y++) {
-            for (INT x = startX; x < endX; x++) {
-                if ((*vecEntity)[(y * GRIDX) + x] == nullptr)
-                    continue;
-                RECT rc = {};
-                if (PtInRect((*vecEntity)[(y * GRIDX) + x]->GetRect(), pt)) {
-                    tActor = dynamic_cast<CActor*>((*vecEntity)[(y * GRIDX) + x]);
-                    break;
-                }
-
-            }
-        }
-        if (tActor && (tActor->inventory || tActor->fuelTank)) {
-                outputActor = tActor;
-        }
-        else {
-            outputActor = nullptr;
-        }
+        
     }
     else if (pickedItem) {
         if (Timer + 600 < GetTickCount()) {
+            CActor* tActor = nullptr;
+            INT startX = INT(outputPos.x - GRIDCX * 4) / GRIDCX;
+            INT startY = INT(outputPos.y - GRIDCY * 4) / GRIDCY;
+            INT endX = INT(outputPos.x + GRIDCX * 4) / GRIDCX;
+            INT endY = INT(outputPos.y + GRIDCY * 4) / GRIDCY;
+            POINT pt = {};
+            pt.x = (INT)outputPos.x;
+            pt.y = (INT)outputPos.y;
+            vector<CObj*>* vecEntity = CObjManager::GetInstance()->GetVector(OBJ::ENTITY);
+            for (INT y = startY; y < endY; y++) {
+                for (INT x = startX; x < endX; x++) {
+                    if ((*vecEntity)[(y * GRIDX) + x] == nullptr)
+                        continue;
+                    RECT rc = {};
+                    if (PtInRect((*vecEntity)[(y * GRIDX) + x]->GetRect(), pt)) {
+                        tActor = dynamic_cast<CActor*>((*vecEntity)[(y * GRIDX) + x]);
+                        break;
+                    }
 
+                }
+            }
+            if (tActor && (tActor->inventory || tActor->fuelTank)) {
+                outputActor = tActor;
+            }
+            else {
+                outputActor = nullptr;
+            }
             if (outputActor) {
                 if (outputActor->fuelTank && dynamic_cast<CItem*>(pickedItem)->isFuel) {
                     outputActor->fuelTank->PushItem(dynamic_cast<CItem*>(pickedItem));
@@ -188,8 +229,7 @@ void CBurnerInserter::TransportItem() {
                         pickedItem = nullptr;
                         Timer = GetTickCount();
                 }
-                else if (outputActor->inventory) {
-                    outputActor->inventory->PushItem(dynamic_cast<CItem*>(pickedItem));
+                else if (outputActor->inventory && outputActor->inventory->PushItem(pickedItem)) {
                     pickingState = false;
                     pickedItem = nullptr;
                     Timer = GetTickCount();

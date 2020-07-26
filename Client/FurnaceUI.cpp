@@ -75,23 +75,20 @@ INT CFurnaceUI::Update_Object() {
 				if (cursorStack && cursorStack->item->isBurnable) {
 					if (inputStack) {
 						if (!lstrcmp(inputStack->item->IconName, cursorStack->item->IconName)) {
-							targetActor->inventory->PushItemStack(cursorStack);
-							Safe_Delete(cursorStack);
+							cursorStack = targetActor->inventory->PushItemStack(cursorStack);
 							ClearAllIconHand();
-							dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+							dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = cursorStack;
 						}
 						else {
 							dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = targetActor->fuelTank->PopItemStack();
 							targetActor->inventory->PushItemStack(cursorStack);
-							Safe_Delete(cursorStack);
 							ClearAllIconHand();
 						}
 					}
 					else {
-						targetActor->inventory->PushItemStack(cursorStack);
-						Safe_Delete(cursorStack);
+						cursorStack = targetActor->inventory->PushItemStack(cursorStack);
 						ClearAllIconHand();
-						dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
+						dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = cursorStack;
 					}
 
 				}
@@ -104,7 +101,6 @@ INT CFurnaceUI::Update_Object() {
 					if (fuelStack) {
 						if (!lstrcmp(fuelStack->item->IconName, cursorStack->item->IconName)) {
 							targetActor->fuelTank->PushItemStack(cursorStack);
-							Safe_Delete(cursorStack);
 							ClearAllIconHand();
 							dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = nullptr;
 						}
@@ -131,7 +127,6 @@ INT CFurnaceUI::Update_Object() {
 				if (outputStack) {
 					if (cursorStack) {
 						dynamic_cast<CActor*>(CObjManager::GetInstance()->GetPlayer())->inventory->PushItemStack(cursorStack);
-						Safe_Delete(cursorStack);
 						ClearAllIconHand();
 					}
 					dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack = outputStack;

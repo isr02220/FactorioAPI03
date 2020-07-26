@@ -11,7 +11,7 @@ CInventory::~CInventory() {
 		Safe_Delete(itemStack);
 }
 
-void CInventory::PushItem(CItem* _item) {
+BOOL CInventory::PushItem(CItem* _item) {
 	for (auto itemStack : listItemStack) {
 		if (!lstrcmp(itemStack->item->GetName(), _item->GetName())) {
 			if (itemStack->size < itemStack->capacity) {
@@ -20,10 +20,12 @@ void CInventory::PushItem(CItem* _item) {
 				auto iter = find_if(listItem->begin(), listItem->end(), [&](CObj* tObj) { return _item == tObj;	});
 				if (iter != listItem->end())
 					(*iter)->SetDead();
-				return;
+				return true;
 			}
 		}
 	}
+	if (listItemStack.size() >= capacity)
+		return false;
 	CItemStack* tempItemStack = new CItemStack(_item->GetNewItem());
 	tempItemStack->size++;
 	listItemStack.emplace_back(tempItemStack);
@@ -39,24 +41,41 @@ void CInventory::PushItem(CItem* _item) {
 			return lstrcmp(stack1->item->GetName(), stack2->item->GetName()) > 0;
 		}
 		});
+	return true;
 }
 
-void CInventory::PushItem(Ingredient* _ingredient) {
+BOOL CInventory::PushItem(Ingredient* _ingredient) {
 	if (_ingredient) {
 		for (size_t i = 0; i < _ingredient->amount; i++)
 			PushItem(_ingredient->item->GetNewItem());
 	}
+	return true;
 }
 
-void CInventory::PushItem(CObj* _item) {
+BOOL CInventory::PushItem(CObj* _item) {
 	CItem* tempItem = dynamic_cast<CItem*>(_item);
 	if (tempItem)
-		PushItem(tempItem);
+		return PushItem(tempItem);
+	return false;
 }
 
-void CInventory::PushItemStack(CItemStack* _itemStack) {
+CItemStack* CInventory::PushItemStack(CItemStack* _itemStack) {
+	UINT leftItemSize = 0;
 	for (size_t i = 0; i < _itemStack->size; i++) {
-		PushItem(_itemStack->item->GetNewItem());
+		if (!PushItem(_itemStack->item->GetNewItem())) {
+			leftItemSize = _itemStack->size - i;
+			break;
+		}
+	}
+	if (leftItemSize) {
+		CItemStack* tempItemStack = new CItemStack(_itemStack->item->GetNewItem());
+		tempItemStack->size = leftItemSize;
+		Safe_Delete(_itemStack);
+		return tempItemStack;
+	}
+	else {
+		Safe_Delete(_itemStack);
+		return nullptr;
 	}
 }
 
@@ -78,8 +97,10 @@ CItem* CInventory::PopItem(CItem* _item) {
 	if (tempItemStack) {
 		if (--(tempItemStack->size) == 0)
 			for (auto iter = listItemStack.begin(); iter != listItemStack.end(); iter++) {
-				if (tempItemStack == (*iter))
+				if (tempItemStack == (*iter)) {
 					listItemStack.erase(iter);
+					break;
+				}
 			}
 		CItem* tItem = _item->GetNewItem();
 		tItem->Ready_Object();

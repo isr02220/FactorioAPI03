@@ -25,21 +25,21 @@ CRecipeManager::CRecipeManager() {
 		tempIngreds[1] = new Ingredient(new CItemIronPlate(), 1);
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemBurnerInserter(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 2, 0.5f), tempProducts->item->IconName);
 
 		//철 상자
 		tempIngreds[0] = new Ingredient(new CItemIronPlate(), 8);
 		tempIngreds[1] = nullptr;
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemIronChest(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1, 0.5f), tempProducts->item->IconName);
 
 		//운송 벨트
 		tempIngreds[0] = new Ingredient(new CItemIronGearWheel(), 1);
 		tempIngreds[1] = new Ingredient(new CItemIronPlate(), 1);
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemTransportBelt(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 2, 0.5f), tempProducts->item->IconName);
 	}
 	{
 		//조립 기계
@@ -47,28 +47,28 @@ CRecipeManager::CRecipeManager() {
 		tempIngreds[1] = new Ingredient(new CItemIronGearWheel(), 5);
 		tempIngreds[2] = new Ingredient(new CItemIronPlate(), 9);
 		tempProducts = new Ingredient(new CItemAssemblingMachine(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 3, 0.5f), tempProducts->item->IconName);
 
 		//화력 채광기
 		tempIngreds[0] = new Ingredient(new CItemIronGearWheel(), 3);
 		tempIngreds[1] = new Ingredient(new CItemIronPlate(), 3);
 		tempIngreds[2] = new Ingredient(new CItemFurnace(), 1);
 		tempProducts = new Ingredient(new CItemBurnerDrill(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 3, 2.f), tempProducts->item->IconName);
 
 		//돌 용광로
 		tempIngreds[0] = new Ingredient(new CItemStone(), 5);
 		tempIngreds[1] = nullptr;
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemFurnace(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1, 0.5), tempProducts->item->IconName);
 
 		//태양광 패널
 		tempIngreds[0] = new Ingredient(new CItemCopperPlate(), 5);
 		tempIngreds[1] = new Ingredient(new CItemElectronicCircuit(), 15);
 		tempIngreds[2] = new Ingredient(new CItemIronPlate(), 5);
 		tempProducts = new Ingredient(new CItemSolarPanel(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 3, 10.f), tempProducts->item->IconName);
 
 	}
 
@@ -78,35 +78,35 @@ CRecipeManager::CRecipeManager() {
 		tempIngreds[1] = nullptr;
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemIronPlate(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1, 3.2f), tempProducts->item->IconName);
 
 		//구리 판
 		tempIngreds[0] = new Ingredient(new CItemCopperOre(), 1);
 		tempIngreds[1] = nullptr;
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemCopperPlate(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1, 3.2f), tempProducts->item->IconName);
 
 		//구리 케이블
 		tempIngreds[0] = new Ingredient(new CItemCopperPlate(), 1);
 		tempIngreds[1] = nullptr;
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemCopperCable(), 2);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1, 0.5f), tempProducts->item->IconName);
 
 		//전기 회로
 		tempIngreds[0] = new Ingredient(new CItemCopperCable(), 3);
 		tempIngreds[1] = new Ingredient(new CItemIronPlate(), 1);
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemElectronicCircuit(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 2, 0.5f), tempProducts->item->IconName);
 
 		//철 톱니바퀴
 		tempIngreds[0] = new Ingredient(new CItemIronPlate(), 2);
 		tempIngreds[1] = nullptr;
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemIronGearWheel(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1, 0.5f), tempProducts->item->IconName);
 	}
 
 	{
@@ -115,21 +115,21 @@ CRecipeManager::CRecipeManager() {
 		tempIngreds[1] = nullptr;
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemLightArmor(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1, 3.f), tempProducts->item->IconName);
 		
 		//화기용 탄창
 		tempIngreds[0] = new Ingredient(new CItemIronPlate(), 4);
 		tempIngreds[1] = nullptr;
 		tempIngreds[2] = nullptr;
 		tempProducts = new Ingredient(new CItemMagazine(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1, 1.f), tempProducts->item->IconName);
 
 		//기관단총
 		tempIngreds[0] = new Ingredient(new CItemCopperPlate(), 5);
 		tempIngreds[1] = new Ingredient(new CItemIronGearWheel(), 10);
 		tempIngreds[2] = new Ingredient(new CItemIronPlate(), 10);
 		tempProducts = new Ingredient(new CItemSMG(), 1);
-		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 1), tempProducts->item->IconName);
+		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 3, 10.f), tempProducts->item->IconName);
 	}
 
 }
