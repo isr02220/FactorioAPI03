@@ -17,6 +17,7 @@ public:
     virtual void Release_Object() override;
     virtual void OnCollision(CObj* _TargetObj) override;
     virtual CObj* GetNewActor() override;
+    virtual CItem* GetNewItem() override;
 
     void SetIndexY();
     void GetBeltConnect();

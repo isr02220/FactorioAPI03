@@ -425,6 +425,7 @@ void CPlayer::UnPlaceEntity() {
         for (auto item : *(CObjManager::GetInstance()->GetList(OBJ::ITEM)))
             if (IntersectRect(&rc, item->GetRect(), selectedActor->GetRect()))
                 inventory->PushItem(item);
+        inventory->PushItem(selectedActor->GetNewItem());
         selectedActor->SetDead();
     }
     
@@ -512,4 +513,12 @@ void CPlayer::RotateCursor() {
 
 void CPlayer::UpdateSelectedUI(CUI* _targetUI) {
         selectedUI = _targetUI;
+}
+
+CObj* CPlayer::GetNewActor() {
+    return nullptr;
+}
+
+CItem* CPlayer::GetNewItem() {
+    return nullptr;
 }

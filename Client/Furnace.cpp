@@ -1,4 +1,5 @@
 #include "Furnace.h"
+#include "ItemFurnace.h"
 #include "ResourceOre.h"
 #include "Entity.h"
 #include "FuelTank.h"
@@ -118,6 +119,11 @@ CObj* CFurnace::GetNewActor() {
 	CObj* tempObj = new CFurnace();
 	tempObj->Ready_Object();
 	return tempObj;
+}
+
+CItem* CFurnace::GetNewItem() {
+	CItem* tempItem = new CItemFurnace();
+	return tempItem;
 }
 
 void CFurnace::BurnItem(FLOAT _speed) {

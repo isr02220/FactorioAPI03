@@ -1,4 +1,6 @@
 #include "TransportBelt.h"
+#include "ItemTransportBelt.h"
+#include "Item.h"
 #include "Entity.h"
 INT CTransportBelt::beltSpriteIndexX = 0;
 INT CTransportBelt::beltSpriteFrameDelay = 1;
@@ -697,4 +699,9 @@ CObj* CTransportBelt::GetNewActor() {
 	CObj* tempObj = new CTransportBelt();
 	tempObj->Ready_Object();
 	return tempObj;
+}
+
+CItem* CTransportBelt::GetNewItem() {
+	CItem* tempItem = new CItemTransportBelt();
+	return tempItem;
 }

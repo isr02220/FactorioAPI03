@@ -36,6 +36,7 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"gui/GUI_InventoryMerged.bmp", L"GUI_InventoryMerged");
 	INSERT_TEXTURE(L"gui/GUI_SelectedSlot.bmp", L"GUI_SelectedSlot");
 	INSERT_TEXTURE(L"gui/GUI_furnace.bmp", L"GUI_furnace");
+	INSERT_TEXTURE(L"gui/GUI_CraftPanel.bmp", L"GUI_CraftPanel");
 	INSERT_TEXTURE(L"gui/GUI_Assembling-machine.bmp", L"GUI_Assembling-machine");
 	INSERT_TEXTURE(L"gui/GUI_QuickSlot.bmp", L"GUI_QuickSlot");
 	INSERT_TEXTURE(L"gui/GUI_BurnerEnergy.bmp", L"GUI_BurnerEnergy");
@@ -43,6 +44,11 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"gui/GUI_CraftingProgress.bmp", L"GUI_CraftingProgress");
 	INSERT_TEXTURE(L"gui/GUI_ProgressBarPanel.bmp", L"GUI_ProgressBarPanel");
 	INSERT_TEXTURE(L"gui/GUI_ProgressBarProgress.bmp", L"GUI_ProgressBarProgress");
+
+	INSERT_TEXTURE(L"item-group/ICON_intermediate.bmp", L"ICON_intermediate");
+	INSERT_TEXTURE(L"item-group/ICON_logistics.bmp", L"ICON_logistics");
+	INSERT_TEXTURE(L"item-group/ICON_military.bmp", L"ICON_military");
+	INSERT_TEXTURE(L"item-group/ICON_production.bmp", L"ICON_production");
 
 	
 	INSERT_TEXTURE(L"entity/iron-chest/hr-iron-chest.bmp",            L"hr-iron-chest");
@@ -73,6 +79,8 @@ void CMainApp::Ready_MainApp() {
 
 	INSERT_TEXTURE(L"icon/ICON_back.bmp", L"ICON_back");
 	INSERT_TEXTURE(L"icon/ICON_hand.bmp", L"ICON_hand");
+	INSERT_TEXTURE(L"icon/ICON_electronic-circuit.bmp", L"ICON_electronic-circuit");
+	INSERT_TEXTURE(L"icon/ICON_copper-cable.bmp", L"ICON_copper-cable");
 	INSERT_TEXTURE(L"icon/ICON_assembling-machine.bmp", L"ICON_assembling-machine");
 	INSERT_TEXTURE(L"icon/ICON_burner-mining-drill.bmp", L"ICON_burner-mining-drill");
 	INSERT_TEXTURE(L"icon/ICON_coal.bmp", L"ICON_coal");

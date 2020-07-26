@@ -59,3 +59,11 @@ CObj* CIronOre::Gather() {
 		return nullptr;
 	}
 }
+
+CObj* CIronOre::GetNewActor() {
+	return nullptr;
+}
+
+CItem* CIronOre::GetNewItem() {
+	return nullptr;
+}

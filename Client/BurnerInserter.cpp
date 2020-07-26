@@ -1,4 +1,5 @@
 #include "BurnerInserter.h"
+#include "ItemBurnerInserter.h"
 #include "Entity.h"
 #include "Item.h"
 #include "IronChest.h"
@@ -230,6 +231,11 @@ CObj* CBurnerInserter::GetNewActor() {
 	CObj* tempObj = new CBurnerInserter();
 	tempObj->Ready_Object();
 	return tempObj;
+}
+
+CItem* CBurnerInserter::GetNewItem() {
+	CItem* tempItem = new CItemBurnerInserter();
+	return tempItem;
 }
 
 void CBurnerInserter::SetSpriteDir() {

@@ -2,6 +2,7 @@
 #include "UI.h"
 class CActor;
 class CItemStack;
+class CCraftRecipe;
 class CCraftUI :
 	public CUI {
 public:
@@ -13,9 +14,14 @@ public:
 	virtual void Render_Object(HDC hDC) override;
 	virtual void Release_Object() override;
 	virtual void OnCollision(CObj* _TargetObj) override;
-	void SortItemStack();
+	static list<CCraftRecipe*>* listLogisticsRecipe;
+	static list<CCraftRecipe*>* listProductionRecipe;
+	static list<CCraftRecipe*>* listIntermediateRecipe;
+	static list<CCraftRecipe*>* listCombatRecipe;
+	CCraftRecipe* SelectedRecipe = nullptr;
 	CActor* targetActor = nullptr;
-	list<CItemStack*>* listItemStack = nullptr;
+	list<CCraftRecipe*>* listSelected = nullptr;
+	ITEM::GROUP selectedItemGroup = ITEM::GROUP::LOGISTICS;
 	INT selectedIndex = 0;
 };
 

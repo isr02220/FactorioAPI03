@@ -1,5 +1,7 @@
 #pragma once
 #include "Entity.h"
+class CUI;
+class CItem;
 class CInventory;
 class CCraftRecipe;
 class CAssemblingMachine :
@@ -16,9 +18,12 @@ public:
     virtual void Release_Object() override;
     virtual void OnCollision(CObj* _TargetObj) override;
     virtual CObj* GetNewActor() override;
+    virtual CItem* GetNewItem() override;
 
     void CraftItem(FLOAT _speed);
-
+    
+    CUI* craftUI = nullptr;
+    CUI* assemUI = nullptr;
     CCraftRecipe* recipe = nullptr;
 };
 

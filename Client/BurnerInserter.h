@@ -17,7 +17,7 @@ public:
     virtual void OnCollision(CObj* _TargetObj) override;
     virtual CObj* GetNewActor() override;
     virtual void SetSpriteDir() override;
-
+    virtual CItem* GetNewItem() override;
     void TransportItem();
 
 public:

@@ -1,5 +1,6 @@
 #include "Inventory.h"
 #include "IronChest.h"
+#include "ItemIronChest.h"
 #include "InventoryUI.h"
 CIronChest::CIronChest() {
     SetName(L"Ã¶ »óÀÚ");
@@ -104,4 +105,9 @@ CObj* CIronChest::GetNewActor() {
     CObj* tempObj = new CIronChest();
     tempObj->Ready_Object();
     return tempObj;
+}
+
+CItem* CIronChest::GetNewItem() {
+	CItem* tempItem = new CItemIronChest();
+	return tempItem;
 }

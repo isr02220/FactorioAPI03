@@ -1,4 +1,5 @@
 #include "BurnerDrill.h"
+#include "ItemBurnerDrill.h"
 #include "ResourceOre.h"
 #include "Entity.h"
 #include "FuelTank.h"
@@ -116,6 +117,11 @@ CObj* CBurnerDrill::GetNewActor() {
 	CObj* tempObj = new CBurnerDrill();
 	tempObj->Ready_Object();
 	return tempObj;
+}
+
+CItem* CBurnerDrill::GetNewItem() {
+	CItem* tempItem = new CItemBurnerDrill();
+	return tempItem;
 }
 
 void CBurnerDrill::GatherResourceOre(FLOAT speed) {

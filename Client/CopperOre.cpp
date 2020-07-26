@@ -59,3 +59,11 @@ CObj* CCopperOre::Gather() {
 		return nullptr;
 	}
 }
+
+CObj* CCopperOre::GetNewActor() {
+	return nullptr;
+}
+
+CItem* CCopperOre::GetNewItem() {
+	return nullptr;
+}

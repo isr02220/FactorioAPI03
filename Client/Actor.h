@@ -1,8 +1,9 @@
 #pragma once
 #include "Obj.h"
-class CInventory;
-class CFuelTank;
 class CUI;
+class CItem;
+class CFuelTank;
+class CInventory;
 class CActor :
     public CObj {
 public:
@@ -17,7 +18,8 @@ public:
     virtual void Render_Placable(HDC hDC , BOOL placable);
     virtual void Release_Object() override;
     virtual void OnCollision(CObj* _TargetObj) override;
-    virtual CObj* GetNewActor();
+    virtual CObj* GetNewActor() = 0;
+    virtual CItem* GetNewItem() = 0;
 
 public:
     virtual void UpdateSelected(CActor* _Target);

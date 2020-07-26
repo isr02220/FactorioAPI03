@@ -67,12 +67,6 @@ void CEntity::OnCollision(CObj* _TargetObj) {
 
 }
 
-CObj* CEntity::GetNewActor() {
-    CObj* tempObj = new CEntity();
-    tempObj->Ready_Object();
-    return tempObj;
-}
-
 void CEntity::SetSpriteDir() {
     switch (walkingState.direction) {
     case DIRECTION::DIR::NORTH:

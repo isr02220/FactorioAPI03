@@ -1,9 +1,12 @@
 #include "AssemblingMachine.h"
+#include "ItemAssemblingMachine.h"
 #include "Entity.h"
+#include "Player.h"
 #include "ItemStack.h"
 #include "Inventory.h"
 #include "Item.h"
 #include "AssemblingMachineUI.h"
+#include "CraftUI.h"
 #include "CraftRecipe.h"
 #include "RecipeManager.h"
 
@@ -22,8 +25,16 @@ CAssemblingMachine::~CAssemblingMachine() {
 void CAssemblingMachine::Ready_Object() {
 	CObj* tempUi = CAbstractFactory<CAssemblingMachineUI>::Create(WINCX >> 1, WINCY >> 2);
 	CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
-	GUI = dynamic_cast<CUI*>(tempUi);
-	dynamic_cast<CAssemblingMachineUI*>(GUI)->targetActor = this;
+	assemUI = dynamic_cast<CUI*>(tempUi);
+	dynamic_cast<CAssemblingMachineUI*>(assemUI)->targetActor = this;
+
+	tempUi = CAbstractFactory<CCraftUI>::Create(WINCX >> 1, WINCY >> 1);
+	CObjManager::GetInstance()->AddObject(tempUi, OBJ::UI);
+	craftUI = dynamic_cast<CUI*>(tempUi);
+	dynamic_cast<CCraftUI*>(craftUI)->targetActor = this;
+
+	GUI = craftUI;
+
 	info.iCX = 128;
 	info.iCY = 128;
 	info.CCX = 214;
@@ -41,7 +52,37 @@ INT CAssemblingMachine::Update_Object() {
 	if (dead) {
 		return STATE_DEAD;
 	}
+	recipe = dynamic_cast<CCraftUI*>(craftUI)->SelectedRecipe;
+
+	if (recipe) {
+		GUI = assemUI;
+		if (craftUI->GetVisible()) {
+			craftUI->SetVisible(false);
+			assemUI->SetVisible(true);
+			dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->GUI->SetVisible(true);
+			dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->focusedUI = assemUI;
+			if (!inventory->listItemStack.empty()) {
+				for (auto itemStack : inventory->listItemStack)
+					Safe_Delete(itemStack);
+				inventory->listItemStack.clear();
+			}
+			for (size_t i = 0; i < recipe->vecIngredients.size(); i++)
+				inventory->listItemStack.emplace_back(new CItemStack(recipe->vecIngredients[i]->item));
+		}
+	}
+	else {
+		GUI = craftUI;
+		if (craftUI->GetVisible()) {
+			assemUI->SetVisible(false);
+			craftUI->SetVisible(true);
+			dynamic_cast<CPlayer*>(CObjManager::GetInstance()->GetPlayer())->focusedUI = craftUI;
+		}
+	}
+
+
 	CraftItem(speed);
+
+
 	return STATE_NO_EVENT;
 }
 
@@ -101,8 +142,11 @@ void CAssemblingMachine::Render_Placable(HDC hDC, BOOL placable) {
 }
 
 void CAssemblingMachine::Release_Object() {
-	dynamic_cast<CAssemblingMachineUI*>(GUI)->targetActor = nullptr;
-	GUI->SetDead();
+	dynamic_cast<CAssemblingMachineUI*>(assemUI)->targetActor = nullptr;
+	dynamic_cast<CCraftUI*>(craftUI)->targetActor = nullptr;
+	assemUI->SetDead();
+	craftUI->SetDead();
+
 }
 
 void CAssemblingMachine::OnCollision(CObj* _TargetObj) {
@@ -115,8 +159,12 @@ CObj* CAssemblingMachine::GetNewActor() {
 	return tempObj;
 }
 
+CItem* CAssemblingMachine::GetNewItem() {
+	CItem* tempItem = new CItemAssemblingMachine();
+	return tempItem;
+}
+
 void CAssemblingMachine::CraftItem(FLOAT _speed) {
-	recipe = CRecipeManager::GetInstance()->FindRecipe(L"ICON_copper-cable");
 	
 	BOOL Crafting = (recipe && recipe->isCraftable(inventory));
 

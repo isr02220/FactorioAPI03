@@ -29,9 +29,11 @@ INT CAssemblingMachineUI::Update_Object() {
 	if (targetActor) {
 		if (targetActor->inventory && targetActor->inventory->listItemStack.size() != 0) {
 			auto iter = targetActor->inventory->listItemStack.begin();
-			inputStacks[0] = *iter++;
-			inputStacks[1] = *iter++;
-			inputStacks[2] = *iter;
+			INT index = 0;
+			for (auto itemStack : targetActor->inventory->listItemStack) {
+				inputStacks[index] = itemStack;
+				index++;
+			}
 		}
 		else {
 			inputStacks[0] = nullptr;
@@ -135,60 +137,31 @@ void CAssemblingMachineUI::Render_Object(HDC hDC) {
 			0, 0,
 			SRCCOPY);
 
-		TCHAR szBuffer[32];
-		RECT rc = {};
-		SetRect(&rc, cRect.left + 14, cRect.top + 14, cRect.left + 128, cRect.top + 64);
-		wsprintf(szBuffer, L"%s", targetActor->GetName());
-		SetTextColor(hDC, RGB(255, 255, 255));
-
 		LOGFONT* logTitleFont = CFontManager::GetInstance()->FindFont(L"HY°ß°íµñ");
 		LOGFONT* logCountFont = CFontManager::GetInstance()->FindFont(L"±¼¸²Ã¼");
 		HFONT titleFont = CreateFontIndirect(logTitleFont);
 		HFONT countFont = CreateFontIndirect(logCountFont);
 		HFONT oldFont = (HFONT)SelectObject(hDC, titleFont);
+		TCHAR szBuffer[32];
+		RECT rc = {};
+		SetRect(&rc, cRect.left + 14, cRect.top + 14, cRect.left + 128, cRect.top + 64);
+		wsprintf(szBuffer, L"%s", targetActor->GetName());
+		SetTextColor(hDC, RGB(255, 255, 255));
 		DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_LEFT | DT_NOCLIP);
 		SelectObject(hDC, countFont);
-		if (targetActor && targetActor->fuelTank) {
 
-			RECT rc = {};
-			POINT pt = {};
-			GetCursorPos(&pt);
-			ScreenToClient(g_hWnd, &pt);
-			CItemStack* cursorStack = dynamic_cast<CMouse*>(CObjManager::GetInstance()->GetList(OBJ::MOUSE)->front())->cursorStack;
-			for (size_t i = 0; i < 3; i++) {
+
+		if (targetActor && targetActor->inventory) {
+			INT index = 0;
+			for (auto itemStack : targetActor->inventory->listItemStack) {
 				SetRect(&rc, rect.left, rect.top, rect.left + 38, rect.top + 38);
-				OffsetRect(&rc, 117 + i * 38, 40);
-				if (targetActor && targetActor->inventory && inputStacks[i]) {
-					GdiTransparentBlt(hDC,
-						cRect.left + 119 + i * 38,
-						cRect.top + 42,
-						32,
-						32,
-						inputStacks[i]->hMemDC,
-						0,
-						0,
-						32,
-						32,
-						RGB(255, 0, 255));
-					SetTextColor(hDC, RGB(0, 0, 0));
-					OffsetRect(&rc, -4, 24);
-					wsprintf(szBuffer, L"%d", inputStacks[i]->size);
-					DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
-					SetTextColor(hDC, RGB(255, 255, 255));
-					OffsetRect(&rc, -1, -1);
-					DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
-					SetTextColor(hDC, RGB(0, 0, 0));
-				}
-			}
-			SetRect(&rc, rect.left, rect.top, rect.left + 38, rect.top + 38);
-			OffsetRect(&rc, 354, 81);
-			if (targetActor && targetActor->outputInventory && outputStack) {
+				OffsetRect(&rc, 117 + (index % 10 * 38), 40);
 				GdiTransparentBlt(hDC,
-					cRect.left + 356,
-					cRect.top + 83,
+					cRect.left + 119 + (index % 10 * 38),
+					cRect.top + 42,
 					32,
 					32,
-					outputStack->hMemDC,
+					itemStack->hMemDC,
 					0,
 					0,
 					32,
@@ -196,13 +169,38 @@ void CAssemblingMachineUI::Render_Object(HDC hDC) {
 					RGB(255, 0, 255));
 				SetTextColor(hDC, RGB(0, 0, 0));
 				OffsetRect(&rc, -4, 24);
-				wsprintf(szBuffer, L"%d", outputStack->size);
+				wsprintf(szBuffer, L"%d", itemStack->size);
 				DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
 				SetTextColor(hDC, RGB(255, 255, 255));
 				OffsetRect(&rc, -1, -1);
 				DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
 				SetTextColor(hDC, RGB(0, 0, 0));
+				index++;
 			}
+		}
+
+		if (targetActor && targetActor->outputInventory && outputStack) {
+			SetRect(&rc, rect.left, rect.top, rect.left + 38, rect.top + 38);
+			OffsetRect(&rc, 354, 40);
+			GdiTransparentBlt(hDC,
+				cRect.left + 356,
+				cRect.top + 42,
+				32,
+				32,
+				outputStack->hMemDC,
+				0,
+				0,
+				32,
+				32,
+				RGB(255, 0, 255));
+			SetTextColor(hDC, RGB(0, 0, 0));
+			OffsetRect(&rc, -4, 24);
+			wsprintf(szBuffer, L"%d", outputStack->size);
+			DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
+			SetTextColor(hDC, RGB(255, 255, 255));
+			OffsetRect(&rc, -1, -1);
+			DrawText(hDC, szBuffer, lstrlen(szBuffer), &rc, DT_RIGHT | DT_NOCLIP);
+			SetTextColor(hDC, RGB(0, 0, 0));
 		}
 
 		SelectObject(hDC, oldFont);

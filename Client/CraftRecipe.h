@@ -15,6 +15,7 @@ public:
 	FLOAT time = 1.f;
 	vector<Ingredient*> vecIngredients;
 	Ingredient* products = nullptr;
+	HDC hMemDC;
 };
 
 class Ingredient {

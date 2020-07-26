@@ -59,3 +59,11 @@ CObj* CStone::Gather() {
 		return nullptr;
 	}
 }
+
+CObj* CStone::GetNewActor() {
+	return nullptr;
+}
+
+CItem* CStone::GetNewItem() {
+	return nullptr;
+}

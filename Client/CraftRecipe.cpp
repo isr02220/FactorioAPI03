@@ -7,6 +7,7 @@ CCraftRecipe::CCraftRecipe(Ingredient** _ingredients, Ingredient* _products, UIN
 	for (size_t i = 0; i < _size; i++)
 		vecIngredients.emplace_back(_ingredients[i]);
 	products = _products;
+	hMemDC = CBitmapManager::GetInstance()->FindImage(_products->item->IconName);
 }
 
 CCraftRecipe::~CCraftRecipe() {

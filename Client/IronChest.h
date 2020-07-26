@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+class CItem;
 class CInventory;
 class CIronChest :
     public CEntity {
@@ -14,6 +15,7 @@ public:
     virtual void Release_Object() override;
     virtual void OnCollision(CObj* _TargetObj) override;
     virtual CObj* GetNewActor() override;
+    virtual CItem* GetNewItem() override;
 
 public:
 };
