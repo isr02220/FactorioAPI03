@@ -254,7 +254,7 @@ int CPlayer::Update_Object() {
         
         if (keyMgr->Press(KEY::Shoot) && selectedUI == nullptr) Shoot();
 
-        if (keyMgr->Press(KEY::Cheat)) {
+        if (keyMgr->Press(KEY::SHIFT)) {
             CItemStack* tempItemStack = new CItemStack(new CItemBurnerDrill());
             tempItemStack->size = 10;
             inventory->PushItemStack(tempItemStack);
