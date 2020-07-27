@@ -11,7 +11,9 @@ namespace KEY {
 		PrimaryAction,           //상호작용
 		SecondaryAction,         //채집 삭제 등
 		ShowInfo,
+		Mission,
 		ClearCursor,
+		ClearSlot,
 		DropItem,
 		Rotate,
 		PickUp,
@@ -26,6 +28,7 @@ namespace KEY {
 		Num3,
 		Num4,
 		Num5,
+		Cheat,
 		SHIFT,
 		CONTROL,
 		ALT
@@ -40,7 +43,9 @@ namespace KEY {
 	const DWORD PrimaryAction   = 1 << (INT)ID::PrimaryAction  ;
 	const DWORD SecondaryAction = 1 << (INT)ID::SecondaryAction;
 	const DWORD ShowInfo        = 1 << (INT)ID::ShowInfo       ;
+	const DWORD Mission         = 1 << (INT)ID::Mission        ;
 	const DWORD ClearCursor     = 1 << (INT)ID::ClearCursor    ;
+	const DWORD ClearSlot       = 1 << (INT)ID::ClearSlot      ;
 	const DWORD DropItem        = 1 << (INT)ID::DropItem       ;
 	const DWORD Rotate          = 1 << (INT)ID::Rotate         ;
 	const DWORD PickUp          = 1 << (INT)ID::PickUp         ;
@@ -55,6 +60,7 @@ namespace KEY {
 	const DWORD Num3            = 1 << (INT)ID::Num3           ;
 	const DWORD Num4            = 1 << (INT)ID::Num4           ;
 	const DWORD Num5            = 1 << (INT)ID::Num5           ;
+	const DWORD Cheat           = 1 << (INT)ID::Cheat          ;
 												
 
 	const DWORD SHIFT           = 1 << (INT)ID::SHIFT          ;

@@ -30,7 +30,7 @@ void CBurnerDrill::Ready_Object() {
 	speed = 3.f;
 	MaxHP = 10;
 	HP = MaxHP;
-	spriteFrameDelay = 2;
+	spriteFrameDelay = 3;
 }
 
 INT CBurnerDrill::Update_Object() {
@@ -215,6 +215,7 @@ void CBurnerDrill::GatherResourceOre(FLOAT speed) {
 				}
 				else {
 					fuelTank->SpendEnergy(-0.1f);
+					spriteIndexX--;
 				}
 			}
 		}

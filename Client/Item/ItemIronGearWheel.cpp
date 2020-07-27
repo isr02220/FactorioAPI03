@@ -7,6 +7,7 @@ CItemIronGearWheel::CItemIronGearWheel() : CItem() {
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_CraftingComponents;
 	lstrcpy(IconName, L"ICON_iron-gear-wheel");
 	SetName(L"Ã¶ Åé´Ï¹ÙÄû");
+	stackSize = 100;
 }
 
 CItemIronGearWheel::~CItemIronGearWheel() {

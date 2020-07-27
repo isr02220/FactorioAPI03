@@ -55,6 +55,8 @@ void CObjManager::LateUpdateObjectManager() {
 	CCollisionManager::CollisionBelt(m_listObj[OBJ::PLAYER]);
 	CCollisionManager::CollisionBelt(m_listObj[OBJ::ITEM]);
 	CCollisionManager::CollisionSphere(m_listObj[OBJ::PLAYER], m_listObj[OBJ::ITEM]);
+	CCollisionManager::CollisionSphere(m_listObj[OBJ::MONSTER], m_listObj[OBJ::BULLET]);
+	CCollisionManager::CollisionSphere(m_listObj[OBJ::PLAYER], m_listObj[OBJ::MONSTERBULLET]);
 	CCollisionManager::CollisionRectEX(m_listObj[OBJ::PLAYER], m_listObj[OBJ::BELT]);
 	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), m_listObj[OBJ::PLAYER]);
 	CCollisionManager::CollisionPoint(m_listObj[OBJ::MOUSE].front(), vecObj[OBJ::RESOURCEORE]);

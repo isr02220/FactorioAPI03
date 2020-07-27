@@ -78,6 +78,9 @@
     <Filter Include="02.Obj\Item\04.Combat">
       <UniqueIdentifier>{0c89aaeb-0094-435f-a9e8-4a84f8a5428c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Obj\Actor\Worm">
+      <UniqueIdentifier>{5b233817-ef7e-4ac3-be0f-0a87a7e4beb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -308,6 +311,21 @@
     <ClInclude Include="AssemblingMachine.h">
       <Filter>02.Obj\Actor\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="EquipmentUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>02.Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Worm.h">
+      <Filter>02.Obj\Actor\Worm</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\SoundMgr.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -527,6 +545,21 @@
     </ClCompile>
     <ClCompile Include="AssemblingMachine.cpp">
       <Filter>02.Obj\Actor\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>02.Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Worm.cpp">
+      <Filter>02.Obj\Actor\Worm</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\SoundMgr.cpp">
+      <Filter>01.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

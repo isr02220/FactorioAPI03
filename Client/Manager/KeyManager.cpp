@@ -28,7 +28,9 @@ CKeyManager::CKeyManager() {
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::PrimaryAction, VK_LBUTTON));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::SecondaryAction, VK_RBUTTON));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ShowInfo, VK_MENU));
+	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Mission, 'M'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ClearCursor, 'Q'));
+	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::ClearSlot, VK_MBUTTON));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::DropItem, 'Z'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Rotate, 'R'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::PickUp, 'F'));
@@ -43,6 +45,7 @@ CKeyManager::CKeyManager() {
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Num3, '3'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Num4, '4'));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Num5, '5'));
+	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::Cheat, 'P'));
 		  
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::SHIFT, VK_SHIFT));
 	keyMap.insert(map<KEY::ID, SHORT>::value_type(KEY::ID::CONTROL, VK_CONTROL));
@@ -67,7 +70,9 @@ void CKeyManager::UpdateKeyManager() {
 	KEY_CHECK(PrimaryAction);
 	KEY_CHECK(SecondaryAction);
 	KEY_CHECK(ShowInfo);
+	KEY_CHECK(Mission);
 	KEY_CHECK(ClearCursor);
+	KEY_CHECK(ClearSlot);
 	KEY_CHECK(DropItem);
 	KEY_CHECK(Rotate);
 	KEY_CHECK(PickUp);

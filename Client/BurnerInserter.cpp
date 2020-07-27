@@ -161,6 +161,8 @@ void CBurnerInserter::TransportItem() {
                         pickedItem = tActor->outputInventory->PopItem(ingredient->item);
                     else if (tActor->inventory)
                         pickedItem = tActor->inventory->PopItem(ingredient->item);
+                    if (pickedItem)
+                        break;
                 }
             }
             else {
@@ -175,20 +177,44 @@ void CBurnerInserter::TransportItem() {
             }
         }
         else {
-            list<CObj*>* itemList = CObjManager::GetInstance()->GetList(OBJ::ITEM);
-            POINT pt = {};
-            for (auto iter = itemList->begin(); iter != itemList->end();) {
-                pt.x = (INT)(*iter)->GetPosition().x;
-                pt.y = (INT)(*iter)->GetPosition().y;
-                if (PtInRect(&inputRect, pt)) {
-                    pickedItem = *iter;
-                    itemList->erase(iter);
-                    pickedItem->SetPosition(info.position);
-                    Timer = GetTickCount();
-                    pickingState = true;
-                    break;
+            if (outputActor && dynamic_cast<CAssemblingMachine*>(outputActor) && dynamic_cast<CAssemblingMachine*>(outputActor)->recipe) {
+                vector<Ingredient*>* vecIngredient = &dynamic_cast<CAssemblingMachine*>(outputActor)->recipe->vecIngredients;
+                list<CObj*>* itemList = CObjManager::GetInstance()->GetList(OBJ::ITEM);
+                POINT pt = {};
+                for (auto ingredient : *vecIngredient) {
+                    for (auto iter = itemList->begin(); iter != itemList->end();) {
+                        pt.x = (INT)(*iter)->GetPosition().x;
+                        pt.y = (INT)(*iter)->GetPosition().y;
+                        if (PtInRect(&inputRect, pt) && !lstrcmp(ingredient->item->IconName, dynamic_cast<CItem*>(*iter)->IconName)) {
+                            pickedItem = *iter;
+                            itemList->erase(iter);
+                            pickedItem->SetPosition(info.position);
+                            Timer = GetTickCount();
+                            pickingState = true;
+                            break;
+                        }
+                        iter++;
+                    }
+                    if (pickedItem)
+                        break;
                 }
-                iter++;
+            }
+            else {
+                list<CObj*>* itemList = CObjManager::GetInstance()->GetList(OBJ::ITEM);
+                POINT pt = {};
+                for (auto iter = itemList->begin(); iter != itemList->end();) {
+                    pt.x = (INT)(*iter)->GetPosition().x;
+                    pt.y = (INT)(*iter)->GetPosition().y;
+                    if (PtInRect(&inputRect, pt)) {
+                        pickedItem = *iter;
+                        itemList->erase(iter);
+                        pickedItem->SetPosition(info.position);
+                        Timer = GetTickCount();
+                        pickingState = true;
+                        break;
+                    }
+                    iter++;
+                }
             }
         }
         

@@ -7,6 +7,7 @@ CItemElectronicCircuit::CItemElectronicCircuit() : CItem() {
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_CraftingComponents;
 	lstrcpy(IconName, L"ICON_electronic-circuit");
 	SetName(L"전자 회로");
+	stackSize = 200;
 }
 
 CItemElectronicCircuit::~CItemElectronicCircuit() {

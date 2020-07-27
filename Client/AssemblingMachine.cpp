@@ -68,7 +68,7 @@ INT CAssemblingMachine::Update_Object() {
 			}
 			inventory->capacity = recipe->vecIngredients.size();
 			for (size_t i = 0; i < recipe->vecIngredients.size(); i++)
-				inventory->listItemStack.emplace_back(new CItemStack(recipe->vecIngredients[i]->item));
+				inventory->listItemStack.emplace_back(new CItemStack(recipe->vecIngredients[i]->item->GetNewItem()));
 		}
 	}
 	else {

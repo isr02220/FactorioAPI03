@@ -8,6 +8,8 @@ namespace OBJ {
 		ITEM,
 		PLAYER,
 		MONSTER,
+		BULLET,
+		MONSTERBULLET,
 		UI,
 		MOUSE,
 		END

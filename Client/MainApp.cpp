@@ -24,11 +24,12 @@ void CMainApp::Ready_MainApp() {
 	TCHAR szBuffer[200];
 	lstrcpy(szBuffer, GRAPHICS_DIR);
 
+	INSERT_TEXTURE(L"GUI/Title.bmp", L"Title");
 	INSERT_TEXTURE(L"entity/character/hr-level1_idle.bmp", L"hr-level1_idle");
 
 	INSERT_TEXTURE(L"entity/character/hr-level1_running.bmp", L"hr-level1_running");
-	
 	INSERT_TEXTURE(L"entity/character/hr-level1_mining_tool.bmp", L"hr-level1_mining_tool");
+	INSERT_TEXTURE(L"entity/character/hr-level1_idle_gun.bmp", L"hr-level1_idle_gun");
 
 
 	INSERT_TEXTURE(L"gui/GUI_Panel.bmp", L"GUI_Panel");
@@ -39,17 +40,27 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"gui/GUI_CraftPanel.bmp", L"GUI_CraftPanel");
 	INSERT_TEXTURE(L"gui/GUI_Assembling-machine.bmp", L"GUI_Assembling-machine");
 	INSERT_TEXTURE(L"gui/GUI_QuickSlot.bmp", L"GUI_QuickSlot");
+	INSERT_TEXTURE(L"gui/GUI_Equipment.bmp", L"GUI_Equipment");
 	INSERT_TEXTURE(L"gui/GUI_BurnerEnergy.bmp", L"GUI_BurnerEnergy");
 	INSERT_TEXTURE(L"gui/GUI_FurnaceProgress.bmp", L"GUI_FurnaceProgress");
 	INSERT_TEXTURE(L"gui/GUI_CraftingProgress.bmp", L"GUI_CraftingProgress");
 	INSERT_TEXTURE(L"gui/GUI_ProgressBarPanel.bmp", L"GUI_ProgressBarPanel");
 	INSERT_TEXTURE(L"gui/GUI_ProgressBarProgress.bmp", L"GUI_ProgressBarProgress");
+	INSERT_TEXTURE(L"gui/GUI_Mission.bmp", L"GUI_Mission");
+	INSERT_TEXTURE(L"gui/GUI_MissionAndTip.bmp", L"GUI_MissionAndTip");
+	INSERT_TEXTURE(L"gui/GUI_Equipment.bmp", L"GUI_Equipment");
+	INSERT_TEXTURE(L"gui/GUI_EquipedArmor.bmp", L"GUI_EquipedArmor");
+	INSERT_TEXTURE(L"gui/GUI_EquipedMagazine.bmp", L"GUI_EquipedMagazine");
+	INSERT_TEXTURE(L"gui/GUI_EquipedSMG.bmp", L"GUI_EquipedSMG");
 
 	INSERT_TEXTURE(L"item-group/ICON_intermediate.bmp", L"ICON_intermediate");
 	INSERT_TEXTURE(L"item-group/ICON_logistics.bmp", L"ICON_logistics");
 	INSERT_TEXTURE(L"item-group/ICON_military.bmp", L"ICON_military");
 	INSERT_TEXTURE(L"item-group/ICON_production.bmp", L"ICON_production");
 
+	
+	INSERT_TEXTURE(L"entity/worm/hr-worm-die.bmp",      L"hr-worm-die");
+	INSERT_TEXTURE(L"entity/worm/hr-worm-attack.bmp",   L"hr-worm-attack");
 	
 	INSERT_TEXTURE(L"entity/iron-chest/hr-iron-chest.bmp",            L"hr-iron-chest");
 	INSERT_TEXTURE(L"entity/iron-chest/hr-iron-chest-placable.bmp",   L"hr-iron-chest-placable");
@@ -100,6 +111,7 @@ void CMainApp::Ready_MainApp() {
 	INSERT_TEXTURE(L"icon/ICON_transport-belt.bmp", L"ICON_transport-belt");
 
 	INSERT_TEXTURE(L"terrian/dirt.bmp", L"dirt");
+	INSERT_TEXTURE(L"entity/bullet.bmp", L"bullet");
 	//30, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET, 0, 0, 0, 0, L"±Ã¼­Ã¼"
 	LOGFONT* pLogFont = new LOGFONT;
 	pLogFont->lfHeight = 30;
@@ -153,7 +165,42 @@ void CMainApp::Ready_MainApp() {
 
 	CFontManager::GetInstance()->InsertFont(pLogFont, L"±¼¸²Ã¼");
 
+	pLogFont->lfHeight = 14;
+	pLogFont->lfWidth = 0;
+	pLogFont->lfEscapement = 0;
+	pLogFont->lfOrientation = 0;
+	pLogFont->lfWeight = 600;
+	pLogFont->lfItalic = 0;
+	pLogFont->lfUnderline = 0;
+	pLogFont->lfStrikeOut = 0;
+	pLogFont->lfCharSet = DEFAULT_CHARSET;
+	pLogFont->lfOutPrecision = 0;
+	pLogFont->lfClipPrecision = 0;
+	pLogFont->lfQuality = 0;
+	pLogFont->lfPitchAndFamily = 0;
+	lstrcpy(pLogFont->lfFaceName, L"µ¸¿òÃ¼");
 
+	CFontManager::GetInstance()->InsertFont(pLogFont, L"µ¸¿òÃ¼");
+	
+	pLogFont->lfHeight = 14;
+	pLogFont->lfWidth = 0;
+	pLogFont->lfEscapement = 0;
+	pLogFont->lfOrientation = 0;
+	pLogFont->lfWeight = 600;
+	pLogFont->lfItalic = 0;
+	pLogFont->lfUnderline = 0;
+	pLogFont->lfStrikeOut = 1;
+	pLogFont->lfCharSet = DEFAULT_CHARSET;
+	pLogFont->lfOutPrecision = 0;
+	pLogFont->lfClipPrecision = 0;
+	pLogFont->lfQuality = 0;
+	pLogFont->lfPitchAndFamily = 0;
+	lstrcpy(pLogFont->lfFaceName, L"µ¸¿òÃ¼");
+
+	CFontManager::GetInstance()->InsertFont(pLogFont, L"µ¸¿òÃ¼_Ãë¼Ò¼±");
+
+
+	CSoundMgr::Get_Instance()->Initialize();
 
 	m_mapScene[SCENE_MAIN]->ReadyScene();
 
@@ -199,4 +246,6 @@ void CMainApp::Release_MainApp() {
 		if (Scene.second->GetActive()) Scene.second->ReleaseScene();
 	}
 
+	CSoundMgr::Destroy_Instance();
+	CBitmapManager::GetInstance()->DestroyInstance();
 }

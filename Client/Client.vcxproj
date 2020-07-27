@@ -148,6 +148,7 @@
     <ClInclude Include="AssemblingMachine.h" />
     <ClInclude Include="AssemblingMachineUI.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="BurnerDrill.h" />
     <ClInclude Include="BurnerInserter.h" />
     <ClInclude Include="BurnerUI.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="CraftUI.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityHeaders.h" />
+    <ClInclude Include="EquipmentUI.h" />
     <ClInclude Include="FloatingText.h" />
     <ClInclude Include="FuelTank.h" />
     <ClInclude Include="Furnace.h" />
@@ -199,8 +201,10 @@
     <ClInclude Include="Manager\ObjManager.h" />
     <ClInclude Include="Manager\RecipeManager.h" />
     <ClInclude Include="Manager\ScrollManager.h" />
+    <ClInclude Include="Manager\SoundMgr.h" />
     <ClInclude Include="Manager\TileManager.h" />
     <ClInclude Include="Manager\UIManager.h" />
+    <ClInclude Include="MissionUI.h" />
     <ClInclude Include="MyBitmap.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainApp.h" />
@@ -219,12 +223,14 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TransportBelt.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="Worm.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AssemblingMachine.cpp" />
     <ClCompile Include="AssemblingMachineUI.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BurnerDrill.cpp" />
     <ClCompile Include="BurnerInserter.cpp" />
     <ClCompile Include="BurnerUI.cpp" />
@@ -232,6 +238,7 @@
     <ClCompile Include="CopperOre.cpp" />
     <ClCompile Include="CraftRecipe.cpp" />
     <ClCompile Include="CraftUI.cpp" />
+    <ClCompile Include="EquipmentUI.cpp" />
     <ClCompile Include="FloatingText.cpp" />
     <ClCompile Include="FuelTank.cpp" />
     <ClCompile Include="Furnace.cpp" />
@@ -272,8 +279,10 @@
     <ClCompile Include="Manager\ObjManager.cpp" />
     <ClCompile Include="Manager\RecipeManager.cpp" />
     <ClCompile Include="Manager\ScrollManager.cpp" />
+    <ClCompile Include="Manager\SoundMgr.cpp" />
     <ClCompile Include="Manager\TileManager.cpp" />
     <ClCompile Include="Manager\UIManager.cpp" />
+    <ClCompile Include="MissionUI.cpp" />
     <ClCompile Include="MyBitmap.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Client.cpp" />
@@ -291,6 +300,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TransportBelt.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Worm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

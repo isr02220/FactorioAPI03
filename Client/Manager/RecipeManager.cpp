@@ -128,6 +128,7 @@ CRecipeManager::CRecipeManager() {
 		tempIngreds[0] = new Ingredient(new CItemCopperPlate(), 5);
 		tempIngreds[1] = new Ingredient(new CItemIronGearWheel(), 10);
 		tempIngreds[2] = new Ingredient(new CItemIronPlate(), 10);
+
 		tempProducts = new Ingredient(new CItemSMG(), 1);
 		InsertRecipe(new CCraftRecipe(tempIngreds, tempProducts, 3, 10.f), tempProducts->item->IconName);
 	}

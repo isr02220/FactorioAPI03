@@ -165,17 +165,6 @@ void CBurnerUI::Render_Object(HDC hDC) {
 					32,
 					32,
 					RGB(255, 0, 255));
-				//GdiTransparentBlt(hDC,
-				//	cRect.left + 357,
-				//	cRect.top + 43,
-				//	32,
-				//	32,
-				//	targetActor->GetMiningState().target->,
-				//	0,
-				//	0,
-				//	32,
-				//	32,
-				//	RGB(255, 0, 255));
 				SetTextColor(hDC, RGB(0, 0, 0));
 				OffsetRect(&rc, -4, 24);
 				wsprintf(szBuffer, L"%d", fuelStack->size);

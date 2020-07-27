@@ -7,6 +7,7 @@ CItemLightArmor::CItemLightArmor() : CItem() {
 	subGroup = ITEM::SUBGROUP::COMBAT_Armor;
 	lstrcpy(IconName, L"ICON_light-armor");
 	SetName(L"라이트 아머");
+	stackSize = 1;
 }
 
 CItemLightArmor::~CItemLightArmor() {

@@ -7,6 +7,7 @@ CItemIronPlate::CItemIronPlate() : CItem() {
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_Material;
 	lstrcpy(IconName, L"ICON_iron-plate");
 	SetName(L"รถฦว");
+	stackSize = 100;
 }
 
 CItemIronPlate::~CItemIronPlate() {

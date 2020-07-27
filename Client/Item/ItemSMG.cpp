@@ -7,6 +7,7 @@ CItemSMG::CItemSMG() : CItem() {
 	subGroup = ITEM::SUBGROUP::COMBAT_Weapon;
 	lstrcpy(IconName, L"ICON_submachine-gun");
 	SetName(L"±â°ü´ÜÃÑ");
+	stackSize = 1;
 }
 
 CItemSMG::~CItemSMG() {

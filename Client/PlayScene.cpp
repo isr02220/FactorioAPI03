@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "Player.h"
+#include "Worm.h"
 #include "Entity.h"
 #include "TransportBelt.h"
 #include "ResourceOre.h"
@@ -25,7 +26,6 @@ extern FLOAT DeadLineRight  = 0;
 CPlayScene::CPlayScene() {
 }
 
-
 CPlayScene::~CPlayScene() {
 	ReleaseScene();
 }
@@ -38,8 +38,11 @@ void CPlayScene::ReadyScene() {
 		ObjManager->AddObject(CAbstractFactory<CMouse>::Create(), OBJ::MOUSE);
 
 		ObjManager->AddObject(CAbstractFactory<CPlayer>::Create(), OBJ::PLAYER);
-		ObjManager->GetPlayer()->SetName(L"사막여우");
+		ObjManager->GetPlayer()->SetName(L"플레이어");
 		POSITION playerPos = ToGridPos(ObjManager->GetPlayer()->GetPosition(), GRIDCX);
+		
+		CObj* tempObj = CAbstractFactory<CWorm>::Create(playerPos + POSITION(1200, 0));
+		ObjManager->AddObject(tempObj, OBJ::MONSTER);
 		
 		const INT oreSizeX = 2;
 		const INT oreSizeY = 2;
@@ -97,33 +100,32 @@ void CPlayScene::RenderScene(HDC hDC) {
 	////////////////
 	CTileManager::GetInstance()->Render(hMemDC);
 	ObjManager->RenderObjectManager(hMemDC);
-	INT playerScore = dynamic_cast<CPlayer*>(ObjManager->GetPlayer())->GetScore();
-	TCHAR szBuffer[32];
-	SetBkMode(hMemDC, OPAQUE);
-	wsprintf(szBuffer, L"1번 : 운송벨트", playerScore);
-	TextOut(hMemDC, 100, 50, szBuffer, lstrlen(szBuffer));
-	wsprintf(szBuffer, L"2번 : 화력 채광드릴", playerScore);
-	TextOut(hMemDC, 100, 100, szBuffer, lstrlen(szBuffer));
-	wsprintf(szBuffer, L"좌클릭 : 설치", playerScore);
-	TextOut(hMemDC, 100, 150, szBuffer, lstrlen(szBuffer));
-	wsprintf(szBuffer, L"우클릭 : 채집, 수거", playerScore);
-	TextOut(hMemDC, 100, 200, szBuffer, lstrlen(szBuffer));
-	wsprintf(szBuffer, L"Q : 선택해제", playerScore);
-	TextOut(hMemDC, 100, 250, szBuffer, lstrlen(szBuffer));
-	wsprintf(szBuffer, L"R : 회전", playerScore);
-	TextOut(hMemDC, 100, 300, szBuffer, lstrlen(szBuffer));
-	wsprintf(szBuffer, L"E : 인벤토리", playerScore);
-	TextOut(hMemDC, 100, 350, szBuffer, lstrlen(szBuffer));
+	//TCHAR szBuffer[32];
+	//SetBkMode(hMemDC, OPAQUE);
+	//wsprintf(szBuffer, L"1번 : 운송벨트", playerScore);
+	//TextOut(hMemDC, 100, 50, szBuffer, lstrlen(szBuffer));
+	//wsprintf(szBuffer, L"2번 : 화력 채광드릴", playerScore);
+	//TextOut(hMemDC, 100, 100, szBuffer, lstrlen(szBuffer));
+	//wsprintf(szBuffer, L"좌클릭 : 설치", playerScore);
+	//TextOut(hMemDC, 100, 150, szBuffer, lstrlen(szBuffer));
+	//wsprintf(szBuffer, L"우클릭 : 채집, 수거", playerScore);
+	//TextOut(hMemDC, 100, 200, szBuffer, lstrlen(szBuffer));
+	//wsprintf(szBuffer, L"Q : 선택해제", playerScore);
+	//TextOut(hMemDC, 100, 250, szBuffer, lstrlen(szBuffer));
+	//wsprintf(szBuffer, L"R : 회전", playerScore);
+	//TextOut(hMemDC, 100, 300, szBuffer, lstrlen(szBuffer));
+	//wsprintf(szBuffer, L"E : 인벤토리", playerScore);
+	//TextOut(hMemDC, 100, 350, szBuffer, lstrlen(szBuffer));
 
 	m_iFPS++;
-
+	SetTextColor(hMemDC, RGB(255, 255, 255));
 	if (m_dwOldTime + 1000 < GetTickCount()) {
 		wsprintf(m_szFPS, L"FPS : %d", m_iFPS);
 		m_iFPS = 0;
 		m_dwOldTime = GetTickCount();
 	}
 	TextOut(hMemDC, WINCX - 200, 50, m_szFPS, lstrlen(m_szFPS));
-
+	SetTextColor(hMemDC, RGB(0, 0, 0));
 	/////////////////////
 	BitBlt(hDC, 0, 0, WINCX, WINCY, hMemDC, 0, 0, SRCCOPY);
 	DeleteObject(SelectObject(hMemDC, oldBitmap));

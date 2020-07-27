@@ -20,18 +20,22 @@ public:
 	virtual CItem* GetNewItem() override;
 public:
 	void Move();
+	void Shoot();
 	void SecondaryAction();
 	void PlaceEntity();
 	void UnPlaceEntity();
 	void GatherResource();
 	void RotateEntity();
 	void RotateCursor();
+	void SelectQuickSlot();
 	void UpdateSelectedUI(CUI* _targetUI);
 public:
 	CMouse* playerMouse = nullptr;
 	CUI* selectedUI;
 	CUI* focusedUI;
 	CUI* QuickSlotUI;
+	CUI* MissionUI;
+	CUI* EquipmentUI;
 	CUI* ProgressBarUI;
 	
 

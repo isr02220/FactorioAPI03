@@ -7,6 +7,7 @@ CItemCopperCable::CItemCopperCable() : CItem() {
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_CraftingComponents;
 	lstrcpy(IconName, L"ICON_copper-cable");
 	SetName(L"구리 전선");
+	stackSize = 200;
 }
 
 CItemCopperCable::~CItemCopperCable() {

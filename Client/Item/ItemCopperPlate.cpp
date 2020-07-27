@@ -7,6 +7,7 @@ CItemCopperPlate::CItemCopperPlate() : CItem() {
 	subGroup = ITEM::SUBGROUP::INTERMEDIATE_Material;
 	lstrcpy(IconName, L"ICON_copper-plate");
 	SetName(L"±¸¸®ÆÇ");
+	stackSize = 100;
 }
 
 CItemCopperPlate::~CItemCopperPlate() {

@@ -7,6 +7,7 @@ CItemMagazine::CItemMagazine() : CItem() {
 	subGroup = ITEM::SUBGROUP::COMBAT_Ammo;
 	lstrcpy(IconName, L"ICON_firearm-magazine");
 	SetName(L"È­±â¿ë ÅºÃ¢");
+	stackSize = 200;
 }
 
 CItemMagazine::~CItemMagazine() {

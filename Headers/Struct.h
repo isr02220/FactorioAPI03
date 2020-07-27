@@ -73,6 +73,7 @@ typedef struct tagShootingState {
 	void operator=(const BOOL& dst) { shooting = dst; }
 	BOOL shooting;
 	POSITION position;
+	INT delay = 0;
 }SHOOTINGSTATE;
 
 typedef BOOL PICKINGSTATE;
