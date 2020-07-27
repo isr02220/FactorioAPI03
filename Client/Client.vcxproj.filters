@@ -39,9 +39,6 @@
     <Filter Include="02.Obj\Actor\Player">
       <UniqueIdentifier>{9d2c844a-e167-42d3-bb45-6b27de2fb8a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.Item">
-      <UniqueIdentifier>{7174281b-168a-40df-8f15-a0b8de276548}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.Obj\Actor\Entity">
       <UniqueIdentifier>{51a95870-2523-4949-baf7-ccf5375efb04}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,30 @@
     <Filter Include="02.Obj\Actor\ResourceOre">
       <UniqueIdentifier>{0c8516f4-afbb-45ea-b776-8abe26663e75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Obj\Item">
+      <UniqueIdentifier>{c9a83aaf-33fa-4bb8-af21-6b9588a738a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Actor\Entity\BurnerInserter">
+      <UniqueIdentifier>{79877f4f-0bd0-4a49-8ad6-d45b9e792579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Data">
+      <UniqueIdentifier>{7174281b-168a-40df-8f15-a0b8de276548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Item\01.Logistics">
+      <UniqueIdentifier>{8b6562b6-8cd6-465b-a5eb-2a679f286ef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Item\02.Production">
+      <UniqueIdentifier>{8846e73f-6b90-4128-8979-a5ab4f2d6643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Item\03.Intermediate">
+      <UniqueIdentifier>{8ffba5cf-7c40-4e57-a52d-cb80f36bdb26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Item\04.Combat">
+      <UniqueIdentifier>{0c89aaeb-0094-435f-a9e8-4a84f8a5428c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Obj\Actor\Worm">
+      <UniqueIdentifier>{5b233817-ef7e-4ac3-be0f-0a87a7e4beb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -76,9 +97,6 @@
     </ClInclude>
     <ClInclude Include="AbstractFactory.h">
       <Filter>97.DesignPattern</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>01.Manager</Filter>
     </ClInclude>
     <ClInclude Include="MainScene.h">
       <Filter>00.MainApp\Scene</Filter>
@@ -104,44 +122,17 @@
     <ClInclude Include="Background.h">
       <Filter>02.Obj\Background</Filter>
     </ClInclude>
-    <ClInclude Include="ObjManager.h">
-      <Filter>01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemManager.h">
-      <Filter>01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyManager.h">
-      <Filter>01.Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>02.Obj\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>03.Item</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>02.Obj\Actor\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="LineManager.h">
-      <Filter>01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="ScrollManager.h">
-      <Filter>01.Manager</Filter>
-    </ClInclude>
     <ClInclude Include="MyBitmap.h">
       <Filter>10.Bitmap</Filter>
     </ClInclude>
-    <ClInclude Include="BitmapManager.h">
-      <Filter>01.Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>02.Obj\Tile</Filter>
-    </ClInclude>
-    <ClInclude Include="TileManager.h">
-      <Filter>01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="BeltManager.h">
-      <Filter>02.Obj\Actor\Entity\TransportBelt</Filter>
     </ClInclude>
     <ClInclude Include="TransportBelt.h">
       <Filter>02.Obj\Actor\Entity\TransportBelt</Filter>
@@ -154,9 +145,6 @@
     </ClInclude>
     <ClInclude Include="QuickSlotUI.h">
       <Filter>02.Obj\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>01.Manager</Filter>
     </ClInclude>
     <ClInclude Include="ProgressBar.h">
       <Filter>02.Obj\UI</Filter>
@@ -173,7 +161,169 @@
     <ClInclude Include="FloatingText.h">
       <Filter>02.Obj\UI</Filter>
     </ClInclude>
-    <ClInclude Include="FontManager.h">
+    <ClInclude Include="CopperOre.h">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClInclude>
+    <ClInclude Include="IronOre.h">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClInclude>
+    <ClInclude Include="Stone.h">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClInclude>
+    <ClInclude Include="BurnerInserter.h">
+      <Filter>02.Obj\Actor\Entity\BurnerInserter</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemStack.h">
+      <Filter>03.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>03.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="IronChest.h">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="AssemblingMachineUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BurnerUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CraftUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FurnaceUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FuelTank.h">
+      <Filter>03.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Furnace.h">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="CraftRecipe.h">
+      <Filter>03.Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemCoalOre.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemCopperOre.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemCopperPlate.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemIronOre.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemIronPlate.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemStone.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\Item.h">
+      <Filter>02.Obj\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHeaders.h">
+      <Filter>99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\BeltManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\BitmapManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\CollisionManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\FontManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\ItemManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\KeyManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\LineManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\ObjManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\RecipeManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\ScrollManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\TileManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\UIManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemBurnerInserter.h">
+      <Filter>02.Obj\Item\01.Logistics</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemIronChest.h">
+      <Filter>02.Obj\Item\01.Logistics</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemTransportBelt.h">
+      <Filter>02.Obj\Item\01.Logistics</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemBurnerDrill.h">
+      <Filter>02.Obj\Item\02.Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemFurnace.h">
+      <Filter>02.Obj\Item\02.Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemSolarPanel.h">
+      <Filter>02.Obj\Item\02.Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemIronGearWheel.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemLightArmor.h">
+      <Filter>02.Obj\Item\04.Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemMagazine.h">
+      <Filter>02.Obj\Item\04.Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemSMG.h">
+      <Filter>02.Obj\Item\04.Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemHand.h">
+      <Filter>02.Obj\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemCopperCable.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemElectronicCircuit.h">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityHeaders.h">
+      <Filter>99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ItemAssemblingMachine.h">
+      <Filter>02.Obj\Item\02.Production</Filter>
+    </ClInclude>
+    <ClInclude Include="AssemblingMachine.h">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionUI.h">
+      <Filter>02.Obj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>02.Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Worm.h">
+      <Filter>02.Obj\Actor\Worm</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\SoundMgr.h">
       <Filter>01.Manager</Filter>
     </ClInclude>
   </ItemGroup>
@@ -188,9 +338,6 @@
   <ItemGroup>
     <ClCompile Include="Client.cpp">
       <Filter>98.Default</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>01.Manager</Filter>
     </ClCompile>
     <ClCompile Include="MainScene.cpp">
       <Filter>00.MainApp\Scene</Filter>
@@ -216,44 +363,17 @@
     <ClCompile Include="Background.cpp">
       <Filter>02.Obj\Background</Filter>
     </ClCompile>
-    <ClCompile Include="ObjManager.cpp">
-      <Filter>01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemManager.cpp">
-      <Filter>01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyManager.cpp">
-      <Filter>01.Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>02.Obj\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>03.Item</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>02.Obj\Actor\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="LineManager.cpp">
-      <Filter>01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="ScrollManager.cpp">
-      <Filter>01.Manager</Filter>
-    </ClCompile>
     <ClCompile Include="MyBitmap.cpp">
       <Filter>10.Bitmap</Filter>
     </ClCompile>
-    <ClCompile Include="BitmapManager.cpp">
-      <Filter>01.Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>02.Obj\Tile</Filter>
-    </ClCompile>
-    <ClCompile Include="TileManager.cpp">
-      <Filter>01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="BeltManager.cpp">
-      <Filter>02.Obj\Actor\Entity\TransportBelt</Filter>
     </ClCompile>
     <ClCompile Include="TransportBelt.cpp">
       <Filter>02.Obj\Actor\Entity\TransportBelt</Filter>
@@ -266,9 +386,6 @@
     </ClCompile>
     <ClCompile Include="QuickSlotUI.cpp">
       <Filter>02.Obj\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>01.Manager</Filter>
     </ClCompile>
     <ClCompile Include="ProgressBar.cpp">
       <Filter>02.Obj\UI</Filter>
@@ -285,7 +402,163 @@
     <ClCompile Include="FloatingText.cpp">
       <Filter>02.Obj\UI</Filter>
     </ClCompile>
-    <ClCompile Include="FontManager.cpp">
+    <ClCompile Include="CopperOre.cpp">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClCompile>
+    <ClCompile Include="IronOre.cpp">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
+      <Filter>02.Obj\Actor\ResourceOre</Filter>
+    </ClCompile>
+    <ClCompile Include="BurnerInserter.cpp">
+      <Filter>02.Obj\Actor\Entity\BurnerInserter</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemStack.cpp">
+      <Filter>03.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>03.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="IronChest.cpp">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="AssemblingMachineUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BurnerUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CraftUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FurnaceUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FuelTank.cpp">
+      <Filter>03.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Furnace.cpp">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="CraftRecipe.cpp">
+      <Filter>03.Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemCoalOre.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemCopperOre.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemCopperPlate.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemIronOre.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemIronPlate.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemStone.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\Item.cpp">
+      <Filter>02.Obj\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\BeltManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\BitmapManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\CollisionManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\FontManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\ItemManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\KeyManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\LineManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\ObjManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\RecipeManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\ScrollManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\TileManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\UIManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemBurnerInserter.cpp">
+      <Filter>02.Obj\Item\01.Logistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemIronChest.cpp">
+      <Filter>02.Obj\Item\01.Logistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemTransportBelt.cpp">
+      <Filter>02.Obj\Item\01.Logistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemBurnerDrill.cpp">
+      <Filter>02.Obj\Item\02.Production</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemFurnace.cpp">
+      <Filter>02.Obj\Item\02.Production</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemSolarPanel.cpp">
+      <Filter>02.Obj\Item\02.Production</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemIronGearWheel.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemLightArmor.cpp">
+      <Filter>02.Obj\Item\04.Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemSMG.cpp">
+      <Filter>02.Obj\Item\04.Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemHand.cpp">
+      <Filter>02.Obj\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemCopperCable.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemElectronicCircuit.cpp">
+      <Filter>02.Obj\Item\03.Intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemMagazine.cpp">
+      <Filter>02.Obj\Item\04.Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ItemAssemblingMachine.cpp">
+      <Filter>02.Obj\Item\02.Production</Filter>
+    </ClCompile>
+    <ClCompile Include="AssemblingMachine.cpp">
+      <Filter>02.Obj\Actor\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionUI.cpp">
+      <Filter>02.Obj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>02.Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Worm.cpp">
+      <Filter>02.Obj\Actor\Worm</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\SoundMgr.cpp">
       <Filter>01.Manager</Filter>
     </ClCompile>
   </ItemGroup>

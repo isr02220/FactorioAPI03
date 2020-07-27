@@ -10,6 +10,9 @@ CActor::CActor(FLOAT _positionX, FLOAT _positionY) : CObj(_positionX, _positionY
 
 CActor::~CActor() {
 
+	//Safe_Delete(inventory);
+	//Safe_Delete(fuelTank);
+	//Safe_Delete(GUI);
 }
 
 void CActor::Ready_Object() {
@@ -39,12 +42,6 @@ void CActor::Release_Object() {
 
 void CActor::OnCollision(CObj* _TargetObj) {
 
-}
-
-CObj* CActor::GetNewActor() {
-	CObj* tempObj = new CActor();
-	tempObj->Ready_Object();
-	return tempObj;
 }
 
 void CActor::UpdateSelected(CActor* _Target) {

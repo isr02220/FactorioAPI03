@@ -1,5 +1,7 @@
 #pragma once
 #include "Entity.h"
+class CActor;
+class CItem;
 class CBurnerDrill :
     public CEntity {
 public:
@@ -17,7 +19,15 @@ public:
     virtual void Release_Object() override;
     virtual void OnCollision(CObj* _TargetObj) override;
     virtual CObj* GetNewActor() override;
+    virtual CItem* GetNewItem() override;
 
+    void GatherResourceOre(FLOAT speed);
+
+    POSITION GetOutputPos() { return outputPos; }
+    void SetOutputPos(POSITION _Pos) { outputPos = _Pos; }
+    void SetOutputPos();
 protected:
+    POSITION outputPos;
+    CActor* outputActor;
 };
 

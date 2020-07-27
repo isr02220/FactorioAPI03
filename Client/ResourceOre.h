@@ -13,7 +13,7 @@ public:
     virtual void Release_Object() override;
     virtual void OnCollision(CObj* _TargetObj) override;
 
-    void Gather();
+    virtual CObj* Gather();
 public:
     INT storage;
 };

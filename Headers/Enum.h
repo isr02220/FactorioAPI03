@@ -5,9 +5,11 @@ namespace OBJ {
 		BELT,
 		BELTEND,
 		ENTITY,
-		PLAYER,
 		ITEM,
+		PLAYER,
 		MONSTER,
+		BULLET,
+		MONSTERBULLET,
 		UI,
 		MOUSE,
 		END
@@ -20,37 +22,31 @@ namespace ITEM {
 		INTERMEDIATE,
 		COMBAT
 	};
-	enum class LOGISTICS{
-		Storage,
-		BeltTransport,
-		Inserter,
-		EnergyPipe,
-		Transport,
-		LogisticNetwork,
-		CircuitNetwork,
-		Terrain
-	};
-	enum class PRODUCTION{
-		Tool,
-		Electricity,
-		ResourceExtraction,
-		Furnace,
-		Production,
-		Module
-	};
-	enum class INTERMEDIATE{
-		ResourceFluid,
-		Material,
-		CraftingComponents,
-		SciencePack
-	};
-	enum class COMBAT{
-		Weapon,
-		Ammo,
-		Capsule,
-		Armor,
-		ArmorModule,
-		Defense
+	enum class SUBGROUP{
+		LOGISTICS_Storage,
+		LOGISTICS_BeltTransport,
+		LOGISTICS_Inserter,
+		LOGISTICS_EnergyPipe,
+		LOGISTICS_Transport,
+		LOGISTICS_LogisticNetwork,
+		LOGISTICS_CircuitNetwork,
+		LOGISTICS_Terrain,
+		PRODUCTION_Tool,
+		PRODUCTION_Electricity,
+		PRODUCTION_ResourceExtraction,
+		PRODUCTION_Furnace,
+		PRODUCTION_Production,
+		PRODUCTION_Module,
+		INTERMEDIATE_ResourceFluid,
+		INTERMEDIATE_Material,
+		INTERMEDIATE_CraftingComponents,
+		INTERMEDIATE_SciencePack,
+		COMBAT_Weapon,
+		COMBAT_Ammo,
+		COMBAT_Capsule,
+		COMBAT_Armor,
+		COMBAT_ArmorModule,
+		COMBAT_Defense
 	};
 }
 namespace DIRECTION {

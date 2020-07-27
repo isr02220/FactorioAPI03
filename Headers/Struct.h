@@ -1,6 +1,6 @@
 #pragma once
 #pragma warning(disable: 4351)
-
+class CResourceOre;
 typedef struct tagForce {
 	tagForce() : x(0), y(0) {}
 	tagForce(const FLOAT& _x, const FLOAT& _y) : x(_x), y(_y) {}
@@ -62,10 +62,10 @@ typedef struct tagWalkingState {
 }WALKINGSTATE;
 
 typedef struct tagMiningState {
-	tagMiningState() : mining(false), position(0, 0) {}
+	tagMiningState() : mining(false), target(nullptr) {}
 	void operator=(const BOOL& dst) { mining = dst; }
 	BOOL mining;
-	POSITION position;
+	CResourceOre* target;
 }MININGSTATE;
 
 typedef struct tagShootingState {
@@ -73,6 +73,7 @@ typedef struct tagShootingState {
 	void operator=(const BOOL& dst) { shooting = dst; }
 	BOOL shooting;
 	POSITION position;
+	INT delay = 0;
 }SHOOTINGSTATE;
 
 typedef BOOL PICKINGSTATE;

@@ -13,6 +13,6 @@ public:
     virtual void Render_Object(HDC hDC) override;
     virtual void Release_Object() override;
     virtual void OnCollision(CObj* _TargetObj) override;
-    virtual CObj* GetNewActor() override;
+    virtual void SetSpriteDir();
 };
 

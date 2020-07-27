@@ -2,6 +2,7 @@
 #include "Obj.h"
 class CActor;
 class CUI;
+class CItemStack;
 class CMouse final :
 	public CObj {
 public:
@@ -20,5 +21,6 @@ public:
 	CActor* selectedActor = nullptr;
 	CUI* selectedUI = nullptr;
 	DIRECTION::DIR cursorDir = DIRECTION::DIR::NORTH;
+	CItemStack* cursorStack = nullptr;
 };
 

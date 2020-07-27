@@ -33,3 +33,8 @@ using namespace std;
 #include "ScrollManager.h"
 #include "BitmapManager.h"
 #include "FontManager.h"
+
+#include <io.h>
+#include "fmod.h"
+#pragma comment(lib, "fmodex_vc.lib")
+#include "SoundMgr.h"

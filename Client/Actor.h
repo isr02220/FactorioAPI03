@@ -1,5 +1,9 @@
 #pragma once
 #include "Obj.h"
+class CUI;
+class CItem;
+class CFuelTank;
+class CInventory;
 class CActor :
     public CObj {
 public:
@@ -14,7 +18,8 @@ public:
     virtual void Render_Placable(HDC hDC , BOOL placable);
     virtual void Release_Object() override;
     virtual void OnCollision(CObj* _TargetObj) override;
-    virtual CObj* GetNewActor();
+    virtual CObj* GetNewActor() = 0;
+    virtual CItem* GetNewItem() = 0;
 
 public:
     virtual void UpdateSelected(CActor* _Target);
@@ -28,7 +33,6 @@ public:
     ORIENTATION   GetOrientation()    { return orientation  ; }
     BOOL          GetControllable()   { return controllable ; }
     BOOL          GetInvincible()     { return invincible   ; }
-    BOOL          GetActive()         { return active       ; }
     FLOAT         GetSpeed()          { return speed        ; }
     INT           GetScore()          { return score        ; }
     INT           GetHP()             { return HP           ; }
@@ -42,7 +46,6 @@ public:
     void SetOrientation   (const ORIENTATION  & _orientation  ) { orientation   = _orientation  ; }
     void SetControllable  (const BOOL         & _controllable ) { controllable  = _controllable ; }
     void SetInvincible    (const BOOL         & _invincible   ) { invincible    = _invincible   ; }
-    void SetActive        (const BOOL         & _active       ) { active        = _active       ; }
     void SetSpeed         (const FLOAT        & _speed        ) { speed         = _speed        ; }
     void SetScore         (const INT          & _score        ) { score         = _score        ; }
     void SetHP            (const INT          & _HP           ) { HP            = _HP           ; }
@@ -50,7 +53,6 @@ public:
     void SetSpriteIndexX  (const INT          & _index        ) { spriteIndexX  = _index        ; }
     void SetSpriteIndexY  (const INT          & _index        ) { spriteIndexY  = _index        ; }
 
-    void SetDead() { dead = true; }
     void IncreaseScore(const INT& _score) { score += _score; }
 protected:
     CActor* selectedActor = nullptr;
@@ -64,8 +66,6 @@ protected:
 
     BOOL controllable = false;
     BOOL invincible = false;
-    BOOL active = false;
-    BOOL dead = false;
     FLOAT speed = 1.f;
     INT  score = 0;
     INT  HP = 1;
@@ -76,4 +76,11 @@ protected:
     INT spriteFrameDelay = 1;
     INT spriteIndexX = 0;
     INT spriteIndexY = 0;
+public:
+    BOOL rotatAble = true;
+    FLOAT progress = 0.f;
+    CInventory* inventory = nullptr;
+    CInventory* outputInventory = nullptr;
+    CFuelTank* fuelTank = nullptr;
+    CUI* GUI = nullptr;
 };

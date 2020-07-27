@@ -72,19 +72,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Headers;$(SolutionDir)\Headers;$(SolutionDir)\Headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Manager;$(ProjectDir);$(ProjectDir)Item;$(SolutionDir)Headers;$(SolutionDir)\Headers;$(SolutionDir)\Headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Headers;$(SolutionDir)\Headers;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectDir)Manager;$(ProjectDir);$(ProjectDir)Item;$(SolutionDir)Headers;$(SolutionDir)\Headers;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Manager;$(ProjectDir);$(ProjectDir)Item;$(SolutionDir)Headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Manager;$(ProjectDir);$(ProjectDir)Item;$(SolutionDir)Headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -145,22 +145,67 @@
   <ItemGroup>
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="AssemblingMachine.h" />
+    <ClInclude Include="AssemblingMachineUI.h" />
     <ClInclude Include="Background.h" />
-    <ClInclude Include="BeltManager.h" />
-    <ClInclude Include="BitmapManager.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="BurnerDrill.h" />
+    <ClInclude Include="BurnerInserter.h" />
+    <ClInclude Include="BurnerUI.h" />
     <ClInclude Include="CoalOre.h" />
+    <ClInclude Include="CopperOre.h" />
+    <ClInclude Include="CraftRecipe.h" />
+    <ClInclude Include="CraftUI.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityHeaders.h" />
+    <ClInclude Include="EquipmentUI.h" />
     <ClInclude Include="FloatingText.h" />
-    <ClInclude Include="FontManager.h" />
+    <ClInclude Include="FuelTank.h" />
+    <ClInclude Include="Furnace.h" />
+    <ClInclude Include="FurnaceUI.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventoryUI.h" />
-    <ClInclude Include="ItemManager.h" />
-    <ClInclude Include="Item.h" />
+    <ClInclude Include="IronChest.h" />
+    <ClInclude Include="IronOre.h" />
+    <ClInclude Include="ItemHeaders.h" />
     <ClInclude Include="Client.h" />
-    <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="LineManager.h" />
+    <ClInclude Include="ItemStack.h" />
+    <ClInclude Include="Item\Item.h" />
+    <ClInclude Include="Item\ItemAssemblingMachine.h" />
+    <ClInclude Include="Item\ItemBurnerDrill.h" />
+    <ClInclude Include="Item\ItemBurnerInserter.h" />
+    <ClInclude Include="Item\ItemCoalOre.h" />
+    <ClInclude Include="Item\ItemCopperCable.h" />
+    <ClInclude Include="Item\ItemCopperOre.h" />
+    <ClInclude Include="Item\ItemCopperPlate.h" />
+    <ClInclude Include="Item\ItemElectronicCircuit.h" />
+    <ClInclude Include="Item\ItemFurnace.h" />
+    <ClInclude Include="Item\ItemHand.h" />
+    <ClInclude Include="Item\ItemIronChest.h" />
+    <ClInclude Include="Item\ItemIronGearWheel.h" />
+    <ClInclude Include="Item\ItemIronOre.h" />
+    <ClInclude Include="Item\ItemIronPlate.h" />
+    <ClInclude Include="Item\ItemLightArmor.h" />
+    <ClInclude Include="Item\ItemMagazine.h" />
+    <ClInclude Include="Item\ItemSMG.h" />
+    <ClInclude Include="Item\ItemSolarPanel.h" />
+    <ClInclude Include="Item\ItemStone.h" />
+    <ClInclude Include="Item\ItemTransportBelt.h" />
+    <ClInclude Include="Manager\BeltManager.h" />
+    <ClInclude Include="Manager\BitmapManager.h" />
+    <ClInclude Include="Manager\CollisionManager.h" />
+    <ClInclude Include="Manager\FontManager.h" />
+    <ClInclude Include="Manager\ItemManager.h" />
+    <ClInclude Include="Manager\KeyManager.h" />
+    <ClInclude Include="Manager\LineManager.h" />
+    <ClInclude Include="Manager\ObjManager.h" />
+    <ClInclude Include="Manager\RecipeManager.h" />
+    <ClInclude Include="Manager\ScrollManager.h" />
+    <ClInclude Include="Manager\SoundMgr.h" />
+    <ClInclude Include="Manager\TileManager.h" />
+    <ClInclude Include="Manager\UIManager.h" />
+    <ClInclude Include="MissionUI.h" />
     <ClInclude Include="MyBitmap.h" />
-    <ClInclude Include="ObjManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="MainScene.h" />
@@ -173,34 +218,74 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceOre.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="ScrollManager.h" />
+    <ClInclude Include="Stone.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="KeyManager.h" />
     <ClInclude Include="Tile.h" />
-    <ClInclude Include="TileManager.h" />
     <ClInclude Include="TransportBelt.h" />
     <ClInclude Include="UI.h" />
-    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="Worm.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="AssemblingMachine.cpp" />
+    <ClCompile Include="AssemblingMachineUI.cpp" />
     <ClCompile Include="Background.cpp" />
-    <ClCompile Include="BeltManager.cpp" />
-    <ClCompile Include="BitmapManager.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BurnerDrill.cpp" />
+    <ClCompile Include="BurnerInserter.cpp" />
+    <ClCompile Include="BurnerUI.cpp" />
     <ClCompile Include="CoalOre.cpp" />
+    <ClCompile Include="CopperOre.cpp" />
+    <ClCompile Include="CraftRecipe.cpp" />
+    <ClCompile Include="CraftUI.cpp" />
+    <ClCompile Include="EquipmentUI.cpp" />
     <ClCompile Include="FloatingText.cpp" />
-    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="FuelTank.cpp" />
+    <ClCompile Include="Furnace.cpp" />
+    <ClCompile Include="FurnaceUI.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="InventoryUI.cpp" />
+    <ClCompile Include="IronChest.cpp" />
+    <ClCompile Include="IronOre.cpp" />
+    <ClCompile Include="ItemMagazine.cpp" />
+    <ClCompile Include="ItemStack.cpp" />
+    <ClCompile Include="Item\Item.cpp" />
+    <ClCompile Include="Item\ItemAssemblingMachine.cpp" />
+    <ClCompile Include="Item\ItemBurnerDrill.cpp" />
+    <ClCompile Include="Item\ItemBurnerInserter.cpp" />
+    <ClCompile Include="Item\ItemCoalOre.cpp" />
+    <ClCompile Include="Item\ItemCopperCable.cpp" />
+    <ClCompile Include="Item\ItemCopperOre.cpp" />
+    <ClCompile Include="Item\ItemCopperPlate.cpp" />
+    <ClCompile Include="Item\ItemElectronicCircuit.cpp" />
+    <ClCompile Include="Item\ItemFurnace.cpp" />
+    <ClCompile Include="Item\ItemHand.cpp" />
+    <ClCompile Include="Item\ItemIronChest.cpp" />
+    <ClCompile Include="Item\ItemIronGearWheel.cpp" />
+    <ClCompile Include="Item\ItemIronOre.cpp" />
+    <ClCompile Include="Item\ItemIronPlate.cpp" />
+    <ClCompile Include="Item\ItemLightArmor.cpp" />
+    <ClCompile Include="Item\ItemSMG.cpp" />
+    <ClCompile Include="Item\ItemSolarPanel.cpp" />
+    <ClCompile Include="Item\ItemStone.cpp" />
+    <ClCompile Include="Item\ItemTransportBelt.cpp" />
+    <ClCompile Include="Manager\BeltManager.cpp" />
+    <ClCompile Include="Manager\BitmapManager.cpp" />
+    <ClCompile Include="Manager\CollisionManager.cpp" />
+    <ClCompile Include="Manager\FontManager.cpp" />
+    <ClCompile Include="Manager\ItemManager.cpp" />
+    <ClCompile Include="Manager\KeyManager.cpp" />
+    <ClCompile Include="Manager\LineManager.cpp" />
+    <ClCompile Include="Manager\ObjManager.cpp" />
+    <ClCompile Include="Manager\RecipeManager.cpp" />
+    <ClCompile Include="Manager\ScrollManager.cpp" />
+    <ClCompile Include="Manager\SoundMgr.cpp" />
+    <ClCompile Include="Manager\TileManager.cpp" />
+    <ClCompile Include="Manager\UIManager.cpp" />
+    <ClCompile Include="MissionUI.cpp" />
     <ClCompile Include="MyBitmap.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="ItemManager.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Client.cpp" />
-    <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="KeyManager.cpp" />
-    <ClCompile Include="LineManager.cpp" />
-    <ClCompile Include="ObjManager.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Mouse.cpp" />
@@ -211,12 +296,11 @@
     <ClCompile Include="QuickSlotUI.cpp" />
     <ClCompile Include="ResourceOre.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="ScrollManager.cpp" />
+    <ClCompile Include="Stone.cpp" />
     <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="TileManager.cpp" />
     <ClCompile Include="TransportBelt.cpp" />
     <ClCompile Include="UI.cpp" />
-    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="Worm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
