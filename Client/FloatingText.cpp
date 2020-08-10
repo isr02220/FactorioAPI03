@@ -18,7 +18,7 @@ void CFloatingText::Ready_Object() {
 }
 
 INT CFloatingText::Update_Object() {
-	if (timer + 500 < GetTickCount())
+	if (timer + 1000 < GetTickCount())
 		return STATE_DEAD;
 	info.position.y -= 1.f;
 	return STATE_NO_EVENT;

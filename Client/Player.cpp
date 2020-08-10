@@ -19,12 +19,12 @@
 #include "FloatingText.h"
 CPlayer::CPlayer() : CActor() {
     objectType = OBJ::PLAYER;
-    inventory = new CInventory(48);
+    inventory = new CInventory(90);
 }
 
 CPlayer::CPlayer(FLOAT _positionX, FLOAT _positionY) : CActor(_positionX, _positionY) {
     objectType = OBJ::PLAYER;
-    inventory = new CInventory(48);
+    inventory = new CInventory(90);
 }
 
 CPlayer::~CPlayer() {

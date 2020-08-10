@@ -4,6 +4,7 @@
 #include "ItemStack.h"
 #include "Obj.h"
 #include "Actor.h"
+#include "Worm.h"
 #include "Mouse.h"
 #include "ResourceOre.h"
 
@@ -50,7 +51,7 @@ void CMissionUI::Ready_Object() {
 }
 
 INT CMissionUI::Update_Object() {
-
+	Update_Rect_Object();
 	if (CKeyManager::GetInstance()->OnPress(KEY::Mission)) {
 		if (++UIstate > 2)
 			UIstate = 0;
@@ -83,7 +84,19 @@ INT CMissionUI::Update_Object() {
 		active = true;
 		return STATE_NO_EVENT;
 	}
+	POINT pt = {};
+	RECT rc = {};
+	GetCursorPos(&pt);
+	ScreenToClient(g_hWnd, &pt);
 
+	SetRect(&rc, rect.left + 12, rect.top + 144, rect.left + 40, rect.top + 172);
+	if (CKeyManager::GetInstance()->OnPress(KEY::PrimaryAction) && PtInRect(&rc, pt)) {
+		if (UIstate == 1)
+			UIstate = 2;
+		else
+			UIstate = 1;
+
+	}
 	return STATE_NO_EVENT;
 }
 
@@ -218,10 +231,12 @@ void CMissionUI::CheckMisionComplete() {
 		INT amount = 0;
 		list<CObj*>* listMonster = CObjManager::GetInstance()->GetList(OBJ::MONSTER);
 		for (auto monster : *listMonster) {
-			if (!lstrcmp(monster->GetName(), L"Boss")) {
-				missionState += 16; 
-				CSoundMgr::Get_Instance()->PlaySound(L"research-completed.wav", CSoundMgr::PLAYER);
-				break;
+			if (!lstrcmp(monster->GetName(), L"¶¥±¼ ¹ú·¹")) {
+				if (dynamic_cast<CWorm*>(monster)->GetHP() <= 0) {
+					missionState += 16;
+					CSoundMgr::Get_Instance()->PlaySound(L"research-completed.wav", CSoundMgr::PLAYER);
+					break;
+				}
 			}
 		}
 	}

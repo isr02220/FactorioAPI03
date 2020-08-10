@@ -81,6 +81,9 @@
     <Filter Include="02.Obj\Actor\Worm">
       <UniqueIdentifier>{5b233817-ef7e-4ac3-be0f-0a87a7e4beb6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Obj\Actor\CrashSite">
+      <UniqueIdentifier>{a563a7d2-623f-400a-bcbf-f9a1497889fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -326,6 +329,12 @@
     <ClInclude Include="Manager\SoundMgr.h">
       <Filter>01.Manager</Filter>
     </ClInclude>
+    <ClInclude Include="CrashSite.h">
+      <Filter>02.Obj\Actor\CrashSite</Filter>
+    </ClInclude>
+    <ClInclude Include="Teacher.h">
+      <Filter>02.Obj\Actor\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -560,6 +569,12 @@
     </ClCompile>
     <ClCompile Include="Manager\SoundMgr.cpp">
       <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CrashSite.cpp">
+      <Filter>02.Obj\Actor\CrashSite</Filter>
+    </ClCompile>
+    <ClCompile Include="Teacher.cpp">
+      <Filter>02.Obj\Actor\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

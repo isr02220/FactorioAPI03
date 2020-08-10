@@ -3,6 +3,7 @@
 #include "Item.h"
 #include "bullet.h"
 #include "BurnerUI.h"
+#include "FloatingText.h"
 
 CWorm::CWorm() : CEntity() {
 	objectType = OBJ::ENTITY;
@@ -35,10 +36,18 @@ INT CWorm::Update_Object() {
 		Timer = GetTickCount();
 		MaxHP = 0;
 		spriteIndexX = 0;
+		CSoundMgr::Get_Instance()->PlaySound(L"worm-death-1.wav", CSoundMgr::MONSTER);
 	}
 	if (HP <= 0) {
-		if (Timer + 8000 < GetTickCount()) {
+		if (Timer + 4000 < GetTickCount()) {
 			SetDead();
+			list<CObj*>* listEntity = CObjManager::GetInstance()->GetList(OBJ::ENTITY);
+			auto iter = find_if(listEntity->begin(), listEntity->end(), [&](CObj* tObj) {return !lstrcmp(tObj->GetName(), L"¼±»ý´Ô"); });
+			(*iter)->SetVisible(true);
+			dynamic_cast<CActor*>(*iter)->SetWalkingState(DIRECTION::DIR::WEST);
+			CFloatingText* ft = dynamic_cast<CFloatingText*>(CAbstractFactory<CFloatingText>::Create(info.position.x - 64.f, info.position.y - 32.f));
+			ft->SetName(L"´öºÐ¿¡ »ì¾Ò´Ù!");
+			CObjManager::GetInstance()->AddObject(ft, OBJ::UI);
 		}
      	if (spriteIndexX < 7 * spriteFrameDelay) spriteIndexX++;
 	}
@@ -47,6 +56,8 @@ INT CWorm::Update_Object() {
 		POSITION playerPos = CObjManager::GetInstance()->GetPlayer()->GetPosition();
 		if (info.position.x - playerPos.x < 800) {
 			if (++spriteIndexX >= 12 * spriteFrameDelay) {
+
+				CSoundMgr::Get_Instance()->PlaySound(L"worm-breathe-01.wav", CSoundMgr::MONSTER);
 				Shoot();
 				spriteIndexX = 0;
 			}

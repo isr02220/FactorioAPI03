@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Worm.h"
 #include "Entity.h"
+#include "EntityHeaders.h"
 #include "TransportBelt.h"
 #include "ResourceOre.h"
 #include "CoalOre.h"
@@ -41,8 +42,15 @@ void CPlayScene::ReadyScene() {
 		ObjManager->GetPlayer()->SetName(L"플레이어");
 		POSITION playerPos = ToGridPos(ObjManager->GetPlayer()->GetPosition(), GRIDCX);
 		
-		CObj* tempObj = CAbstractFactory<CWorm>::Create(playerPos + POSITION(1200, 0));
+		CObj* tempObj = CAbstractFactory<CWorm>::Create(playerPos + POSITION(3000, 0));
 		ObjManager->AddObject(tempObj, OBJ::MONSTER);
+
+		tempObj = CAbstractFactory<CCrashSite>::Create(playerPos + POSITION(3200, 0));
+		ObjManager->AddObject(tempObj, OBJ::ENTITY);
+
+		tempObj = CAbstractFactory<CTeacher>::Create(playerPos + POSITION(3000, 0));
+		tempObj->SetVisible(false);
+		ObjManager->AddObject(tempObj, OBJ::ENTITY);
 		
 		const INT oreSizeX = 2;
 		const INT oreSizeY = 2;

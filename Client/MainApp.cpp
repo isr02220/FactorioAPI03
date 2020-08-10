@@ -61,6 +61,7 @@ void CMainApp::Ready_MainApp() {
 	
 	INSERT_TEXTURE(L"entity/worm/hr-worm-die.bmp",      L"hr-worm-die");
 	INSERT_TEXTURE(L"entity/worm/hr-worm-attack.bmp",   L"hr-worm-attack");
+	INSERT_TEXTURE(L"entity/crash-site/hr-crash-site.bmp",   L"hr-crash-site");
 	
 	INSERT_TEXTURE(L"entity/iron-chest/hr-iron-chest.bmp",            L"hr-iron-chest");
 	INSERT_TEXTURE(L"entity/iron-chest/hr-iron-chest-placable.bmp",   L"hr-iron-chest-placable");

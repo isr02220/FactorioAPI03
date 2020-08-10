@@ -11,3 +11,6 @@
 //#include "SMG.h"
 //#include "SolarPanel.h"
 #include "TransportBelt.h"
+#include "Worm.h"
+#include "CrashSite.h"
+#include "Teacher.h"
